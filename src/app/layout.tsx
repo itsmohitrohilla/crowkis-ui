@@ -11,7 +11,8 @@ const pinyonScript = Pinyon_Script({
 export const metadata: Metadata = {
   title: "Crowkis — The intelligent LLM response router",
   description:
-    "The intelligent brain that decides how LLM responses are reused – safely, efficiently, and at scale. Built in Rust.",
+    "The intelligent brain that decides how LLM responses are reused safely, efficiently, and at scale. Built in Rust.",
+  icons: { icon: "/fav.png" },
 };
 
 export default function RootLayout({
