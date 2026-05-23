@@ -2,10 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 html {
@@ -13,100 +24,79 @@ html {
 }
 
 body {
-  background: #ffffff;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(94, 242, 255, 0.18), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(159, 123, 255, 0.2), transparent 40%),
+    #05070d;
+  color: #f5f8ff;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
 }
 
-/* ── COLOR BAR HOVER ANIMATION ─────────────────────────── */
-.color-bar {
-  display: block;
-  height: 32px;
-  transition:
-    width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    filter 0.3s ease,
-    transform 0.3s ease;
-  cursor: pointer;
-  position: relative;
+a {
+  color: inherit;
 }
 
-.color-bar::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 60%, rgba(255,255,255,0.25) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.glass {
+  @apply rounded-2xl border border-glass-200 bg-glass-100 backdrop-blur-xl;
 }
 
-.color-bar:hover {
-  width: 100% !important;
-  filter: brightness(1.25) saturate(1.3);
-  transform: scaleY(1.12);
-  transform-origin: center left;
+.section {
+  @apply mx-auto w-full max-w-6xl px-5 md:px-8;
 }
 
-.color-bar:hover::after {
-  opacity: 1;
+.responsive-title {
+  @apply text-3xl leading-tight sm:text-4xl md:text-5xl;
 }
 
-/* ── FOOTER LINK HOVER ──────────────────────────────────── */
-.footer-link:hover { color: #000 !important; }
-
-/* ── ABOUT GRID RESPONSIVE ──────────────────────────────── */
-@media (max-width: 640px) {
-  .about-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+.responsive-subtitle {
+  @apply text-base leading-relaxed text-slate-300 sm:text-lg;
 }
 
-/* ── RESPONSIVE ─────────────────────────────────────────── */
+.touch-target {
+  min-height: 44px;
+}
 
-/* Tablet (≤768px) */
-@media (max-width: 768px) {
-  .color-bar {
-    height: 24px;
+.table-scroll {
+  @apply w-full overflow-x-auto;
+}
+
+.table-compact {
+  @apply min-w-[640px] text-left text-xs sm:text-sm;
+}
+
+.faded-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 0
+  );
+  background-size: 28px 28px;
+}
+
+@media (max-width: 639px) {
+  .section {
+    @apply px-4;
   }
 
-  .hero-section {
-    padding-top: 0 !important;
-  }
-
-  .tagline {
-    font-size: clamp(18px, 4vw, 26px) !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-  }
-
-  .coming-soon-wrap {
-    padding-bottom: 32px !important;
-    margin-top: 24px !important;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 28px !important;
+  h1,
+  h2,
+  h3,
+  p,
+  li,
+  a,
+  span {
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 }
 
-/* Phone (≤480px) */
-@media (max-width: 480px) {
-  .color-bar {
-    height: 18px;
-  }
-
-  .tagline {
-    font-size: clamp(16px, 5vw, 22px) !important;
-    margin-top: 20px !important;
-  }
-
-  .footer-grid {
-    grid-template-columns: 1fr !important;
-    gap: 24px !important;
-  }
-
-  .footer-bottom {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 4px !important;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
