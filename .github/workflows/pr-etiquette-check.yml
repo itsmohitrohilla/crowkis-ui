@@ -1,0 +1,62 @@
+name: PR Etiquette Check
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate PR title and body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed("No pull_request payload found.");
+              return;
+            }
+
+            const title = (pr.title || "").trim();
+            const body = (pr.body || "").trim();
+            const errors = [];
+
+            // Conventional commit title style required by repo etiquette.
+            const titleRe = /^(feat|fix|refactor|perf|test|docs|chore|ci|build)(\([a-z0-9-]+\))?: .+/i;
+            if (!titleRe.test(title)) {
+              errors.push(
+                "PR title must follow Conventional Commit style: `type(scope): summary` (e.g. `feat(ui): add landing hero section`).",
+              );
+            }
+
+            // Required PR body sections from .cursor/rules/git-pr-etiquette.mdc.
+            const hasSummary = /(##\s*summary\b|###\s*summary\b|\bshort summary\b)/i.test(body);
+            const hasWhy = /(##\s*why\b|###\s*why\b|\breason\b|\bproblem\b|\bintent\b)/i.test(body);
+            const hasWhatChanged = /(##\s*what changed\b|###\s*what changed\b|\bchanges\b|\bhigh level\b)/i.test(body);
+            const hasTestPlan = /(##\s*test plan\b|###\s*test plan\b|\btesting\b)/i.test(body);
+            const hasRiskRollback = /(##\s*(risk|risk \/ rollback|rollback)\b|###\s*(risk|risk \/ rollback|rollback)\b)/i.test(body);
+
+            if (!hasSummary) errors.push("PR body must include a `Summary` section.");
+            if (!hasWhy) errors.push("PR body must include a `Why` section.");
+            if (!hasWhatChanged) errors.push("PR body must include a `What changed` section.");
+            if (!hasTestPlan) errors.push("PR body must include a `Test plan` section.");
+            if (!hasRiskRollback) errors.push("PR body must include a `Risk` / `Rollback` section.");
+
+            // Core checks expected by repo standards.
+            if (hasTestPlan) {
+              const hasTypecheck = /npm run typecheck/i.test(body);
+              const hasLint = /npm run lint/i.test(body);
+              if (!hasTypecheck) errors.push("`Test plan` must mention `npm run typecheck`.");
+              if (!hasLint) errors.push("`Test plan` must mention `npm run lint`.");
+            }
+
+            if (errors.length) {
+              core.setFailed("PR etiquette check failed:\n- " + errors.join("\n- "));
+            } else {
+              core.info("PR etiquette check passed.");
+            }

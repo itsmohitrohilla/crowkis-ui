@@ -1,0 +1,94 @@
+# Publishes a GitHub Release on every push to `main`: bumps package.json patch,
+# commits with [skip release] to avoid an infinite workflow loop, tags vX.Y.Z,
+# and uploads detailed Markdown notes (commit table, conventional breakdown, diff stat).
+#
+# Requirements: `contents: write` for default GITHUB_TOKEN. If `main` is branch-protected
+# against bot pushes, allow GitHub Actions to bypass or use a PAT in a repo secret.
+
+name: Release on main push
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-main-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Skip version-only commits from this workflow (prevents infinite loop).
+    if: >
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/main' &&
+      github.event.head_commit != null &&
+      !contains(github.event.head_commit.message, '[skip release]')
+    steps:
+      - name: Checkout (full history + tags for notes)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Compute previous tag and next semver
+        id: ver
+        shell: bash
+        run: |
+          set -euo pipefail
+          PREV_TAG="$(git tag -l 'v*.*.*' --sort=-v:refname | head -n1 || true)"
+          CUR="$(jq -r .version package.json)"
+          IFS=. read -r major minor patch <<<"${CUR}"
+          if [[ -z "${major:-}" || -z "${minor:-}" || -z "${patch:-}" ]]; then
+            echo "::error::Invalid semver in package.json: ${CUR}"
+            exit 1
+          fi
+          NEW="${major}.${minor}.$((patch + 1))"
+          echo "prev_tag=${PREV_TAG}" >> "$GITHUB_OUTPUT"
+          echo "current=${CUR}" >> "$GITHUB_OUTPUT"
+          echo "new=${NEW}" >> "$GITHUB_OUTPUT"
+          echo "Prev tag: ${PREV_TAG:-<none>}"
+          echo "package.json: ${CUR} -> ${NEW}"
+
+      - name: Build release notes
+        env:
+          NEW_VERSION: ${{ steps.ver.outputs.new }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash .github/scripts/build-release-notes.sh "${{ github.sha }}" "${{ steps.ver.outputs.prev_tag }}" > release-notes.md
+          echo "---- release notes (preview) ----"
+          head -n 40 release-notes.md
+
+      - name: Bump package.json and push
+        env:
+          NEW_VERSION: ${{ steps.ver.outputs.new }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          jq --arg v "$NEW_VERSION" '.version = $v' package.json > package.json.tmp
+          mv package.json.tmp package.json
+          git add package.json
+          git commit -m "chore(release): v${NEW_VERSION} [skip release]"
+          git pull --rebase origin "${{ github.ref_name }}"
+          git push origin "HEAD:${{ github.ref_name }}"
+
+      - name: Create annotated tag and GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEW_VERSION: ${{ steps.ver.outputs.new }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          TAG="v${NEW_VERSION}"
+          git tag -a "${TAG}" -m "Release ${TAG}"
+          git push origin "refs/tags/${TAG}"
+          gh release create "${TAG}" \
+            --title "Release ${TAG}" \
+            --notes-file release-notes.md
