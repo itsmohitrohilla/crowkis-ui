@@ -1,4 +1,4 @@
-// File: /Users/admin/Downloads/project/crowkis-ui/src/app/layout.tsx
+// File: /Users/sakshamjaiswal/Documents/coding/learning/crowkis/crowkis-ui/src/app/layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

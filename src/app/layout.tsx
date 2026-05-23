@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Pinyon_Script } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const pinyonScript = Pinyon_Script({
-  weight: "400",
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-pinyon",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
-  title: "Crowkis — The intelligent LLM response router",
+  title: {
+    default: "Crowkis",
+    template: "%s | Crowkis",
+  },
   description:
-    "The intelligent brain that decides how LLM responses are reused safely, efficiently, and at scale. Built in Rust.",
-  icons: { icon: "/fav.png" },
+    "Crowkis is the safe, infrastructure-grade LLM cache that understands meaning, reuses reasoning, and helps teams upgrade models without losing cache value.",
+  keywords: ["Crowkis", "LLM cache", "semantic cache", "Redis compatible", "LLM infrastructure"],
 };
 
 export default function RootLayout({
@@ -21,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={pinyonScript.variable}>
-      <body>{children}</body>
+    <html lang="en" className={inter.variable}>
+      <body className="antialiased">{children}</body>
     </html>
   );
 }
