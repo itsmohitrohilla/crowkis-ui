@@ -3,6 +3,7 @@ import {
   HeroSection,
   FactStrip,
   UspTrio,
+  ConnectHub,
   ProblemTeaser,
   UseCasesSection,
   DropInSection,
@@ -17,6 +18,7 @@ export default function Home() {
       <HeroSection />
       <FactStrip />
       <UspTrio />
+      <ConnectHub />
       <ProblemTeaser />
       <UseCasesSection />
       <DropInSection />

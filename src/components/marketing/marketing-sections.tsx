@@ -6,6 +6,7 @@ import { CodeTabs, CommandCard } from "@/components/ui/code-tabs";
 import { CountUp } from "@/components/ui/count-up";
 import { Logo3D } from "@/components/crow/logo-3d";
 import { Tilt3D } from "@/components/ui/tilt-3d";
+import { IntegrationHub } from "@/components/marketing/integration-hub";
 
 /* ---------------------------------- hero --------------------------------- */
 
@@ -130,6 +131,28 @@ export function ProblemTeaser() {
               <span className={tone}>{verdict}</span>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------- integration hub --------------------------- */
+
+export function ConnectHub() {
+  return (
+    <section className="border-y-2 border-ink bg-paper-deep py-16 md:py-24">
+      <div className="section">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="eyebrow">One cache · every door in</p>
+          <h2 className="responsive-title mt-4">Whatever you already use, it already speaks.</h2>
+          <p className="responsive-subtitle mt-4">
+            Python, Node, the Redis CLI, gRPC, REST, and MCP all plug into the same engine. Point a
+            client at one port and you have a semantic cache — no rewrite, no new mental model.
+          </p>
+        </div>
+        <div className="mx-auto mt-10 max-w-4xl">
+          <IntegrationHub />
         </div>
       </div>
     </section>

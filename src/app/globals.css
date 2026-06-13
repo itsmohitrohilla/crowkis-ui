@@ -326,6 +326,12 @@ html.crow-rage main {
 }
 .cloud-drift { animation: cloud-drift 9s ease-in-out infinite alternate; }
 
+/* integration hub: flowing dashed arcs */
+@keyframes hub-arc-flow {
+  to { stroke-dashoffset: -36; }
+}
+.hub-arc { animation: hub-arc-flow 1.4s linear infinite; }
+
 /* bonk game: feather burst + score label */
 @keyframes feather-burst {
   0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
