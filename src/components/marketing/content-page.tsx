@@ -29,7 +29,7 @@ export function ContentPage({
             <p className="responsive-subtitle mt-4 max-w-3xl">{intro}</p>
           </Reveal>
           <div className="hidden md:block">
-            <HeroArt variant={title.length % 3} />
+            <HeroArt variant={title.length % 6} />
           </div>
         </div>
       </section>

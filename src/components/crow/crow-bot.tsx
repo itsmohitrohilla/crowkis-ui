@@ -4,7 +4,7 @@
  * holding the red Crowkis cube, and saved coins drifting up. Pure SVG + CSS,
  * no JavaScript.
  */
-export function CrowBot({ size = 260 }: { size?: number }) {
+export function CrowBot({ size = 260, accent = "#d62221" }: { size?: number; accent?: string }) {
   return (
     <div className="crowbot inline-block" style={{ width: size }} aria-hidden>
       <svg viewBox="0 0 260 300" width={size} height={(size * 300) / 260}>
@@ -14,9 +14,9 @@ export function CrowBot({ size = 260 }: { size?: number }) {
         <g className="bot-float">
           {/* antenna */}
           <g>
-            <circle className="bot-ping" cx="130" cy="22" r="7" fill="none" stroke="#d62221" strokeWidth="2" />
-            <circle className="bot-ping bot-ping-2" cx="130" cy="22" r="7" fill="none" stroke="#d62221" strokeWidth="2" />
-            <circle cx="130" cy="22" r="5" fill="#d62221" stroke="#16130e" strokeWidth="2.5" />
+            <circle className="bot-ping" cx="130" cy="22" r="7" fill="none" stroke={accent} strokeWidth="2" />
+            <circle className="bot-ping bot-ping-2" cx="130" cy="22" r="7" fill="none" stroke={accent} strokeWidth="2" />
+            <circle cx="130" cy="22" r="5" fill={accent} stroke="#16130e" strokeWidth="2.5" />
             <rect x="127.5" y="26" width="5" height="16" rx="2" fill="#16130e" />
           </g>
 
@@ -46,10 +46,10 @@ export function CrowBot({ size = 260 }: { size?: number }) {
             stroke="#16130e"
             strokeWidth="3"
           />
-          {/* red band */}
+          {/* chest band (accent) */}
           <path
             d="M85 150 q45 -12 90 0 l-4 24 q-41 12 -82 0 Z"
-            fill="#d62221"
+            fill={accent}
             stroke="#16130e"
             strokeWidth="3"
           />
@@ -101,11 +101,11 @@ export function CrowBot({ size = 260 }: { size?: number }) {
         {/* saved coins drifting up */}
         <g className="bot-coin">
           <circle cx="208" cy="150" r="11" fill="#fffdf9" stroke="#16130e" strokeWidth="2.5" />
-          <text x="208" y="155" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontWeight="700" fontSize="12" fill="#d62221">$</text>
+          <text x="208" y="155" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontWeight="700" fontSize="12" fill={accent}>$</text>
         </g>
         <g className="bot-coin bot-coin-2">
           <circle cx="226" cy="186" r="8" fill="#fffdf9" stroke="#16130e" strokeWidth="2.5" />
-          <text x="226" y="190" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontWeight="700" fontSize="9" fill="#d62221">$</text>
+          <text x="226" y="190" textAnchor="middle" fontFamily="var(--font-mono), monospace" fontWeight="700" fontSize="9" fill={accent}>$</text>
         </g>
       </svg>
     </div>
