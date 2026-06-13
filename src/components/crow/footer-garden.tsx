@@ -1,8 +1,13 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 /**
- * The footer forest: a green pixel garden running under the footer links —
- * fruit trees, bushes, grass, and a small murder of crows always perched and
- * blinking, plus one drifting flyer. Pure SVG + CSS, pixel style with ink
- * outlines and crow-red fruit so it stays in the family.
+ * The footer forest: a green pixel garden running under the footer links, with
+ * its OWN slow day → afternoon → evening → night sky cycle — scoped entirely to
+ * this ~180px strip via CSS variables on a rAF clock, so nothing else on the
+ * page is affected. Fruit trees, bushes, grass, blinking perched crows, a
+ * drifting flyer, and the copyright living on the grass.
  */
 
 const INK = "#16130e";
@@ -12,6 +17,46 @@ const LEAF = "#7fae6a";
 const LEAF_DARK = "#5d8a4e";
 const LEAF_LIGHT = "#a3c98b";
 const FRUIT = "#d62221";
+
+/* slow sky cycle, contained to the footer */
+const CYCLE_MS = 80000;
+const START_T = 0.1;
+
+type Stop = { at: number; top: string; bottom: string };
+const STOPS: Stop[] = [
+  { at: 0.0, top: "#cfe2ec", bottom: "#eef0e4" }, // dawn
+  { at: 0.22, top: "#bfe0ef", bottom: "#eef3e6" }, // morning
+  { at: 0.42, top: "#aed4ec", bottom: "#ebf2e6" }, // afternoon
+  { at: 0.55, top: "#f1cb9d", bottom: "#f6e6d0" }, // golden
+  { at: 0.64, top: "#e8956a", bottom: "#f1cbab" }, // sunset
+  { at: 0.74, top: "#9aa0c0", bottom: "#c2c6d6" }, // dusk
+  { at: 0.85, top: "#7e87a8", bottom: "#a7afc4" }, // night
+  { at: 1.0, top: "#cfe2ec", bottom: "#eef0e4" }, // → dawn
+];
+
+function hexRgb(h: string): [number, number, number] {
+  const n = parseInt(h.slice(1), 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+}
+function mix(h1: string, h2: string, t: number): string {
+  const a = hexRgb(h1);
+  const b = hexRgb(h2);
+  return `rgb(${Math.round(a[0] + (b[0] - a[0]) * t)},${Math.round(a[1] + (b[1] - a[1]) * t)},${Math.round(a[2] + (b[2] - a[2]) * t)})`;
+}
+function sample(t: number) {
+  let i = 0;
+  while (i < STOPS.length - 1 && t >= STOPS[i + 1].at) i++;
+  const a = STOPS[i];
+  const b = STOPS[Math.min(i + 1, STOPS.length - 1)];
+  const span = b.at - a.at || 1;
+  const lt = Math.min(1, Math.max(0, (t - a.at) / span));
+  return { top: mix(a.top, b.top, lt), bottom: mix(a.bottom, b.bottom, lt) };
+}
+const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
+function arc(p: number) {
+  const x = clamp01(p);
+  return { x: 6 + x * 88, y: 6 + (1 - Math.sin(x * Math.PI)) * 60 };
+}
 
 function PerchedCrow({ x, bottom, flip, delay }: { x: string; bottom: number; flip?: boolean; delay: string }) {
   return (
@@ -44,16 +89,13 @@ function FruitTree({ x, h, flip }: { x: string; h: number; flip?: boolean }) {
       className="absolute bottom-[36px] w-auto"
       aria-hidden
     >
-      {/* trunk + branches */}
       <rect x="26" y="42" width="8" height="58" fill={INK} />
       <rect x="18" y="50" width="10" height="5" fill={INK} />
       <rect x="34" y="38" width="14" height="5" fill={INK} />
-      {/* canopy blocks */}
       <rect x="8" y="8" width="44" height="36" fill={LEAF} stroke={INK} strokeWidth="2.5" />
       <rect x="2" y="24" width="20" height="18" fill={LEAF_DARK} stroke={INK} strokeWidth="2.5" />
       <rect x="38" y="20" width="20" height="18" fill={LEAF_LIGHT} stroke={INK} strokeWidth="2.5" />
       <rect x="16" y="2" width="24" height="14" fill={LEAF_LIGHT} stroke={INK} strokeWidth="2.5" />
-      {/* fruit */}
       <rect x="14" y="16" width="5" height="5" fill={FRUIT} stroke={INK} strokeWidth="1.5" />
       <rect x="40" y="26" width="5" height="5" fill={FRUIT} stroke={INK} strokeWidth="1.5" />
       <rect x="27" y="30" width="5" height="5" fill={FRUIT} stroke={INK} strokeWidth="1.5" />
@@ -85,13 +127,99 @@ function Grass({ x }: { x: string }) {
 }
 
 export function FooterGarden({ children }: { children?: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const start = useRef(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    start.current = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const el = ref.current;
+      if (el) {
+        const t = ((now - start.current) / CYCLE_MS + START_T) % 1;
+        const c = sample(t);
+        el.style.setProperty("--fg-top", c.top);
+        el.style.setProperty("--fg-bottom", c.bottom);
+
+        const sun = arc(t / 0.66);
+        const sunOp = t < 0.66 ? clamp01(Math.min(t / 0.05, (0.66 - t) / 0.05)) : 0;
+        el.style.setProperty("--fg-sun-x", `${sun.x}%`);
+        el.style.setProperty("--fg-sun-y", `${sun.y}%`);
+        el.style.setProperty("--fg-sun-op", String(sunOp));
+
+        const moon = arc((t - 0.66) / 0.34);
+        const moonOp = t >= 0.66 ? clamp01(Math.min((t - 0.66) / 0.04, (1 - t) / 0.04)) : 0;
+        el.style.setProperty("--fg-moon-x", `${moon.x}%`);
+        el.style.setProperty("--fg-moon-y", `${moon.y}%`);
+        el.style.setProperty("--fg-moon-op", String(moonOp));
+
+        const starOp = clamp01((t - 0.6) / 0.1) * (t > 0.97 ? clamp01((1 - t) / 0.03) : 1);
+        el.style.setProperty("--fg-star-op", String(starOp));
+        el.style.setProperty("--fg-cloud-op", String(clamp01(1 - starOp) * 0.8));
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   return (
-    <div className="relative h-[180px] overflow-hidden">
+    <div
+      ref={ref}
+      className="relative h-[180px] overflow-hidden border-t-2 border-ink"
+      style={{
+        background: "linear-gradient(var(--fg-top, #bfe0ef), var(--fg-bottom, #eef3e6))",
+        ["--fg-top" as string]: "#bfe0ef",
+        ["--fg-bottom" as string]: "#eef3e6",
+      }}
+      aria-hidden
+    >
       {/* sun */}
-      <div className="absolute right-[5%] top-4 h-10 w-10 rounded-full border-2 border-ink bg-crow-tint" />
+      <div className="absolute" style={{ left: "var(--fg-sun-x,82%)", top: "var(--fg-sun-y,18%)", opacity: "var(--fg-sun-op,1)" }}>
+        <div className="absolute -inset-3 rounded-full bg-amber-200/70 blur-lg" />
+        <div className="relative h-9 w-9 rounded-full border-2 border-ink bg-amber-300" />
+      </div>
+      {/* moon */}
+      <div className="absolute" style={{ left: "var(--fg-moon-x,16%)", top: "var(--fg-moon-y,18%)", opacity: "var(--fg-moon-op,0)" }}>
+        <div className="absolute -inset-2 rounded-full bg-white/70 blur-lg" />
+        <div className="relative h-8 w-8 rounded-full border-2 border-ink bg-stone-100" />
+      </div>
+
+      {/* stars */}
+      <div className="absolute inset-0" style={{ opacity: "var(--fg-star-op,0)" }}>
+        {Array.from({ length: 26 }).map((_, i) => (
+          <span
+            key={i}
+            className="arcade-star absolute rounded-sm bg-paper-card"
+            style={{
+              left: `${(i * 41) % 100}%`,
+              top: `${(i * 47) % 55}%`,
+              width: i % 4 === 0 ? 3 : 2,
+              height: i % 4 === 0 ? 3 : 2,
+              animationDelay: `${(i % 6) * 0.35}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* clouds */}
+      <div className="absolute inset-0" style={{ opacity: "var(--fg-cloud-op,0.8)" }}>
+        {[
+          { x: "14%", y: "14%", w: 80 },
+          { x: "60%", y: "10%", w: 110 },
+          { x: "40%", y: "22%", w: 64 },
+        ].map((c, i) => (
+          <div
+            key={i}
+            className="cloud-drift absolute rounded-full border-2 border-ink-line bg-paper-card/70"
+            style={{ left: c.x, top: c.y, width: c.w, height: 18, animationDelay: `${i * 1.5}s` }}
+          />
+        ))}
+      </div>
 
       {/* drifting flyer */}
-      <svg viewBox="0 0 16 12" className="footer-flyer absolute top-5 h-[26px] w-auto">
+      <svg viewBox="0 0 16 12" className="footer-flyer absolute top-5 h-[24px] w-auto">
         <rect x="10" y="0" width="4" height="4" fill={INK} />
         <rect x="14" y="1" width="2" height="1" fill={INK} />
         <rect x="9" y="3" width="2" height="2" fill={INK} />
@@ -101,7 +229,7 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
         <rect x="12" y="1" width="1" height="1" fill={EYE} />
       </svg>
 
-      {/* the forest */}
+      {/* forest */}
       <FruitTree x="2%" h={120} />
       <FruitTree x="13%" h={96} flip />
       <FruitTree x="28%" h={132} />
@@ -123,7 +251,7 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
       <Grass x="78%" />
       <Grass x="94%" />
 
-      {/* five crows, always sitting: on canopies and the ground */}
+      {/* crows, always sitting */}
       <PerchedCrow x="4.5%" bottom={128} delay="0s" />
       <PerchedCrow x="30.5%" bottom={140} flip delay="1.4s" />
       <PerchedCrow x="59%" bottom={132} delay="2.3s" />

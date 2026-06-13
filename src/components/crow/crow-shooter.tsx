@@ -18,7 +18,7 @@ const H = GH * PX;
 const INK = "#16130e";
 const WING = "#37322a";
 const EYE = "#d62221";
-const ROUND_SECONDS = 30;
+const ROUND_SECONDS = 60;
 const BEST_KEY = "crowkis-shooter-best";
 
 const LEAF = "#6f9e5c";

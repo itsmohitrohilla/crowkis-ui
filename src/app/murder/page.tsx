@@ -24,7 +24,7 @@ export default function MurderPage() {
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-stone-400 sm:text-lg">
               Certified brain rot. Crows fly across the screen, you click them out of the sky,
-              combos stack, the clock runs. Thirty seconds. One high score. No crows are harmed —
+              combos stack, the clock runs. One minute. One high score. No crows are harmed —
               they respawn out of spite.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
