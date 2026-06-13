@@ -53,7 +53,7 @@ export default function RootLayout({
         {/* set theme before paint to avoid a flash */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('crowkis-theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`,
+            __html: `(function(){try{if(localStorage.getItem('crowkis-theme')==='dark')document.documentElement.classList.add('dark');}catch(e){}})();`,
           }}
         />
       </head>
