@@ -55,7 +55,7 @@ function sample(t: number) {
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 function arc(p: number) {
   const x = clamp01(p);
-  return { x: 6 + x * 88, y: 6 + (1 - Math.sin(x * Math.PI)) * 60 };
+  return { x: 6 + x * 88, y: 24 + (1 - Math.sin(x * Math.PI)) * 38 };
 }
 
 function PerchedCrow({ x, bottom, flip, delay }: { x: string; bottom: number; flip?: boolean; delay: string }) {
@@ -167,9 +167,12 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
   return (
     <div
       ref={ref}
-      className="relative h-[180px] overflow-hidden border-t-2 border-ink"
+      className="relative h-[180px] overflow-hidden"
       style={{
-        background: "linear-gradient(var(--fg-top, #bfe0ef), var(--fg-bottom, #eef3e6))",
+        // fade the sky up from the footer's own background so it blends in
+        // rather than reading as a separate boxed section
+        background:
+          "linear-gradient(to bottom, transparent 0%, var(--fg-top, #bfe0ef) 34%, var(--fg-bottom, #eef3e6) 100%)",
         ["--fg-top" as string]: "#bfe0ef",
         ["--fg-bottom" as string]: "#eef3e6",
       }}
