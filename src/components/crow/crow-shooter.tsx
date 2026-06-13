@@ -456,19 +456,19 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
       <ArcadeScene />
       <div className="paper-grid pointer-events-none absolute inset-0 opacity-25" />
 
-      {/* HUD */}
+      {/* HUD — fixed high-contrast colours so it reads on any sky / theme */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between p-4 sm:p-6">
         <div className="flex gap-3">
-          <div className="card-block !shadow-block-sm bg-paper-card px-4 py-2">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">score</p>
-            <p className="font-display text-3xl font-bold leading-none sm:text-4xl">{score}</p>
+          <div className="rounded-xl border-2 border-stone-900 bg-stone-50/95 px-4 py-2 shadow-[3px_3px_0_0_rgba(12,12,12,0.85)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-stone-500">score</p>
+            <p className="font-display text-3xl font-bold leading-none text-stone-900 sm:text-4xl">{score}</p>
           </div>
-          <div className="card-quiet bg-paper-card px-4 py-2">
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">best</p>
-            <p className="font-display text-3xl font-bold leading-none sm:text-4xl">{best}</p>
+          <div className="rounded-xl border-2 border-stone-900 bg-stone-50/95 px-4 py-2 shadow-[3px_3px_0_0_rgba(12,12,12,0.85)]">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-stone-500">best</p>
+            <p className="font-display text-3xl font-bold leading-none text-stone-900 sm:text-4xl">{best}</p>
           </div>
           {combo > 2 ? (
-            <div className="card-block !shadow-block-red bg-paper-card px-4 py-2">
+            <div className="rounded-xl border-2 border-stone-900 bg-stone-50/95 px-4 py-2 shadow-[3px_3px_0_0_#d62221]">
               <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-crow">combo</p>
               <p className="font-display text-3xl font-bold leading-none text-crow sm:text-4xl">
                 ×{Math.min(5, 1 + Math.floor(combo / 3))}
@@ -478,9 +478,9 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
         </div>
         <div className="flex items-center gap-3">
           {mode === "playing" ? (
-            <div className="card-block !shadow-block-sm bg-paper-card px-4 py-2 text-center">
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">time</p>
-              <p className={`font-display text-3xl font-bold leading-none sm:text-4xl ${time <= 5 ? "text-crow" : ""}`}>
+            <div className="rounded-xl border-2 border-stone-900 bg-stone-50/95 px-4 py-2 text-center shadow-[3px_3px_0_0_rgba(12,12,12,0.85)]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-stone-500">time</p>
+              <p className={`font-display text-3xl font-bold leading-none sm:text-4xl ${time <= 5 ? "text-crow" : "text-stone-900"}`}>
                 {time}
               </p>
             </div>
@@ -488,7 +488,7 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
           <button
             type="button"
             onClick={onClose}
-            className="pointer-events-auto rounded-lg border-2 border-ink bg-paper-card px-3 py-2 font-mono text-xs font-semibold shadow-block-sm transition hover:-translate-y-0.5"
+            className="pointer-events-auto rounded-lg border-2 border-stone-900 bg-stone-50/95 px-3 py-2 font-mono text-xs font-semibold text-stone-900 shadow-[3px_3px_0_0_rgba(12,12,12,0.85)] transition hover:-translate-y-0.5"
           >
             ✕ esc
           </button>
