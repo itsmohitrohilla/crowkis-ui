@@ -75,7 +75,7 @@ volumes:
 function StepHeading({ n, title }: { n: string; title: string }) {
   return (
     <div className="flex items-center gap-3">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-crow font-mono text-sm font-bold text-paper-card">
+      <span className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-crow font-mono text-sm font-bold text-stone-50">
         {n}
       </span>
       <h2 className="font-display text-xl font-bold sm:text-2xl">{title}</h2>
@@ -100,7 +100,7 @@ export default function DockerPage() {
               <span className="rounded-md border border-ink-line bg-paper-card px-2.5 py-1 font-mono text-[11px] text-ink-soft">
                 alpine · non-root · binary-only
               </span>
-              <span className="rounded-md border-2 border-ink bg-crow px-2.5 py-1 font-mono text-[11px] font-bold text-paper-card">
+              <span className="rounded-md border-2 border-ink bg-crow px-2.5 py-1 font-mono text-[11px] font-bold text-stone-50">
                 free · no license needed
               </span>
             </div>
@@ -217,7 +217,7 @@ export default function DockerPage() {
         <div className="section">
           <Reveal>
             <p className="eyebrow">Hardened by default</p>
-            <h2 className="responsive-title mt-4 max-w-2xl !text-paper-card">
+            <h2 className="responsive-title mt-4 max-w-2xl !text-stone-50">
               The compose file is the security checklist.
             </h2>
             <p className="mt-4 max-w-2xl text-stone-400">

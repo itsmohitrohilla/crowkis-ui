@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     "Crowkis editions: Community free forever, Enterprise by conversation. One image, license-gated, no phone-home, no usage metering.",
 };
 
-const DEMO_MAILTO = "mailto:license@crowkis.io?subject=Crowkis%20demo%20request";
+const DEMO_MAILTO = "mailto:info.crowkis@gmail.com?subject=Crowkis%20demo%20request";
 
 const TIERS = [
   {
@@ -140,7 +140,7 @@ export default function PricingPage() {
                 <div className="flex items-center justify-between">
                   <h2 className="font-display text-xl font-bold">{tier.name}</h2>
                   {tier.featured ? (
-                    <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-paper-card">
+                    <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
                       call only
                     </span>
                   ) : (
@@ -186,7 +186,7 @@ export default function PricingPage() {
         <div className="section grid items-center gap-8 md:grid-cols-[1.2fr_1fr]">
           <Reveal>
             <p className="eyebrow">Why security teams sign off</p>
-            <h2 className="responsive-title mt-4 !text-paper-card">
+            <h2 className="responsive-title mt-4 !text-stone-50">
               No Python. No PyPI. No supply chain to compromise.
             </h2>
             <p className="mt-4 max-w-xl leading-relaxed text-stone-400">
@@ -212,7 +212,7 @@ export default function PricingPage() {
                   ["1 file", "to security-review, not thousands"],
                 ].map(([big, small]) => (
                   <div key={big} className="rounded-xl border border-roost-line bg-roost-card p-4">
-                    <p className="font-display text-xl font-bold text-paper-card">{big}</p>
+                    <p className="font-display text-xl font-bold text-stone-50">{big}</p>
                     <p className="mt-1 text-xs text-stone-500">{small}</p>
                   </div>
                 ))}
@@ -324,13 +324,13 @@ export default function PricingPage() {
                   Schedule a demo call
                 </a>
                 <a
-                  href="mailto:license@crowkis.io?subject=Crowkis%20pricing%20question"
+                  href="mailto:info.crowkis@gmail.com?subject=Crowkis%20pricing%20question"
                   className="btn-secondary"
                 >
                   Ask a pricing question
                 </a>
               </div>
-              <p className="mt-5 font-mono text-xs text-ink-faint">license@crowkis.io</p>
+              <p className="mt-5 font-mono text-xs text-ink-faint">info.crowkis@gmail.com</p>
             </div>
           </Reveal>
         </div>

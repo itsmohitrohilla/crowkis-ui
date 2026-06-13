@@ -142,7 +142,7 @@ export default function ProductPage() {
         <div className="section grid items-center gap-10 md:grid-cols-2">
           <Reveal>
             <p className="eyebrow">The foundation</p>
-            <h2 className="responsive-title mt-4 !text-paper-card">
+            <h2 className="responsive-title mt-4 !text-stone-50">
               A storage engine built for this exact job.
             </h2>
             <p className="mt-4 leading-relaxed text-stone-400">
@@ -166,7 +166,7 @@ export default function ProductPage() {
                 ["0 GC", "Rust — no collector pauses"],
               ].map(([big, small]) => (
                 <div key={big} className="rounded-xl border border-roost-line bg-roost-card p-5">
-                  <p className="font-display text-2xl font-bold text-paper-card">{big}</p>
+                  <p className="font-display text-2xl font-bold text-stone-50">{big}</p>
                   <p className="mt-1 text-xs text-stone-500">{small}</p>
                 </div>
               ))}
@@ -241,7 +241,7 @@ export default function ProductPage() {
                 See pricing & tiers
               </Link>
               <a
-                href="mailto:license@crowkis.io?subject=Crowkis%20demo%20request"
+                href="mailto:info.crowkis@gmail.com?subject=Crowkis%20demo%20request"
                 className="btn-secondary"
               >
                 Schedule a demo

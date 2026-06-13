@@ -14,7 +14,7 @@ export default function MurderPage() {
   return (
     <SiteShell>
       {/* hero — lead with the game */}
-      <section className="border-b-2 border-ink bg-roost text-paper-card">
+      <section className="border-b-2 border-ink bg-roost text-stone-50">
         <div className="section grid items-center gap-8 py-12 md:grid-cols-[1.3fr_1fr] md:py-16">
           <div>
             <p className="eyebrow">A group of crows is called a murder</p>
@@ -29,7 +29,7 @@ export default function MurderPage() {
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <CrowGameLauncher
-                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-paper-card bg-crow px-7 py-3 text-base font-semibold text-paper-card shadow-block-sm transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-stone-50 bg-crow px-7 py-3 text-base font-semibold text-stone-50 shadow-block-sm transition-transform hover:-translate-y-0.5"
                 label="▶ Play full-screen"
               />
               <Link

@@ -242,7 +242,7 @@ export default function WhyPage() {
               Run it free
             </Link>
             <a
-              href="mailto:license@crowkis.io?subject=Crowkis%20demo%20request"
+              href="mailto:info.crowkis@gmail.com?subject=Crowkis%20demo%20request"
               className="btn-secondary"
             >
               Book the replay call

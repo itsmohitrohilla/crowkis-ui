@@ -333,7 +333,7 @@ export function CrowGarden() {
             className="absolute left-0 top-0 will-change-transform"
           >
             {m.caw ? (
-              <div className="caw-bubble absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border-2 border-ink bg-crow px-1.5 py-0.5 font-mono text-[10px] font-bold text-paper-card">
+              <div className="caw-bubble absolute -top-7 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md border-2 border-ink bg-crow px-1.5 py-0.5 font-mono text-[10px] font-bold text-stone-50">
                 CAW!
               </div>
             ) : null}

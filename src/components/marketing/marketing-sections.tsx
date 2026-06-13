@@ -17,7 +17,7 @@ export function HeroSection() {
           <p className="eyebrow">The cache with a brain · built in Rust</p>
           <h1 className="mt-6 font-display font-bold leading-none tracking-tight">
             <span className="block text-[3rem] sm:text-[4rem] md:text-[4.6rem]">STOP</span>
-            <span className="relative -ml-1 mt-1 inline-block -rotate-2 border-2 border-ink bg-crow px-3 py-0.5 text-[3rem] text-paper-card shadow-block sm:text-[4rem] md:text-[4.6rem]">
+            <span className="relative -ml-1 mt-1 inline-block -rotate-2 border-2 border-ink bg-crow px-3 py-0.5 text-[3rem] text-stone-50 shadow-block sm:text-[4rem] md:text-[4.6rem]">
               PAYING TWICE
             </span>
             <span className="mt-2 block text-[3rem] sm:text-[4rem] md:text-[4.6rem]">
@@ -94,7 +94,7 @@ export function ProblemTeaser() {
       <div className="section grid items-center gap-10 md:grid-cols-[1.2fr_1fr]">
         <div>
           <p className="eyebrow">The problem, in one line</p>
-          <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight text-paper-card sm:text-4xl md:text-5xl">
+          <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-tight text-stone-50 sm:text-4xl md:text-5xl">
             Most of your LLM bill
             <br />
             is <span className="text-crow">reruns</span>.
@@ -107,7 +107,7 @@ export function ProblemTeaser() {
           <div className="mt-7">
             <Link
               href="/why"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-paper-card bg-crow px-6 py-3 font-semibold text-paper-card shadow-block-sm transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-stone-50 bg-crow px-6 py-3 font-semibold text-stone-50 shadow-block-sm transition-transform hover:-translate-y-0.5"
             >
               The full story, with diagrams →
             </Link>
@@ -278,11 +278,11 @@ const FACTS: { to: number; prefix?: string; suffix?: string; label: string }[] =
 
 export function FactStrip() {
   return (
-    <section className="border-b-2 border-ink bg-roost text-paper-card">
+    <section className="border-b-2 border-ink bg-roost text-stone-50">
       <div className="section grid grid-cols-2 gap-y-8 py-10 sm:grid-cols-3 lg:grid-cols-6 md:py-12">
         {FACTS.map((fact) => (
           <div key={fact.label} className="px-2 text-center">
-            <p className="font-display text-3xl font-bold tracking-tight text-paper-card sm:text-4xl">
+            <p className="font-display text-3xl font-bold tracking-tight text-stone-50 sm:text-4xl">
               <CountUp to={fact.to} prefix={fact.prefix} suffix={fact.suffix} />
             </p>
             <p className="mx-auto mt-2 max-w-[160px] font-mono text-[11px] leading-relaxed text-stone-500">
@@ -388,7 +388,7 @@ export function HowItWorks() {
       <div className="section">
         <Reveal>
           <p className="eyebrow">What happens to one query</p>
-          <h2 className="responsive-title mt-4 max-w-2xl !text-paper-card">
+          <h2 className="responsive-title mt-4 max-w-2xl !text-stone-50">
             Five checks between a question and a cached answer.
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-stone-400 sm:text-lg">
@@ -797,7 +797,7 @@ const TIERS = [
       "Compliance modes: HIPAA · SOC2 · GDPR-EU · FedRAMP, SSO, audit export",
       "Priority support — schedule a call and see your own savings first",
     ],
-    cta: ["Schedule a call", "mailto:license@crowkis.io?subject=Crowkis%20Enterprise%20demo"],
+    cta: ["Schedule a call", "mailto:info.crowkis@gmail.com?subject=Crowkis%20Enterprise%20demo"],
     featured: true,
   },
 ];
@@ -825,7 +825,7 @@ export function EditionsSection() {
               <div className="flex items-center justify-between">
                 <h3 className="font-display text-lg font-bold">{tier.name}</h3>
                 {tier.featured ? (
-                  <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-paper-card">
+                  <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
                     most teams
                   </span>
                 ) : null}
@@ -1034,7 +1034,7 @@ export function FounderSection() {
               Connect on LinkedIn
             </a>
             <a
-              href="mailto:license@crowkis.io?subject=Hi%20Mohit"
+              href="mailto:info.crowkis@gmail.com?subject=Hi%20Mohit"
               className="btn-ghost !py-2 text-sm"
             >
               Or just email →
@@ -1054,14 +1054,14 @@ export function FinalCta() {
       <div className="section">
         <Reveal>
           <Logo3D size={110} />
-          <h2 className="mx-auto mt-8 max-w-2xl font-display text-3xl font-bold tracking-tight text-paper-card sm:text-4xl md:text-5xl">
+          <h2 className="mx-auto mt-8 max-w-2xl font-display text-3xl font-bold tracking-tight text-stone-50 sm:text-4xl md:text-5xl">
             Your LLM bill has a cache-shaped hole in it.
           </h2>
           <p className="mx-auto mt-5 max-w-xl text-base text-stone-400 sm:text-lg">
             Two commands to a running instance. Your Redis client already knows how to talk to it.
           </p>
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link href="/docker" className="btn-primary !border-paper-card">
+            <Link href="/docker" className="btn-primary !border-stone-50">
               Start with Docker
             </Link>
             <Link

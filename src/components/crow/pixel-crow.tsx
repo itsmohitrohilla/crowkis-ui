@@ -374,7 +374,7 @@ export function PixelCrow() {
       aria-hidden
     >
       {angry ? (
-        <div className="caw-bubble pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border-2 border-ink bg-crow px-2.5 py-1 font-mono text-xs font-bold text-paper-card shadow-block-sm">
+        <div className="caw-bubble pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg border-2 border-ink bg-crow px-2.5 py-1 font-mono text-xs font-bold text-stone-50 shadow-block-sm">
           CAW!!
         </div>
       ) : null}

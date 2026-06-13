@@ -89,7 +89,7 @@ export default function McpPage() {
       </section>
 
       {/* numbers strip */}
-      <section className="border-b-2 border-ink bg-roost text-paper-card">
+      <section className="border-b-2 border-ink bg-roost text-stone-50">
         <div className="section grid grid-cols-3 py-8 text-center">
           {[
             { to: 1, suffix: " config block", label: "is the entire integration" },
@@ -149,7 +149,7 @@ export default function McpPage() {
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {STEPS.map((step) => (
               <div key={step.n} className="card-block p-6">
-                <span className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-crow font-mono text-sm font-bold text-paper-card">
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-crow font-mono text-sm font-bold text-stone-50">
                   {step.n}
                 </span>
                 <h3 className="mt-4 font-display text-lg font-bold">{step.title}</h3>

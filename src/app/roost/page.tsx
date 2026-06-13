@@ -51,7 +51,7 @@ export default function RoostIndexPage() {
         <Link href={`/roost/${latest.slug}`} className="group block">
           <article className="card-block p-7 transition-transform group-hover:-translate-y-1 sm:p-8">
             <div className="flex flex-wrap items-center gap-3 font-mono text-xs text-ink-faint">
-              <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-bold uppercase tracking-wider text-paper-card">
+              <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-bold uppercase tracking-wider text-stone-50">
                 latest
               </span>
               <span>{formatDate(latest.date)}</span>

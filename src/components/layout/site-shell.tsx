@@ -34,7 +34,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <PixelCrow />
       <CrowBotBuddy />
       {gameOpen ? <CrowShooter onClose={() => setGameOpen(false)} /> : null}
-      <div className="border-b-2 border-ink bg-crow px-4 py-2 text-center font-mono text-[11px] font-medium tracking-wide text-paper-card sm:text-xs">
+      <div className="border-b-2 border-ink bg-crow px-4 py-2 text-center font-mono text-[11px] font-medium tracking-wide text-stone-50 sm:text-xs">
         One signed Docker image. Every feature compiled in. Free to run.{" "}
         <Link href="/docker" className="underline underline-offset-2 hover:no-underline">
           docker pull crowkis/crowkis:latest
@@ -64,7 +64,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   href={link.href}
                   className={`rounded-lg px-2.5 py-1.5 text-[13px] font-semibold transition ${
                     active
-                      ? "bg-ink text-paper-card"
+                      ? "bg-ink text-stone-50"
                       : "text-ink-soft hover:bg-paper-deep hover:text-ink"
                   }`}
                 >
@@ -75,7 +75,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <button
               type="button"
               onClick={() => setGameOpen(true)}
-              className="ml-0.5 flex items-center gap-1 rounded-lg border-2 border-crow px-2.5 py-1 text-[13px] font-bold text-crow transition hover:bg-crow hover:text-paper-card"
+              className="ml-0.5 flex items-center gap-1 rounded-lg border-2 border-crow px-2.5 py-1 text-[13px] font-bold text-crow transition hover:bg-crow hover:text-stone-50"
               title="brain-rot crow game — opens full-screen"
             >
               <span aria-hidden>▸</span> Arcade
@@ -84,7 +84,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
           <div className="hidden items-center gap-3 lg:flex">
             <a
-              href="mailto:enterprise@crowkis.io?subject=Crowkis%20Enterprise%20enquiry"
+              href="mailto:info.crowkis@gmail.com?subject=Crowkis%20Enterprise%20enquiry"
               className="text-sm font-semibold text-ink-soft transition hover:text-ink"
             >
               Talk to sales
@@ -133,7 +133,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 ▸ Arcade — brain-rot crow game
               </button>
               <a
-                href="mailto:enterprise@crowkis.io?subject=Crowkis%20Enterprise%20enquiry"
+                href="mailto:info.crowkis@gmail.com?subject=Crowkis%20Enterprise%20enquiry"
                 className="touch-target rounded-lg border border-ink-line bg-paper-card px-3 py-2.5"
               >
                 Talk to sales
@@ -141,7 +141,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <Link
                 href="/docs"
                 onClick={() => setMenuOpen(false)}
-                className="touch-target rounded-lg border-2 border-ink bg-crow px-3 py-2.5 text-center font-semibold text-paper-card"
+                className="touch-target rounded-lg border-2 border-ink bg-crow px-3 py-2.5 text-center font-semibold text-stone-50"
               >
                 Get started
               </Link>
@@ -201,7 +201,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 ["The Murder ▸ game", "/murder"],
                 ["Changelog", "/changelog"],
                 ["FAQ", "/faq"],
-                ["Talk to sales", "mailto:enterprise@crowkis.io?subject=Crowkis%20Enterprise%20enquiry"],
+                ["Talk to sales", "mailto:info.crowkis@gmail.com?subject=Crowkis%20Enterprise%20enquiry"],
               ],
             },
           ].map((col) => (

@@ -31,22 +31,22 @@
 }
 
 .dark {
-  /* dark theme — warm charcoal, soft warm-white ink, coral crow */
-  --c-paper: 23 21 19;
-  --c-paper-deep: 31 28 25;
-  --c-paper-card: 39 35 31;
-  --c-ink: 244 240 232;
-  --c-ink-soft: 178 170 158;
-  --c-ink-faint: 124 117 106;
-  --c-ink-line: 66 60 53;
-  --c-crow: 240 98 88;
+  /* dark theme — cool "midnight slate", the shady-night palette */
+  --c-paper: 25 28 38;
+  --c-paper-deep: 33 37 50;
+  --c-paper-card: 42 47 63;
+  --c-ink: 230 233 242;
+  --c-ink-soft: 165 172 191;
+  --c-ink-faint: 119 126 148;
+  --c-ink-line: 56 62 82;
+  --c-crow: 241 101 92;
   --c-crow-deep: 214 34 33;
-  --c-crow-tint: 56 32 30;
-  --c-roost: 14 13 11;
-  --c-roost-card: 26 23 19;
-  --c-roost-line: 54 49 41;
-  --shadow-color: 0 0 0;
-  --grid-color: 244 240 232;
+  --c-crow-tint: 58 38 48;
+  --c-roost: 17 19 27;
+  --c-roost-card: 27 30 41;
+  --c-roost-line: 50 56 75;
+  --shadow-color: 10 12 18;
+  --grid-color: 230 233 242;
   color-scheme: dark;
 }
 
@@ -127,7 +127,7 @@ a {
 }
 
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-ink bg-crow px-5 py-2.5 text-sm font-semibold text-paper-card shadow-block-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-block active:translate-y-0 active:shadow-none;
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-ink bg-crow px-5 py-2.5 text-sm font-semibold text-stone-50 shadow-block-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-block active:translate-y-0 active:shadow-none;
 }
 
 .btn-secondary {
