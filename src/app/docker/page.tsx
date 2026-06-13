@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/ui/motion";
 import { CommandCard, CopyButton } from "@/components/ui/code-tabs";
+import { HeroArt } from "@/components/marketing/hero-art";
 
 export const metadata: Metadata = {
   title: "Official Docker Image",
@@ -88,7 +89,7 @@ export default function DockerPage() {
     <SiteShell>
       {/* hero */}
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
-        <div className="section py-14 md:py-20">
+        <div className="section grid items-center gap-8 py-14 lg:grid-cols-[1.6fr_1fr] md:py-20">
           <Reveal>
             <div className="flex flex-wrap items-center gap-3">
               <span className="rounded-md border-2 border-ink bg-paper-card px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider">
@@ -120,6 +121,9 @@ export default function DockerPage() {
               />
             </div>
           </Reveal>
+          <div className="hidden lg:block">
+            <HeroArt variant={0} />
+          </div>
         </div>
       </section>
 

@@ -1,8 +1,9 @@
 import { Metadata } from "next";
-import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/ui/motion";
 import { FeatureExplorer } from "@/components/marketing/feature-explorer";
+import { Systems3D } from "@/components/marketing/systems-3d";
+import { HeroArt } from "@/components/marketing/hero-art";
 
 export const metadata: Metadata = {
   title: "Product",
@@ -87,7 +88,7 @@ export default function ProductPage() {
     <SiteShell>
       {/* hero */}
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
-        <div className="section py-14 md:py-18">
+        <div className="section grid items-center gap-8 py-14 md:grid-cols-[1.5fr_1fr] md:py-18">
           <Reveal>
             <p className="eyebrow">The product, in detail</p>
             <h1 className="responsive-title mt-3 max-w-3xl">
@@ -99,6 +100,9 @@ export default function ProductPage() {
               whoever deploys the binary.
             </p>
           </Reveal>
+          <div className="hidden md:block">
+            <HeroArt variant={1} />
+          </div>
         </div>
       </section>
 
@@ -113,28 +117,7 @@ export default function ProductPage() {
             together.
           </p>
         </Reveal>
-        <div className="mt-8 space-y-5">
-          {SYSTEMS.map((sys, i) => (
-            <Reveal key={sys.n} delay={(i % 2) * 0.05}>
-              <article className="card-block grid gap-5 p-6 sm:p-7 md:grid-cols-[44px_1fr_1fr]">
-                <p className="font-mono text-lg font-bold text-crow">{sys.n}</p>
-                <div>
-                  <h3 className="font-display text-lg font-bold leading-snug">{sys.name}</h3>
-                  <p className="mt-2 rounded-lg border border-ink-line bg-paper-deep p-3 text-[13px] leading-relaxed text-ink-soft">
-                    <span className="font-semibold text-ink">In plain words: </span>
-                    {sys.plain}
-                  </p>
-                </div>
-                <p className="text-[13px] leading-relaxed text-ink-soft md:border-l md:border-ink-line md:pl-5">
-                  <span className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
-                    under the hood ·{" "}
-                  </span>
-                  {sys.tech}
-                </p>
-              </article>
-            </Reveal>
-          ))}
-        </div>
+        <Systems3D systems={SYSTEMS} />
       </section>
 
       {/* engine band */}
@@ -219,36 +202,6 @@ export default function ProductPage() {
         <div className="section">
           <FeatureExplorer />
         </div>
-      </section>
-
-      {/* enterprise pointer */}
-      <section className="section pb-16 pt-14 md:pb-24 md:pt-18">
-        <Reveal>
-          <div className="card-block flex flex-col items-start justify-between gap-5 p-7 sm:p-8 md:flex-row md:items-center">
-            <div>
-              <p className="eyebrow">Beyond Community</p>
-              <h2 className="mt-2 font-display text-2xl font-bold">
-                Replay, arbitrage routing, compliance modes, SSO.
-              </h2>
-              <p className="mt-2 max-w-xl text-sm text-ink-soft">
-                The Pro and Enterprise layers — virtual API keys with budgets, Crowkis Replay on
-                your own traffic, the Provider Arbitrage Router, HIPAA/SOC2/GDPR-EU/FedRAMP modes,
-                audit export — are detailed line by line on the pricing page.
-              </p>
-            </div>
-            <div className="flex shrink-0 flex-col gap-3 sm:flex-row">
-              <Link href="/pricing" className="btn-primary">
-                See pricing & tiers
-              </Link>
-              <a
-                href="mailto:info.crowkis@gmail.com?subject=Crowkis%20demo%20request"
-                className="btn-secondary"
-              >
-                Schedule a demo
-              </a>
-            </div>
-          </div>
-        </Reveal>
       </section>
     </SiteShell>
   );

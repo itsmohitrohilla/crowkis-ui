@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
+import { HeroArt } from "@/components/marketing/hero-art";
 import { SiteShell } from "@/components/layout/site-shell";
 import { RoostBrowser } from "@/components/marketing/roost-browser";
 import { allRoostPosts } from "@/lib/content/library";
@@ -36,13 +36,9 @@ export default function RoostIndexPage() {
               rank on a search engine.
             </p>
           </div>
-          <Image
-            src="/logo.png"
-            alt=""
-            width={110}
-            height={110}
-            className="hidden shrink-0 md:block"
-          />
+          <div className="hidden shrink-0 md:block">
+            <HeroArt variant={2} />
+          </div>
         </div>
       </section>
 

@@ -1,5 +1,6 @@
 import { SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/ui/motion";
+import { HeroArt } from "@/components/marketing/hero-art";
 
 type Section = {
   title: string;
@@ -21,12 +22,15 @@ export function ContentPage({
   return (
     <SiteShell>
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
-        <div className="section py-12 md:py-16">
+        <div className="section grid items-center gap-8 py-12 md:grid-cols-[1.5fr_1fr] md:py-16">
           <Reveal>
             <p className="eyebrow">{eyebrow}</p>
             <h1 className="responsive-title mt-3">{title}</h1>
             <p className="responsive-subtitle mt-4 max-w-3xl">{intro}</p>
           </Reveal>
+          <div className="hidden md:block">
+            <HeroArt variant={title.length % 3} />
+          </div>
         </div>
       </section>
       <section className="section py-10 md:py-14">
