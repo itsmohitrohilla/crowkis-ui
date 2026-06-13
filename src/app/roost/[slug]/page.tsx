@@ -1,0 +1,156 @@
+import { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { SiteShell } from "@/components/layout/site-shell";
+import { CopyButton } from "@/components/ui/code-tabs";
+import { Mermaid, Venn } from "@/components/ui/mermaid";
+import { RoostBlock } from "@/lib/content/roost";
+import { allRoostPosts } from "@/lib/content/library";
+
+export function generateStaticParams() {
+  return allRoostPosts.map((post) => ({ slug: post.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = allRoostPosts.find((p) => p.slug === slug);
+  if (!post) return { title: "The Roost" };
+  return { title: post.title, description: post.summary };
+}
+
+function formatDate(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}
+
+function Block({ block }: { block: RoostBlock }) {
+  switch (block.kind) {
+    case "h2":
+      return (
+        <h2 className="mt-10 font-display text-2xl font-bold tracking-tight">{block.text}</h2>
+      );
+    case "p":
+      return <p className="mt-5 leading-relaxed text-ink-soft">{block.text}</p>;
+    case "quote":
+      return (
+        <blockquote className="card-block mt-7 border-l-8 !border-l-crow p-6 font-display text-xl font-bold leading-snug">
+          {block.text}
+        </blockquote>
+      );
+    case "code":
+      return (
+        <div className="code-panel mt-6">
+          <div className="code-chrome justify-between">
+            <span>{block.title ?? "code"}</span>
+            <CopyButton text={block.code} />
+          </div>
+          <pre>{block.code}</pre>
+        </div>
+      );
+    case "plain":
+      return (
+        <div className="card-quiet mt-6 border-l-4 !border-l-crow p-4 text-sm leading-relaxed text-ink-soft">
+          <span className="font-semibold text-ink">In plain words: </span>
+          {block.text}
+        </div>
+      );
+    case "diagram":
+      return (
+        <figure className="card-block mt-7 overflow-hidden !p-0">
+          <figcaption className="border-b-2 border-ink bg-paper-deep px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+            {block.title}
+          </figcaption>
+          <Mermaid chart={block.chart} />
+          {block.caption ? (
+            <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
+              {block.caption}
+            </p>
+          ) : null}
+        </figure>
+      );
+    case "venn":
+      return (
+        <figure className="card-block mt-7 overflow-hidden !p-0">
+          <figcaption className="border-b-2 border-ink bg-paper-deep px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+            {block.title}
+          </figcaption>
+          <Venn
+            left={block.left}
+            right={block.right}
+            overlap={block.overlap}
+            leftItems={block.leftItems}
+            rightItems={block.rightItems}
+          />
+          {block.caption ? (
+            <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
+              {block.caption}
+            </p>
+          ) : null}
+        </figure>
+      );
+  }
+}
+
+export default async function RoostPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = allRoostPosts.find((p) => p.slug === slug);
+  if (!post) notFound();
+
+  const others = allRoostPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+
+  return (
+    <SiteShell>
+      <article className="section max-w-3xl py-12 md:py-16">
+        <Link href="/roost" className="font-mono text-xs text-ink-faint transition hover:text-crow">
+          ← back to the Roost
+        </Link>
+        <div className="mt-6 flex flex-wrap items-center gap-3 font-mono text-xs text-ink-faint">
+          <span className="rounded-md border border-ink-line bg-paper-card px-2 py-0.5 uppercase tracking-wider text-ink-soft">
+            {post.tag}
+          </span>
+          <span>{formatDate(post.date)}</span>
+          <span>· {post.readMinutes} min read</span>
+        </div>
+        <h1 className="mt-5 font-display text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl">
+          {post.title}
+        </h1>
+        <p className="mt-5 border-l-4 border-crow pl-4 text-lg leading-relaxed text-ink-soft">
+          {post.summary}
+        </p>
+        <div className="mt-4 border-t-2 border-ink pt-2">
+          {post.blocks.map((block, i) => (
+            <Block key={i} block={block} />
+          ))}
+        </div>
+
+        <footer className="mt-14 border-t-2 border-ink pt-8">
+          <p className="eyebrow">Keep reading</p>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+            {others.map((other) => (
+              <Link key={other.slug} href={`/roost/${other.slug}`} className="group block h-full">
+                <div className="card-quiet h-full p-5 transition-colors group-hover:border-ink">
+                  <p className="font-mono text-xs text-ink-faint">
+                    {formatDate(other.date)} · {other.readMinutes} min
+                  </p>
+                  <p className="mt-2 font-display font-bold leading-snug">{other.title}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </footer>
+      </article>
+    </SiteShell>
+  );
+}

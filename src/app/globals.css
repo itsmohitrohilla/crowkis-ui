@@ -11,7 +11,62 @@
 }
 
 :root {
+  /* light theme — channels for rgb(var(--x) / <alpha>) */
+  --c-paper: 250 247 241;
+  --c-paper-deep: 243 238 229;
+  --c-paper-card: 255 253 249;
+  --c-ink: 22 19 14;
+  --c-ink-soft: 74 68 58;
+  --c-ink-faint: 138 130 117;
+  --c-ink-line: 226 220 207;
+  --c-crow: 214 34 33;
+  --c-crow-deep: 169 23 22;
+  --c-crow-tint: 251 233 232;
+  --c-roost: 23 20 16;
+  --c-roost-card: 33 29 23;
+  --c-roost-line: 55 50 42;
+  --shadow-color: 22 19 14;
+  --grid-color: 22 19 14;
+  color-scheme: light;
+}
+
+.dark {
+  /* dark theme — warm charcoal, soft warm-white ink, coral crow */
+  --c-paper: 23 21 19;
+  --c-paper-deep: 31 28 25;
+  --c-paper-card: 39 35 31;
+  --c-ink: 244 240 232;
+  --c-ink-soft: 178 170 158;
+  --c-ink-faint: 124 117 106;
+  --c-ink-line: 66 60 53;
+  --c-crow: 240 98 88;
+  --c-crow-deep: 214 34 33;
+  --c-crow-tint: 56 32 30;
+  --c-roost: 14 13 11;
+  --c-roost-card: 26 23 19;
+  --c-roost-line: 54 49 41;
+  --shadow-color: 0 0 0;
+  --grid-color: 244 240 232;
   color-scheme: dark;
+}
+
+/* smooth, brief cross-fade only while toggling themes */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease,
+    fill 0.4s ease,
+    box-shadow 0.4s ease !important;
+  transition-delay: 0s !important;
+}
+
+/* the wordmark is a black PNG — flip it white in dark mode */
+.dark img.site-wordmark {
+  filter: invert(1) brightness(1.7);
 }
 
 html,
@@ -24,21 +79,21 @@ html {
 }
 
 body {
-  background:
-    radial-gradient(circle at 15% 20%, rgba(94, 242, 255, 0.18), transparent 35%),
-    radial-gradient(circle at 85% 10%, rgba(159, 123, 255, 0.2), transparent 40%),
-    #05070d;
-  color: #f5f8ff;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: rgb(var(--c-paper));
+  color: rgb(var(--c-ink));
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
+  font-feature-settings: "ss01" on, "cv05" on;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 a {
   color: inherit;
 }
 
-.glass {
-  @apply rounded-2xl border border-glass-200 bg-glass-100 backdrop-blur-xl;
+::selection {
+  background: #d62221;
+  color: #fffdf9;
 }
 
 .section {
@@ -46,11 +101,41 @@ a {
 }
 
 .responsive-title {
-  @apply text-3xl leading-tight sm:text-4xl md:text-5xl;
+  @apply font-display text-3xl font-bold leading-[1.05] tracking-tight sm:text-4xl md:text-5xl;
 }
 
 .responsive-subtitle {
-  @apply text-base leading-relaxed text-slate-300 sm:text-lg;
+  @apply text-base leading-relaxed text-ink-soft sm:text-lg;
+}
+
+/* Primary card language: hard ink border + offset block shadow, echoing the blocky wordmark */
+.card-block {
+  @apply rounded-xl border-2 border-ink bg-paper-card shadow-block transition-transform duration-200;
+}
+
+.card-quiet {
+  @apply rounded-xl border border-ink-line bg-paper-card;
+}
+
+/* Kept for the dark operator-console preview under /app */
+.glass {
+  @apply rounded-2xl border border-glass-200 bg-glass-100 backdrop-blur-xl;
+}
+
+.eyebrow {
+  @apply font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-crow sm:text-xs;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-ink bg-crow px-5 py-2.5 text-sm font-semibold text-paper-card shadow-block-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-block active:translate-y-0 active:shadow-none;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-ink bg-paper-card px-5 py-2.5 text-sm font-semibold text-ink shadow-block-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-block active:translate-y-0 active:shadow-none;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold text-ink-soft transition hover:text-ink;
 }
 
 .touch-target {
@@ -65,13 +150,272 @@ a {
   @apply min-w-[640px] text-left text-xs sm:text-sm;
 }
 
+/* Subtle blueprint grid on paper */
+.paper-grid {
+  background-image:
+    linear-gradient(to right, rgb(var(--grid-color) / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--grid-color) / 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
 .faded-grid {
   background-image: radial-gradient(
     circle at 1px 1px,
-    rgba(255, 255, 255, 0.08) 1px,
+    rgb(var(--grid-color) / 0.1) 1px,
     transparent 0
   );
   background-size: 28px 28px;
+}
+
+/* Inline code on paper */
+.prose-code,
+code.inline {
+  @apply rounded border border-ink-line bg-paper-deep px-1.5 py-0.5 font-mono text-[0.85em] text-ink;
+}
+
+/* Dark code/terminal panels */
+.code-panel {
+  @apply overflow-hidden rounded-xl border-2 border-ink bg-roost text-sm shadow-block;
+}
+
+.code-panel pre {
+  @apply overflow-x-auto p-4 font-mono text-[13px] leading-relaxed text-stone-200 sm:p-5;
+}
+
+.code-chrome {
+  @apply flex items-center gap-2 border-b border-roost-line bg-roost-card px-4 py-2.5 font-mono text-xs text-stone-400;
+}
+
+.tok-cmd { color: #f3eee5; }
+.tok-key { color: #ff8a87; }
+.tok-str { color: #d8c97f; }
+.tok-ok { color: #8fd6a4; }
+.tok-dim { color: #847c6e; }
+.tok-fn { color: #9fc6e8; }
+
+/* ── crow rage mode ─────────────────────────────────────────────────────────
+   Triggered by touching the crow. The whole site flips dark and angry for a
+   few seconds, then calms back down. The crow itself stays un-inverted. */
+html.crow-rage body {
+  background: #14110c;
+}
+
+html.crow-rage :is(header, main, footer, .rage-banner) {
+  filter: invert(0.93) hue-rotate(168deg) saturate(1.4);
+  transition: filter 0.35s ease;
+}
+
+html.crow-rage :is(header, main, footer) img {
+  filter: invert(1) hue-rotate(-168deg) saturate(0.75);
+}
+
+html:not(.crow-rage) :is(header, main, footer, .rage-banner) {
+  transition: filter 0.6s ease;
+}
+
+@keyframes rage-shake {
+  0%, 100% { transform: translate(0, 0); }
+  15% { transform: translate(-6px, 2px); }
+  30% { transform: translate(5px, -3px); }
+  45% { transform: translate(-4px, -2px); }
+  60% { transform: translate(4px, 2px); }
+  75% { transform: translate(-2px, 1px); }
+}
+
+html.crow-rage main {
+  animation: rage-shake 0.45s ease;
+}
+
+@keyframes crow-fume {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-1.5px, 0.5px); }
+  50% { transform: translate(1.5px, -0.5px); }
+  75% { transform: translate(-1px, -1px); }
+}
+
+.crow-fuming {
+  animation: crow-fume 0.12s linear infinite;
+}
+
+/* ── crow bot mascot ──────────────────────────────────────────────────────── */
+@keyframes bot-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+.crowbot .bot-float { animation: bot-float 4.2s ease-in-out infinite; transform-origin: center; }
+
+@keyframes bot-shadow {
+  0%, 100% { transform: scaleX(1); opacity: 0.25; }
+  50% { transform: scaleX(0.82); opacity: 0.16; }
+}
+.crowbot .bot-shadow { animation: bot-shadow 4.2s ease-in-out infinite; transform-origin: 130px 284px; }
+
+@keyframes bot-ping {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+.crowbot .bot-ping { animation: bot-ping 2.2s ease-out infinite; transform-origin: 130px 22px; }
+.crowbot .bot-ping-2 { animation-delay: 1.1s; }
+
+@keyframes bot-blink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  94%, 97% { transform: scaleY(0.08); }
+}
+.crowbot .bot-eyes { animation: bot-blink 3.8s ease-in-out infinite; transform-origin: 130px 79px; }
+
+@keyframes bot-scan {
+  0%, 100% { transform: translateX(0); }
+  35% { transform: translateX(4px); }
+  70% { transform: translateX(-4px); }
+}
+.crowbot .bot-eye { animation: bot-scan 5.5s ease-in-out infinite; }
+
+@keyframes bot-cube-bob {
+  0%, 100% { transform: translateY(0) ; }
+  50% { transform: translateY(-6px); }
+}
+.crowbot .bot-cube { animation: bot-cube-bob 3s ease-in-out infinite; }
+
+@keyframes bot-coin-rise {
+  0% { transform: translateY(10px); opacity: 0; }
+  25%, 70% { opacity: 1; }
+  100% { transform: translateY(-26px); opacity: 0; }
+}
+.crowbot .bot-coin { animation: bot-coin-rise 3.6s ease-in-out infinite; }
+.crowbot .bot-coin-2 { animation-delay: 1.6s; }
+
+/* hero diorama drift animations */
+@keyframes cube-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-14px) rotate(3deg); }
+}
+.cube-bob-a { animation: cube-bob 5.4s ease-in-out infinite; }
+.cube-bob-b { animation: cube-bob 6.8s ease-in-out infinite reverse; }
+.cube-bob-c { animation: cube-bob 4.6s ease-in-out 0.8s infinite; }
+
+@keyframes chip-drift {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.chip-float-a { animation: chip-drift 4.8s ease-in-out infinite; }
+.chip-float-b { animation: chip-drift 5.9s ease-in-out 0.7s infinite; }
+.chip-float-c { animation: chip-drift 5.2s ease-in-out 1.3s infinite; }
+
+/* arcade scene: flowing water + twinkling stars + drifting clouds */
+@keyframes water-flow {
+  from { background-position-x: 0; }
+  to { background-position-x: -64px; }
+}
+.water-flow { animation: water-flow 1.8s linear infinite; }
+
+@keyframes water-flow-slow {
+  from { background-position-x: 0; }
+  to { background-position-x: 64px; }
+}
+.water-flow-slow { animation: water-flow-slow 3.2s linear infinite; }
+
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+.arcade-star { animation: star-twinkle 2.4s ease-in-out infinite; }
+
+@keyframes cloud-drift {
+  from { transform: translateX(-20px); }
+  to { transform: translateX(20px); }
+}
+.cloud-drift { animation: cloud-drift 9s ease-in-out infinite alternate; }
+
+/* bonk game: feather burst + score label */
+@keyframes feather-burst {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--fx), var(--fy)) rotate(220deg); opacity: 0; }
+}
+.feather { animation: feather-burst 0.65s ease-out both; }
+
+@keyframes bonk-pop {
+  0% { transform: translate(-50%, 0) scale(0.4); opacity: 0; }
+  30% { transform: translate(-50%, -6px) scale(1.2); opacity: 1; }
+  100% { transform: translate(-50%, -22px) scale(1); opacity: 0; }
+}
+.bonk-label { animation: bonk-pop 0.65s ease-out both; }
+
+/* footer garden: blinking perched crows + a drifting flyer */
+@keyframes footer-blink {
+  0%, 88%, 100% { opacity: 1; }
+  92%, 96% { opacity: 0; }
+}
+.footer-crow-eye { animation: footer-blink 4.4s step-end infinite; }
+
+@keyframes footer-fly {
+  0% { left: -4%; transform: translateY(0); }
+  25% { transform: translateY(10px); }
+  50% { transform: translateY(-6px); }
+  75% { transform: translateY(8px); }
+  100% { left: 104%; transform: translateY(0); }
+}
+.footer-flyer { animation: footer-fly 26s linear infinite; }
+
+@keyframes footer-flap {
+  0%, 49% { transform: translateY(0); }
+  50%, 100% { transform: translateY(7px); }
+}
+.footer-flyer-wing { animation: footer-flap 0.24s steps(1) infinite; }
+
+/* garden crow flapping — pure CSS, two stacked frames */
+@keyframes garden-frame-a {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.garden-flap .frame-a {
+  animation: garden-frame-a 0.22s steps(1) infinite;
+}
+
+.garden-flap .frame-b {
+  animation: garden-frame-a 0.22s steps(1) infinite reverse;
+}
+
+@keyframes caw-pop {
+  0% { transform: scale(0.3) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(1.15) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.caw-bubble {
+  animation: caw-pop 0.22s ease-out both;
+}
+
+/* 3D logo idle animation */
+@keyframes logo3d-float {
+  0%,
+  100% {
+    transform: rotateX(8deg) rotateY(-14deg) translateY(0);
+  }
+  50% {
+    transform: rotateX(-6deg) rotateY(14deg) translateY(-12px);
+  }
+}
+
+@keyframes logo3d-shadow-breathe {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scaleX(0.78);
+    opacity: 0.45;
+  }
+}
+
+.logo3d-idle {
+  animation: logo3d-float 7s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+.logo3d-shadow {
+  animation: logo3d-shadow-breathe 7s ease-in-out infinite;
 }
 
 @media (max-width: 639px) {

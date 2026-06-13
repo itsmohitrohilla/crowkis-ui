@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/motion";
+import { Reveal } from "@/components/ui/motion";
 import { appMetrics, hitBreakdown } from "@/lib/content";
 
 export default function DashboardPage() {

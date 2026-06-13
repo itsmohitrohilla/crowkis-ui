@@ -1,9 +1,11 @@
 export const navLinks = [
+  { label: "Why", href: "/why" },
   { label: "Product", href: "/product" },
-  { label: "Use Cases", href: "/use-cases" },
-  { label: "Security", href: "/security" },
-  { label: "Benchmarks", href: "/benchmarks" },
+  { label: "Docker", href: "/docker" },
+  { label: "MCP", href: "/mcp" },
   { label: "Docs", href: "/docs" },
+  { label: "Enterprise", href: "/pricing" },
+  { label: "The Roost", href: "/roost" },
 ];
 
 export const heroStats = [

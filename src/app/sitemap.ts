@@ -1,14 +1,29 @@
 import { MetadataRoute } from "next";
+import { allRoostPosts } from "@/lib/content/library";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://crowkis.io";
   const routes = [
     "",
+    "/why",
+    "/murder",
     "/product",
+    "/pricing",
+    "/docker",
     "/use-cases",
     "/security",
     "/benchmarks",
     "/docs",
+    "/docs/docker",
+    "/docs/commands",
+    "/docs/configuration",
+    "/docs/security",
+    "/docs/sdk-python",
+    "/docs/sdk-node",
+    "/docs/mcp",
+    "/roost",
+    "/mcp",
+    ...allRoostPosts.map((post) => `/roost/${post.slug}`),
     "/integrations",
     "/changelog",
     "/roadmap",

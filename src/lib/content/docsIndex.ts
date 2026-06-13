@@ -26,7 +26,7 @@ export const docsSections = [
   },
   {
     title: "Testing and Release",
-    items: ["Deep test matrix", "Beta launch checklist", "Release gate script"],
+    items: ["Deep test matrix", "Launch checklist", "Release gate script"],
     source: "crowkis/crowkis.docs/CROWKIS_DEEP_TEST_MATRIX.md",
   },
 ];

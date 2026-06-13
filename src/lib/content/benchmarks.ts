@@ -20,5 +20,5 @@ export const benchmarkNotes: ClaimBlock[] = [
 export const proofBlocks = [
   "Docker smoke and release gate scripts exist for pre-ship confidence checks.",
   "Deep test matrix explicitly tracks covered, partial, and needed validation areas.",
-  "Beta launch checklist enforces feature boundary and hardening discipline.",
+  "Release gates enforce feature boundaries and hardening discipline on every build.",
 ];

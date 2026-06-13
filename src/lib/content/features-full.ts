@@ -1,0 +1,130 @@
+export type FeatureItem = {
+  name: string;
+  what: string;
+  why: string;
+  tier?: "enterprise";
+};
+
+export type FeatureGroup = { group: string; items: FeatureItem[] };
+
+export const featureGroups: FeatureGroup[] = [
+  {
+    group: "Core engine",
+    items: [
+      { name: "CrowkisDB LSM store", what: "A purpose-built log-structured storage engine written in Rust — no RocksDB, no external database.", why: "The whole read path lives in one process, which is how cache hits stay under a millisecond." },
+      { name: "Write-ahead log", what: "Every write lands in a CRC32-checked append-only log before anything else.", why: "A power cut or kill -9 never costs you cached data — recovery replays the log." },
+      { name: "MemTable", what: "A sorted in-memory table that absorbs writes and flushes to disk at 64 MB.", why: "Writes are fast because they're memory-speed first, durable because the WAL already has them." },
+      { name: "SSTables with LZ4", what: "Immutable sorted files with LZ4-compressed blocks and per-file indexes.", why: "Compact on disk, fast to scan, and cheap to back up — it's just files." },
+      { name: "Bloom filters", what: "Probabilistic filters (~1% false positives) in front of every SSTable.", why: "Misses skip the disk entirely — the engine knows a key is absent without reading the file." },
+      { name: "Three-level compaction", what: "Background folding of L0 → L1 → L2 keeps the file count and read amplification bounded.", why: "Performance stays flat as the cache grows instead of degrading with age." },
+      { name: "Block cache", what: "A memory cache for hot SSTable blocks, sized by CROWKIS_BLOCK_CACHE_BYTES.", why: "Frequently-hit entries never touch disk at all." },
+      { name: "HNSW vector index", what: "An in-process approximate-nearest-neighbour graph over query embeddings, persisted with the store.", why: "Semantic lookup without running a separate vector database." },
+      { name: "Write batches", what: "Atomic multi-key write groups.", why: "Related entries land together or not at all — no half-written state." },
+      { name: "Zero garbage collector", what: "Rust memory management — no GC anywhere in the process.", why: "No surprise pauses in your p99. Latency stays boring, which is the point." },
+      { name: "Crash-recovery tested", what: "The test suite kills the process mid-write and verifies every entry survives.", why: "Durability is proven on every release, not assumed." },
+      { name: "Single static binary", what: "The entire system compiles to one file with zero runtime dependencies.", why: "Nothing to apt-install, nothing to version-match, nothing for an attacker to poison." },
+    ],
+  },
+  {
+    group: "Cache intelligence",
+    items: [
+      { name: "Semantic matching", what: "Queries match by meaning via embeddings, not by exact bytes.", why: "Paraphrases of answered questions become hits instead of fresh model bills." },
+      { name: "Structural templates", what: "Numbers, dates, and entities are abstracted into slots — 'invoice #4412' and 'invoice #9981' share a template.", why: "Catches matches vectors miss and blocks false matches vectors invent." },
+      { name: "Dual-signal hits", what: "A hit requires the vector and the template to agree.", why: "Two independent signals is the difference between a safe cache and an embarrassing one." },
+      { name: "Intent classification", what: "Every query is sorted into one of 12 intent classes — factual, creative, personal, transactional…", why: "Factual content reuses aggressively; personal and creative content gets strict treatment." },
+      { name: "Confidence scoring", what: "Five signals combine into a geometric mean that gates every response — factual needs 0.88.", why: "One weak signal tanks the score, so uncertain matches go to the model instead of guessing." },
+      { name: "Adaptive thresholds", what: "Reuse thresholds tune themselves per intent from live hit/miss feedback, within bounds.", why: "The cache gets smarter about your traffic without anyone tuning knobs." },
+      { name: "Reasoning reuse", what: "Chain-of-thought structure is extracted, abstracted, and recomposed for new inputs.", why: "Saves the expensive part of an LLM call — the reasoning — not just the final words." },
+      { name: "Smart eviction", what: "Eviction weighs recency, frequency, isolation, and what the entry cost to compute.", why: "A $0.40 reasoning answer doesn't get evicted like a $0.0004 one-liner." },
+      { name: "Freshness control", what: "Five TTL policies plus version pinning and invalidation webhooks.", why: "Yesterday's price never outlives its shelf life." },
+      { name: "Semantic deduplication", what: "Near-identical entries collapse into one with a redirect.", why: "The cache stays dense and the index stays fast." },
+      { name: "Query normalization", what: "Whitespace, casing, and trivial variation are canonicalized before matching.", why: "Free hit-rate — trivially different strings stop being different queries." },
+      { name: "Multimodal cache", what: "Image + text queries hash into the same embedding space, served via CIMGGET.", why: "Vision workloads get the same reuse economics as text." },
+    ],
+  },
+  {
+    group: "Protocols & integration",
+    items: [
+      { name: "RESP3 wire protocol", what: "The Redis protocol, spoken natively — RESP2 negotiated via HELLO.", why: "redis-py, ioredis, and Lettuce connect unmodified. Adoption is one port change." },
+      { name: "Standard Redis commands", what: "GET, SET, EXPIRE, INCR, MGET, SCAN and ~40 more behave the way you expect.", why: "Your existing code, tooling, and muscle memory all keep working." },
+      { name: "Semantic command family", what: "CSET, CGET, CSIM, CGETSTREAM, CIMGGET, CFLUSH, CVECCOUNT extend the protocol.", why: "The semantic layer is a superset, not a new language." },
+      { name: "gRPC API", what: "h2c gRPC with Get, Set, GetStream, Stats, Invalidate.", why: "Service meshes that live on protobuf contracts get a native door." },
+      { name: "REST management API", what: "Thresholds, tenants, budgets, PII reports, compliance exports, canary control over HTTP.", why: "Everything an operator does is scriptable and auditable." },
+      { name: "MCP server", what: "crowkis mcp speaks JSON-RPC over stdio — the Model Context Protocol.", why: "Claude Code and agent frameworks check the cache before spending tokens." },
+      { name: "Python SDK", what: "Sync + async clients with get_or_compute, streaming, and full RESP3 type coverage.", why: "pip install crowkis → caching disappears into one function call." },
+      { name: "Node / TypeScript SDK", what: "Fully async client with typings, buffered frame parsing, and async-iteration streaming.", why: "npm install crowkis → same one-liner pattern for the JS stack." },
+      { name: "LangChain & LlamaIndex adapters", what: "First-class integration examples for both frameworks.", why: "Your chain never knows a cache exists — it just gets faster and cheaper." },
+      { name: "crowkis cli", what: "An interactive REPL in the binary — crowkis cli connects like redis-cli does.", why: "Debugging and scripting with zero extra installs, exit codes included." },
+    ],
+  },
+  {
+    group: "Developer experience",
+    items: [
+      { name: "get_or_compute pattern", what: "One call: serve from cache if safe, otherwise run your function and bank the result.", why: "Cache logic vanishes from your codebase entirely." },
+      { name: "Streaming cache hits", what: "CGETSTREAM and stream_get_or_compute serve cached answers chunk by chunk.", why: "A cache hit feels like live model output to your UI — no UX difference." },
+      { name: "crowkis doctor", what: "A built-in diagnostic that checks your deployment's health and configuration.", why: "The first debugging step is one command, not a wiki page." },
+      { name: "crowkis bench", what: "Built-in latency, throughput, paraphrase, and reasoning benchmarks.", why: "Verify our claims on your hardware in minutes." },
+      { name: "crowkis dump / why", what: "Inspect any cached entry — and ask why it was served or refused.", why: "'Why did the cache do that?' always has a one-command answer." },
+      { name: "crowkis tail", what: "Colour-coded live event stream from structured logs.", why: "Watching the cache think is the fastest way to trust it." },
+      { name: "crowkis backup / restore", what: "Snapshot and restore the cache state from the CLI.", why: "Operational state is yours to move, copy, and keep." },
+      { name: "No required config", what: "The binary boots with sensible defaults — zero mandatory environment variables.", why: "Five minutes from 'never heard of it' to first cache hit." },
+      { name: "One-screen --help", what: "Both server and CLI help fit in a single terminal page.", why: "Respecting your time is a feature." },
+      { name: "Actionable errors", what: "Every error message says what to do next — no opaque codes, no stack dumps.", why: "Failure modes teach instead of frustrate." },
+    ],
+  },
+  {
+    group: "Operations & observability",
+    items: [
+      { name: "Live verdict dashboard", what: "Every hit, miss, and block streamed live with confidence scores and hit-type breakdowns.", why: "The first question about any cache — 'what is it actually doing?' — has a visual answer." },
+      { name: "Cost accounting", what: "Dollars and tokens saved, per tenant and per model, over the life of the process.", why: "The ROI argument writes itself in the dashboard." },
+      { name: "Prometheus /metrics", what: "Native exposition format.", why: "Lights up in Grafana or Datadog with zero adapters." },
+      { name: "OpenTelemetry", what: "OTel-compatible signals from the same process.", why: "Fits the observability stack you already run." },
+      { name: "Structured JSON logs", what: "One log line per significant event on stderr, rotation configured.", why: "No log spam, no disks silently filling, no grep archaeology." },
+      { name: "Canary rollouts", what: "Route a slice of traffic to a new model and compare before committing.", why: "Model upgrades become an experiment, not a leap of faith." },
+      { name: "Migration with leasing", what: "Cache entries migrate across model versions under leases that survive restarts.", why: "A model upgrade doesn't cold-start your cache — warm value carries over." },
+      { name: "Federation & fallback", what: "Multiple LLM backends registered with health-aware routing.", why: "A provider incident degrades gracefully instead of taking you down." },
+      { name: "Top queries & top misses", what: "Analytics on what hits, what misses, and what's worth pre-caching.", why: "Your biggest savings opportunity is a sorted list, not a guess." },
+      { name: "Binary-swap upgrades", what: "docker pull + restart. Stable on-disk format, no schema migrations.", why: "Upgrades are a non-event, the way infrastructure upgrades should be." },
+      { name: "Health endpoint", what: "/health wired into the image's HEALTHCHECK.", why: "Kubernetes and compose see real readiness, not a guess." },
+      { name: "Memory governance", what: "CROWKIS_MEMORY_LIMIT and connection ceilings enforced in-process.", why: "The cache respects its budget instead of fighting your container limits." },
+    ],
+  },
+  {
+    group: "Security & tenancy",
+    items: [
+      { name: "Anti-poisoning pipeline", what: "Five weighted stages score every write — coherence, content, source trust, isolation, neighbourhood — floor 0.75.", why: "One bad answer in a semantic cache radiates to every nearby query. Crowkis stops it at the door." },
+      { name: "Trust ledger", what: "Append-only record of every accept and refuse, per writing source.", why: "Trust has memory — a writer that produced garbage earns a higher bar." },
+      { name: "Tenant isolation", what: "Every entry is namespaced; lookups never cross tenants; isolation is also a write-time score.", why: "A paraphrase in tenant A can never serve tenant B's answer." },
+      { name: "PII scrubbing & erasure", what: "A PII index with scrub and erasure workflows, reportable via the API.", why: "GDPR erasure requests are a workflow, not a fire drill." },
+      { name: "Private-by-default logs", what: "Prompt previews stay out of logs unless explicitly enabled.", why: "Privacy is the default setting, not a checkbox you forgot." },
+      { name: "Constant-time auth", what: "CROWKIS_AUTH_TOKEN compared in constant time on RESP and gRPC.", why: "No timing side-channel on the front door." },
+      { name: "Fail-closed public bind", what: "Binding beyond localhost makes management auth mandatory automatically.", why: "Misconfiguration produces a locked deployment, not an open one." },
+      { name: "RBAC & API keys", what: "Role-gated management endpoints with hashed multi-user keys and sessions.", why: "Reader, writer, and admin are different people — the API knows it." },
+      { name: "No supply chain", what: "One signed Rust binary. No Python, no PyPI, no dependency tree in the runtime image.", why: "The attack class that compromised major LLM gateways in 2026 cannot apply, by construction." },
+      { name: "Air-gap ready", what: "Fully offline operation — license verification is local Ed25519, nothing phones home.", why: "The most regulated environments are first-class, not an afterthought." },
+    ],
+  },
+  {
+    group: "Enterprise",
+    items: [
+      { name: "Unlimited scale", what: "Tenant and entry ceilings removed.", why: "Growth is a license file, not a re-architecture.", tier: "enterprise" },
+      { name: "Virtual API keys", what: "Mint a key per app, team, or customer.", why: "Throttle one rogue app, not the whole cache.", tier: "enterprise" },
+      { name: "Per-key budgets & limits", what: "Hard spending walls with TPM/RPM rate ceilings per key.", why: "A runaway agent loop stops at its budget, not on your invoice.", tier: "enterprise" },
+      { name: "Crowkis Replay", what: "Replay your real production queries through the cache and see exact hit rate and savings.", why: "We pitch with your own data — projections are for everyone else.", tier: "enterprise" },
+      { name: "Provider Arbitrage Router", what: "Route each query to the cheapest model that clears your quality bar.", why: "Easy questions stop riding frontier-model prices.", tier: "enterprise" },
+      { name: "Cross-Provider Cache Bridge", what: "Answers cached from one provider serve equivalent traffic on another.", why: "Switch vendors without abandoning the cache value you've built.", tier: "enterprise" },
+      { name: "Compliance modes", what: "Preset HIPAA, SOC2, GDPR-EU, and FedRAMP postures for retention, PII, and audit.", why: "The auditor's checklist maps to a config flag.", tier: "enterprise" },
+      { name: "SSO / SAML / OIDC", what: "Your identity provider controls the control plane.", why: "Offboarding from Okta offboards from Crowkis.", tier: "enterprise" },
+      { name: "Persistent audit log", what: "Every administrative action and trust decision, persisted and exportable.", why: "The artifact your auditor actually asks for, on tap.", tier: "enterprise" },
+      { name: "Prompt management", what: "Versioned prompts tracked in the control plane.", why: "Prompt changes become comparable and accountable.", tier: "enterprise" },
+      { name: "Agent conversation cache", what: "Purpose-built path for multi-turn agent state.", why: "Agent fleets are the most repetitive traffic in existence — and the cheapest to cache.", tier: "enterprise" },
+      { name: "Tool-call cache", what: "Deterministic tool results cached and replayed.", why: "Five agents fetching one schema becomes one fetch and four hits.", tier: "enterprise" },
+      { name: "Reasoning patterns library", what: "Browse the reasoning skeletons the cache has extracted.", why: "See which thought patterns recur — then reuse them on purpose.", tier: "enterprise" },
+      { name: "Auto-Tuner", what: "Continuous optimization of thresholds and eviction weights against live traffic.", why: "Peak hit-rate without a human in the loop.", tier: "enterprise" },
+      { name: "Privacy Vault", what: "Sensitive entries isolated under stricter handling.", why: "The most dangerous data gets the most paranoid path.", tier: "enterprise" },
+      { name: "Live Edit", what: "Correct or redact a cached answer in place, audited.", why: "A wrong answer dies in seconds, not at TTL expiry.", tier: "enterprise" },
+      { name: "Slack integrations", what: "Budget overruns and anomalies land in your channel.", why: "The cache tells you before the invoice does.", tier: "enterprise" },
+      { name: "Priority support", what: "A fast human, and a standing offer to get on a call.", why: "Enterprise software is a relationship, not a ticket queue.", tier: "enterprise" },
+    ],
+  },
+];
