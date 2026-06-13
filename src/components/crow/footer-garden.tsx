@@ -55,7 +55,7 @@ function sample(t: number) {
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
 function arc(p: number) {
   const x = clamp01(p);
-  return { x: 6 + x * 88, y: 24 + (1 - Math.sin(x * Math.PI)) * 38 };
+  return { x: 6 + x * 88, y: 14 + (1 - Math.sin(x * Math.PI)) * 30 };
 }
 
 function PerchedCrow({ x, bottom, flip, delay }: { x: string; bottom: number; flip?: boolean; delay: string }) {
@@ -167,12 +167,12 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
   return (
     <div
       ref={ref}
-      className="relative h-[180px] overflow-hidden"
+      className="relative h-[300px] overflow-hidden sm:h-[340px]"
       style={{
         // fade the sky up from the footer's own background so it blends in
         // rather than reading as a separate boxed section
         background:
-          "linear-gradient(to bottom, transparent 0%, var(--fg-top, #bfe0ef) 34%, var(--fg-bottom, #eef3e6) 100%)",
+          "linear-gradient(to bottom, transparent 0%, var(--fg-top, #bfe0ef) 40%, var(--fg-bottom, #eef3e6) 100%)",
         ["--fg-top" as string]: "#bfe0ef",
         ["--fg-bottom" as string]: "#eef3e6",
       }}
@@ -233,13 +233,13 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
       </svg>
 
       {/* forest */}
-      <FruitTree x="2%" h={120} />
-      <FruitTree x="13%" h={96} flip />
-      <FruitTree x="28%" h={132} />
-      <FruitTree x="44%" h={88} flip />
-      <FruitTree x="57%" h={124} />
-      <FruitTree x="73%" h={100} flip />
-      <FruitTree x="87%" h={128} />
+      <FruitTree x="2%" h={170} />
+      <FruitTree x="13%" h={128} flip />
+      <FruitTree x="28%" h={190} />
+      <FruitTree x="44%" h={120} flip />
+      <FruitTree x="57%" h={176} />
+      <FruitTree x="73%" h={138} flip />
+      <FruitTree x="87%" h={182} />
       <Bush x="9%" />
       <Bush x="23%" w={44} />
       <Bush x="39%" />
@@ -255,10 +255,10 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
       <Grass x="94%" />
 
       {/* crows, always sitting */}
-      <PerchedCrow x="4.5%" bottom={128} delay="0s" />
-      <PerchedCrow x="30.5%" bottom={140} flip delay="1.4s" />
-      <PerchedCrow x="59%" bottom={132} delay="2.3s" />
-      <PerchedCrow x="89%" bottom={136} flip delay="0.8s" />
+      <PerchedCrow x="4.5%" bottom={176} delay="0s" />
+      <PerchedCrow x="30.5%" bottom={196} flip delay="1.4s" />
+      <PerchedCrow x="59%" bottom={182} delay="2.3s" />
+      <PerchedCrow x="89%" bottom={188} flip delay="0.8s" />
       <PerchedCrow x="47%" bottom={34} delay="3.1s" />
 
       {/* the lawn — copyright lives on the grass */}
