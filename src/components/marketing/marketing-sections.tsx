@@ -644,7 +644,7 @@ CGET "what are vector caches?" TENANT demo`;
 
 export function DropInSection() {
   return (
-    <section className="section grid items-center gap-10 py-16 md:grid-cols-2 md:py-24">
+    <section className="section grid items-center gap-10 py-16 md:grid-cols-[0.85fr_1.15fr] md:py-24">
       <Reveal>
         <p className="eyebrow">Adoption is one port change</p>
         <h2 className="responsive-title mt-4">

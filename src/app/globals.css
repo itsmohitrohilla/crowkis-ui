@@ -179,7 +179,7 @@ code.inline {
 }
 
 .code-panel pre {
-  @apply overflow-x-auto p-4 font-mono text-[13px] leading-relaxed text-stone-200 sm:p-5;
+  @apply whitespace-pre-wrap break-words p-4 font-mono text-[13px] leading-relaxed text-stone-200 sm:p-5;
 }
 
 .code-chrome {
