@@ -64,7 +64,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   href={link.href}
                   className={`rounded-lg px-2.5 py-1.5 text-[13px] font-semibold transition ${
                     active
-                      ? "bg-ink text-stone-50"
+                      ? "bg-ink text-paper"
                       : "text-ink-soft hover:bg-paper-deep hover:text-ink"
                   }`}
                 >

@@ -50,7 +50,7 @@ export function RoostBrowser({ posts }: { posts: RoostPost[] }) {
             onClick={() => setTag("all")}
             className={`rounded-lg border px-3 py-1.5 font-mono text-xs transition ${
               tag === "all"
-                ? "border-ink bg-ink text-stone-50"
+                ? "border-ink bg-ink text-paper"
                 : "border-ink-line bg-paper-card text-ink-soft hover:border-ink"
             }`}
           >
@@ -63,7 +63,7 @@ export function RoostBrowser({ posts }: { posts: RoostPost[] }) {
               onClick={() => setTag(t)}
               className={`rounded-lg border px-3 py-1.5 font-mono text-xs transition ${
                 tag === t
-                  ? "border-ink bg-ink text-stone-50"
+                  ? "border-ink bg-ink text-paper"
                   : "border-ink-line bg-paper-card text-ink-soft hover:border-ink"
               }`}
             >

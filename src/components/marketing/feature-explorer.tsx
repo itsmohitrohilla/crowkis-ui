@@ -53,7 +53,7 @@ export function FeatureExplorer() {
                       onClick={() => setActive({ item, group: group.group })}
                       className={`rounded-lg border px-2.5 py-1.5 text-left font-mono text-[12px] transition-all duration-100 ${
                         isActive
-                          ? "border-ink bg-ink text-stone-50 shadow-block-sm"
+                          ? "border-ink bg-ink text-paper shadow-block-sm"
                           : item.tier === "enterprise"
                             ? "border-crow/40 bg-crow-tint text-ink hover:border-crow"
                             : "border-ink-line bg-paper-card text-ink-soft hover:border-ink hover:text-ink"
