@@ -5,7 +5,7 @@ import { HeroScene } from "@/components/marketing/hero-scene";
 import { CodeTabs, CommandCard } from "@/components/ui/code-tabs";
 import { CountUp } from "@/components/ui/count-up";
 import { Logo3D } from "@/components/crow/logo-3d";
-import { Tilt3D } from "@/components/ui/tilt-3d";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { IntegrationHub } from "@/components/marketing/integration-hub";
 
 /* ---------------------------------- hero --------------------------------- */
@@ -74,13 +74,11 @@ export function UspTrio() {
     <section className="section py-16 md:py-24">
       <div className="grid gap-5 md:grid-cols-3">
         {USPS.map((usp) => (
-          <Tilt3D key={usp.mark} className="h-full">
-            <article className="card-block h-full p-7">
-              <p className="font-mono text-sm font-bold text-crow">{usp.mark}</p>
-              <h2 className="mt-3 font-display text-2xl font-bold leading-tight">{usp.title}</h2>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{usp.body}</p>
-            </article>
-          </Tilt3D>
+          <TiltCard key={usp.mark} className="h-full p-7">
+            <p className="font-mono text-sm font-bold text-crow">{usp.mark}</p>
+            <h2 className="mt-3 font-display text-2xl font-bold leading-tight">{usp.title}</h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{usp.body}</p>
+          </TiltCard>
         ))}
       </div>
     </section>
@@ -250,40 +248,36 @@ export function UseCasesSection() {
 export function DockerMcpStrip() {
   return (
     <section className="section grid gap-5 pb-16 md:grid-cols-2 md:pb-24">
-      <Tilt3D className="h-full" max={4}>
-        <article className="card-block flex h-full flex-col p-7">
-          <p className="eyebrow">Official Docker image</p>
-          <h2 className="mt-3 font-display text-2xl font-bold">Free. Hardened. One pull away.</h2>
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
-            Community edition runs at full power with no license, no sign-up, no phone-home.
-            Non-root, read-only, every capability dropped — before you ask.
-          </p>
-          <div className="mt-5">
-            <CommandCard command="docker pull crowkis/crowkis:latest" note="then one docker run — full guide on the Docker page" />
-          </div>
-          <Link href="/docker" className="btn-secondary mt-5 self-start">
-            The Docker guide
-          </Link>
-        </article>
-      </Tilt3D>
-      <Tilt3D className="h-full" max={4}>
-        <article className="card-block flex h-full flex-col p-7">
-          <p className="eyebrow">Crowkis MCP · for AI apps</p>
-          <h2 className="mt-3 font-display text-2xl font-bold">
-            Claude Code asks. The cache answers.
-          </h2>
-          <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
-            The binary ships an MCP server, so AI assistants and agents check the cache before
-            burning tokens — repeated lookups become free, locally.
-          </p>
-          <div className="mt-5">
-            <CommandCard command="claude mcp add crowkis -- crowkis mcp" note="two minutes in any MCP-capable app" />
-          </div>
-          <Link href="/docs/mcp" className="btn-secondary mt-5 self-start">
-            Set up MCP
-          </Link>
-        </article>
-      </Tilt3D>
+      <TiltCard className="flex h-full flex-col p-7">
+        <p className="eyebrow">Official Docker image</p>
+        <h2 className="mt-3 font-display text-2xl font-bold">Free. Hardened. One pull away.</h2>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
+          Community edition runs at full power with no license, no sign-up, no phone-home.
+          Non-root, read-only, every capability dropped — before you ask.
+        </p>
+        <div className="mt-5">
+          <CommandCard command="docker pull crowkis/crowkis:latest" note="then one docker run — full guide on the Docker page" />
+        </div>
+        <Link href="/docker" className="btn-secondary mt-5 self-start">
+          The Docker guide
+        </Link>
+      </TiltCard>
+      <TiltCard className="flex h-full flex-col p-7">
+        <p className="eyebrow">Crowkis MCP · for AI apps</p>
+        <h2 className="mt-3 font-display text-2xl font-bold">
+          Claude Code asks. The cache answers.
+        </h2>
+        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
+          The binary ships an MCP server, so AI assistants and agents check the cache before
+          burning tokens — repeated lookups become free, locally.
+        </p>
+        <div className="mt-5">
+          <CommandCard command="claude mcp add crowkis -- crowkis mcp" note="two minutes in any MCP-capable app" />
+        </div>
+        <Link href="/docs/mcp" className="btn-secondary mt-5 self-start">
+          Set up MCP
+        </Link>
+      </TiltCard>
     </section>
   );
 }

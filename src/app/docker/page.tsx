@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/ui/motion";
-import { CommandCard, CopyButton } from "@/components/ui/code-tabs";
-import { HeroArt } from "@/components/marketing/hero-art";
+import { CodeTabs, CommandCard, CopyButton } from "@/components/ui/code-tabs";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 export const metadata: Metadata = {
   title: "Official Docker Image",
@@ -33,10 +33,10 @@ const HARDENING: [string, string][] = [
   ["Binary-only image", "One stripped Rust binary, a non-root user, /data. No shell tooling, no package manager, no supply chain."],
 ];
 
-const PORTS: [string, string, string][] = [
-  ["6379", "RESP3", "Redis wire protocol — crowkis cli or any Redis client."],
-  ["6380", "HTTP", "Dashboard + management REST API + /health."],
-  ["6381", "gRPC", "h2c — Get / Set / GetStream / Stats / Invalidate."],
+const PORTS: [string, string, string, string][] = [
+  ["6379", "RESP3", "Redis wire protocol — crowkis cli or any Redis client.", "#d62221"],
+  ["6380", "HTTP", "Dashboard + management REST API + /health.", "#f59e0b"],
+  ["6381", "gRPC", "h2c — Get / Set / GetStream / Stats / Invalidate.", "#14b8a6"],
 ];
 
 const RUN_CMD = `docker run -d --name crowkis \\
@@ -62,25 +62,75 @@ const COMPOSE_SNIPPET = `services:
       CROWKIS_AUTH_TOKEN: change-me-resp-grpc-token
       CROWKIS_MEMORY_LIMIT: 512m
     read_only: true
-    tmpfs:
-      - /tmp
+    tmpfs: [/tmp]
     cap_drop: [ALL]
-    security_opt:
-      - no-new-privileges:true
+    security_opt: [no-new-privileges:true]
     pids_limit: 512
     restart: unless-stopped
 
 volumes:
   crowkis-data:`;
 
-function StepHeading({ n, title }: { n: string; title: string }) {
+/* the hero "quickstart" terminal */
+function QuickstartTerminal() {
   return (
-    <div className="flex items-center gap-3">
-      <span className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-crow font-mono text-sm font-bold text-stone-50">
-        {n}
-      </span>
-      <h2 className="font-display text-xl font-bold sm:text-2xl">{title}</h2>
+    <div className="code-panel shadow-block">
+      <div className="code-chrome justify-between">
+        <span className="flex items-center gap-2">
+          <i className="h-2.5 w-2.5 rounded-full bg-crow" />
+          <i className="h-2.5 w-2.5 rounded-full bg-stone-600" />
+          <i className="h-2.5 w-2.5 rounded-full bg-stone-600" />
+          <span className="ml-2">quickstart — ~60s to a cache hit</span>
+        </span>
+        <CopyButton text={`docker pull crowkis/crowkis:latest\n${RUN_CMD}`} />
+      </div>
+      <pre className="!leading-[1.9]">
+        <code>
+          <span className="tok-dim">$ </span>
+          <span className="tok-cmd">docker pull crowkis/crowkis:latest</span>
+          {"\n"}
+          <span className="tok-ok">✓ pulled</span>
+          <span className="tok-dim"> · signed · linux/amd64 · linux/arm64</span>
+          {"\n\n"}
+          <span className="tok-dim">$ </span>
+          <span className="tok-cmd">docker run -d -p 6379:6379 -p 6380:6380 \</span>
+          {"\n    "}
+          <span className="tok-cmd">-v crowkis-data:/data crowkis/crowkis</span>
+          {"\n"}
+          <span className="tok-ok">✓ crowkis up</span>
+          <span className="tok-dim"> · RESP :6379 · dashboard :6380</span>
+          {"\n\n"}
+          <span className="tok-dim">$ </span>
+          <span className="tok-cmd">curl 127.0.0.1:6380/health</span>
+          {"\n"}
+          <span className="tok-str">{`{ "status": "ok", "admin_auth": "enabled" }`}</span>
+          {"\n"}
+          <span className="tok-key">▮</span>
+        </code>
+      </pre>
     </div>
+  );
+}
+
+function StepCard({
+  n,
+  title,
+  children,
+}: {
+  n: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <TiltCard className="flex h-full flex-col p-6" max={5}>
+      <div className="flex items-center gap-3">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border-2 border-ink bg-crow font-mono text-base font-bold text-stone-50 shadow-block-sm">
+          {n}
+        </span>
+        <h3 className="font-display text-lg font-bold sm:text-xl">{title}</h3>
+      </div>
+      <div className="mt-4 flex-1 space-y-3">{children}</div>
+    </TiltCard>
   );
 }
 
@@ -89,131 +139,126 @@ export default function DockerPage() {
     <SiteShell>
       {/* hero */}
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
-        <div className="section grid items-center gap-8 py-14 lg:grid-cols-[1.6fr_1fr] md:py-20">
+        <div className="section grid items-center gap-10 py-14 lg:grid-cols-[1fr_1.1fr] md:py-20">
           <Reveal>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-md border-2 border-ink bg-paper-card px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider">
                 Official image
               </span>
               <span className="rounded-md border border-ink-line bg-paper-card px-2.5 py-1 font-mono text-[11px] text-ink-soft">
-                linux/amd64 · linux/arm64
-              </span>
-              <span className="rounded-md border border-ink-line bg-paper-card px-2.5 py-1 font-mono text-[11px] text-ink-soft">
-                alpine · non-root · binary-only
+                amd64 · arm64
               </span>
               <span className="rounded-md border-2 border-ink bg-crow px-2.5 py-1 font-mono text-[11px] font-bold text-stone-50">
-                free · no license needed
+                free · no license
               </span>
             </div>
-            <h1 className="responsive-title mt-6 max-w-3xl">
-              One image. Every feature. Hardened before you ask.
+            <h1 className="responsive-title mt-6">
+              One image.
+              <br />
+              Every feature.
+              <br />
+              <span className="relative inline-block">
+                Hardened.
+                <span className="absolute -bottom-1 left-0 h-2 w-full bg-crow" aria-hidden />
+              </span>
             </h1>
-            <p className="responsive-subtitle mt-4 max-w-2xl">
-              Crowkis ships as a single Docker image with the entire engine compiled in. Pull it,
-              run it, and the free Community edition is live at full power — a license file
-              upgrades the same image to Enterprise at boot. There is no &quot;remember to
-              secure it later&quot; step.
+            <p className="responsive-subtitle mt-5 max-w-md">
+              A single hardened Docker image with the whole engine compiled in. Pull it, run it, and
+              free Community edition is live at full power — a license file flips it to Enterprise at
+              boot.
             </p>
-            <div className="mt-8 max-w-2xl">
-              <CommandCard
-                command="docker pull crowkis/crowkis:latest"
-                note="Docker Hub and GHCR · signed releases · then step 2 below"
-              />
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a href="#run" className="btn-primary">
+                Get running
+              </a>
+              <Link href="/docs" className="btn-secondary">
+                Read the quickstart
+              </Link>
             </div>
           </Reveal>
-          <div className="hidden lg:block">
-            <HeroArt variant={0} />
-          </div>
+          <Reveal delay={0.1}>
+            <QuickstartTerminal />
+          </Reveal>
         </div>
       </section>
 
       {/* ports */}
-      <section className="section py-14 md:py-16">
-        <Reveal>
-          <div className="grid gap-4 md:grid-cols-3">
-            {PORTS.map(([port, proto, desc]) => (
-              <div key={port} className="card-block p-5">
+      <section className="section py-12 md:py-16">
+        <p className="eyebrow">Three ports, three surfaces</p>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          {PORTS.map(([port, proto, desc, color]) => (
+            <TiltCard key={port} className="p-5" max={6}>
+              <div className="flex items-center gap-2">
+                <span className="h-3 w-3 rounded-sm" style={{ background: color }} aria-hidden />
                 <p className="font-mono text-2xl font-bold">
                   :{port}
                   <span className="ml-2 text-sm font-medium text-crow">{proto}</span>
                 </p>
-                <p className="mt-2 text-sm text-ink-soft">{desc}</p>
               </div>
-            ))}
-          </div>
-        </Reveal>
+              <p className="mt-2 text-sm text-ink-soft">{desc}</p>
+            </TiltCard>
+          ))}
+        </div>
       </section>
 
-      {/* steps */}
-      <section className="section space-y-14 pb-16">
-        <Reveal>
-          <StepHeading n="1" title="Run it" />
-          <p className="mt-4 max-w-2xl text-ink-soft">
-            One command, persistent volume included. Ports publish to localhost only — exposing
-            Crowkis to a network is a decision you make explicitly, not a default you discover.
-          </p>
-          <div className="code-panel mt-5 max-w-2xl">
-            <div className="code-chrome justify-between">
-              <span>shell</span>
-              <CopyButton text={RUN_CMD} />
+      {/* run + compose tabs */}
+      <section id="run" className="section scroll-mt-24 pb-4">
+        <div className="grid items-start gap-8 lg:grid-cols-[1fr_1.2fr]">
+          <Reveal>
+            <p className="eyebrow">Step 1 · run it</p>
+            <h2 className="responsive-title mt-3">Pick run or compose.</h2>
+            <p className="responsive-subtitle mt-4">
+              One <code className="inline">docker run</code> for a quick spin, or the hardened
+              compose file for the real thing. Ports publish to localhost only — going public is an
+              explicit choice, never a default you discover.
+            </p>
+            <div className="mt-5">
+              <CommandCard command="docker pull crowkis/crowkis:latest" note="Docker Hub & GHCR · signed releases" />
             </div>
-            <pre>{RUN_CMD}</pre>
-          </div>
-          <p className="mt-4 max-w-2xl text-sm text-ink-soft">
-            Prefer Compose? The hardened file below is the recommended production shape — copy it
-            as <code className="inline">docker-compose.yml</code> and{" "}
-            <code className="inline">docker compose up -d</code>.
-          </p>
-          <div className="code-panel mt-4 max-w-2xl">
-            <div className="code-chrome justify-between">
-              <span>docker-compose.yml</span>
-              <CopyButton text={COMPOSE_SNIPPET} />
-            </div>
-            <pre>{COMPOSE_SNIPPET}</pre>
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <StepHeading n="2" title="Verify it's healthy" />
-          <p className="mt-4 max-w-2xl text-ink-soft">
-            Ask the container itself. The health endpoint reports service status and whether admin
-            auth is active.
-          </p>
-          <div className="mt-5 grid max-w-4xl gap-4 lg:grid-cols-2">
-            <CommandCard command="curl http://127.0.0.1:6380/health" note='expect JSON with "admin_auth": "enabled"' />
-            <CommandCard command="docker logs -f crowkis" note="one structured log line per significant event" />
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <StepHeading n="3" title="Prove the auth boundary" />
-          <p className="mt-4 max-w-2xl text-ink-soft">
-            Don&apos;t trust it — test it. Unauthenticated management reads must be rejected when
-            auth is on:
-          </p>
-          <div className="mt-5 grid max-w-4xl gap-4 lg:grid-cols-2">
-            <CommandCard command="curl -i http://127.0.0.1:6380/api/metrics" note="should be rejected without a key" />
-            <CommandCard
-              command='curl -H "x-crowkis-admin-key: $KEY" http://127.0.0.1:6380/api/metrics'
-              note="authenticated read succeeds"
+          </Reveal>
+          <Reveal delay={0.1}>
+            <CodeTabs
+              tabs={[
+                {
+                  label: "docker run",
+                  copyText: RUN_CMD,
+                  content: <code className="tok-cmd">{RUN_CMD}</code>,
+                },
+                {
+                  label: "docker-compose.yml",
+                  copyText: COMPOSE_SNIPPET,
+                  content: <code className="tok-cmd">{COMPOSE_SNIPPET}</code>,
+                },
+              ]}
             />
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
+      </section>
 
-        <Reveal>
-          <StepHeading n="4" title="Talk to it" />
-          <p className="mt-4 max-w-2xl text-ink-soft">
-            The binary inside the container ships the interactive REPL — or point any Redis client
-            at port 6379.
-          </p>
-          <div className="mt-5 grid max-w-4xl gap-4 lg:grid-cols-2">
-            <CommandCard command="docker exec -it crowkis crowkis cli" note="built-in REPL against the running server" />
-            <CommandCard
-              command='CSET "hello" "world" EX 3600 MODEL gpt-4o TENANT demo'
-              note="then CGET a paraphrase and watch the dashboard"
-            />
-          </div>
-        </Reveal>
+      {/* remaining steps */}
+      <section className="section py-12 md:py-16">
+        <div className="grid gap-5 md:grid-cols-3">
+          <StepCard n="2" title="Verify it's healthy">
+            <p className="text-sm leading-relaxed text-ink-soft">
+              Ask the container itself — the health endpoint reports status and whether admin auth
+              is active.
+            </p>
+            <CommandCard command="curl 127.0.0.1:6380/health" note='expect "admin_auth": "enabled"' />
+          </StepCard>
+          <StepCard n="3" title="Prove the auth boundary">
+            <p className="text-sm leading-relaxed text-ink-soft">
+              Don&apos;t trust it — test it. Unauthenticated management reads must bounce when auth
+              is on.
+            </p>
+            <CommandCard command="curl -i 127.0.0.1:6380/api/metrics" note="rejected without a key" />
+          </StepCard>
+          <StepCard n="4" title="Talk to it">
+            <p className="text-sm leading-relaxed text-ink-soft">
+              The binary ships the REPL — or point any Redis client at 6379 and watch the dashboard.
+            </p>
+            <CommandCard command="docker exec -it crowkis crowkis cli" note="built-in REPL" />
+          </StepCard>
+        </div>
       </section>
 
       {/* hardening */}
@@ -229,13 +274,14 @@ export default function DockerPage() {
             </p>
           </Reveal>
           <div className="mt-10 grid gap-px overflow-hidden rounded-xl border border-roost-line bg-roost-line sm:grid-cols-2 lg:grid-cols-4">
-            {HARDENING.map(([what, why], i) => (
-              <Reveal key={what} delay={(i % 4) * 0.05} className="h-full">
-                <div className="h-full bg-roost-card p-5">
-                  <p className="font-mono text-[13px] font-semibold text-crow">{what}</p>
-                  <p className="mt-2 text-[13px] leading-relaxed text-stone-400">{why}</p>
-                </div>
-              </Reveal>
+            {HARDENING.map(([what, why]) => (
+              <div key={what} className="h-full bg-roost-card p-5">
+                <p className="flex items-start gap-2 font-mono text-[13px] font-semibold text-crow">
+                  <span className="text-stone-500">✓</span>
+                  {what}
+                </p>
+                <p className="mt-2 text-[13px] leading-relaxed text-stone-400">{why}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -314,7 +360,8 @@ export default function DockerPage() {
               ].map(([title, desc, href]) => (
                 <Link key={href} href={href} className="card-quiet group p-5 transition-colors hover:border-ink">
                   <p className="font-display font-bold">
-                    {title} <span className="text-crow transition-transform group-hover:translate-x-0.5">→</span>
+                    {title}{" "}
+                    <span className="text-crow transition-transform group-hover:translate-x-0.5">→</span>
                   </p>
                   <p className="mt-1 text-sm text-ink-soft">{desc}</p>
                 </Link>
