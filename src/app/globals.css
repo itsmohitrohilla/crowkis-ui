@@ -326,6 +326,28 @@ html.crow-rage main {
 }
 .cloud-drift { animation: cloud-drift 9s ease-in-out infinite alternate; }
 
+/* arcade weather: rain, lightning, shooting star */
+@keyframes wx-rain {
+  to { background-position: -90px 420px, -50px 480px; }
+}
+.wx-rain { animation: wx-rain 0.7s linear infinite; }
+
+@keyframes wx-lightning {
+  0%, 86%, 100% { opacity: 0; }
+  88% { opacity: 0.75; }
+  90% { opacity: 0.1; }
+  92% { opacity: 0.6; }
+  95% { opacity: 0; }
+}
+.wx-lightning { animation: wx-lightning 5.5s ease-out infinite; }
+
+@keyframes wx-shoot {
+  0%, 100% { transform: translate(0, 0); opacity: 0; }
+  4% { opacity: 1; }
+  16% { transform: translate(-260px, 150px); opacity: 0; }
+}
+.wx-shoot { animation: wx-shoot 9s ease-in infinite; }
+
 /* integration hub: flowing dashed arcs */
 @keyframes hub-arc-flow {
   to { stroke-dashoffset: -36; }

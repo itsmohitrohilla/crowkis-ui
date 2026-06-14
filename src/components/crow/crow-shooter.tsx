@@ -129,9 +129,71 @@ function SceneBush({ x, w = 60 }: { x: string; w?: number }) {
   );
 }
 
+type Weather = "clear" | "cloudy" | "rain" | "storm" | "rainbow";
+
+// random weather — mostly clear, occasional rain/storm, rainbow only after wet
+function nextWeather(prev: Weather): Weather {
+  if ((prev === "rain" || prev === "storm") && Math.random() < 0.55) return "rainbow";
+  const r = Math.random();
+  if (r < 0.48) return "clear";
+  if (r < 0.72) return "cloudy";
+  if (r < 0.9) return "rain";
+  return "storm";
+}
+function weatherMs(w: Weather): number {
+  if (w === "clear") return 15000 + Math.random() * 15000;
+  if (w === "rainbow") return 9000 + Math.random() * 5000;
+  if (w === "storm") return 7000 + Math.random() * 6000;
+  return 8000 + Math.random() * 8000; // cloudy / rain
+}
+
+function Rainbow({ show }: { show: boolean }) {
+  const bands = ["#e0584f", "#ef9a3d", "#e7c84a", "#5fae6a", "#4f86c6", "#8b6fc6"];
+  return (
+    <svg
+      viewBox="0 0 900 320"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute inset-x-0 top-0 h-[70%] w-full"
+      style={{ opacity: show ? 0.8 : 0, transition: "opacity 2.2s ease" }}
+      aria-hidden
+    >
+      {bands.map((c, i) => (
+        <path
+          key={c}
+          d={`M ${120 + i * 14} 320 A ${330 - i * 14} ${330 - i * 14} 0 0 1 ${780 - i * 14} 320`}
+          fill="none"
+          stroke={c}
+          strokeWidth={9}
+          strokeLinecap="round"
+        />
+      ))}
+    </svg>
+  );
+}
+
 function ArcadeScene() {
   const ref = useRef<HTMLDivElement>(null);
   const start = useRef(performance.now());
+  const [weather, setWeather] = useState<Weather>("clear");
+
+  // random weather, re-rolled each spell
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let cur: Weather = "clear";
+    let to: ReturnType<typeof setTimeout>;
+    const step = () => {
+      cur = nextWeather(cur);
+      setWeather(cur);
+      to = setTimeout(step, weatherMs(cur));
+    };
+    to = setTimeout(step, 9000 + Math.random() * 8000); // start clear for a bit
+    return () => clearTimeout(to);
+  }, []);
+
+  const raining = weather === "rain" || weather === "storm";
+  const storming = weather === "storm";
+  const darken = storming ? 0.36 : weather === "rain" ? 0.2 : weather === "cloudy" ? 0.08 : 0;
+  const extraClouds = weather === "cloudy" || raining;
 
   useEffect(() => {
     let raf = 0;
@@ -209,7 +271,15 @@ function ArcadeScene() {
             }}
           />
         ))}
+        {/* a shooting star streaks across the night */}
+        <span
+          className="wx-shoot absolute h-[2px] w-16 rounded-full bg-paper-card"
+          style={{ left: "74%", top: "10%", boxShadow: "0 0 6px #fff, -10px 0 10px #fff" }}
+        />
       </div>
+
+      {/* rainbow — appears after the rain */}
+      <Rainbow show={weather === "rainbow"} />
 
       {/* clouds */}
       <div className="absolute inset-0" style={{ opacity: "var(--cloud-op,0.85)" }}>
@@ -227,17 +297,44 @@ function ArcadeScene() {
         ))}
       </div>
 
-      {/* garden */}
-      <SceneTree x="3%" h={150} />
-      <SceneTree x="16%" h={110} flip />
-      <SceneTree x="33%" h={168} />
-      <SceneBush x="11%" />
-      <SceneBush x="26%" w={50} />
-      <SceneTree x="66%" h={120} flip />
-      <SceneTree x="80%" h={158} />
-      <SceneTree x="91%" h={104} flip />
-      <SceneBush x="73%" />
-      <SceneBush x="86%" w={50} />
+      {/* storm clouds — darker, fade in for cloudy / rain / storm */}
+      <div
+        className="absolute inset-0"
+        style={{ opacity: extraClouds ? 1 : 0, transition: "opacity 1.8s ease" }}
+      >
+        {[
+          { x: "6%", y: "8%", w: 130 },
+          { x: "44%", y: "5%", w: 160 },
+          { x: "70%", y: "12%", w: 140 },
+        ].map((c, i) => (
+          <div
+            key={i}
+            className="cloud-drift absolute rounded-full border-2 border-roost-line bg-roost-card/80"
+            style={{ left: c.x, top: c.y, width: c.w, height: 28, animationDelay: `${i * 1.2}s` }}
+          />
+        ))}
+      </div>
+
+      {/* garden — a fuller treeline */}
+      <SceneTree x="1%" h={150} />
+      <SceneTree x="9%" h={116} flip />
+      <SceneTree x="17%" h={170} />
+      <SceneTree x="25%" h={104} flip />
+      <SceneTree x="34%" h={158} />
+      <SceneTree x="43%" h={120} flip />
+      <SceneTree x="52%" h={148} />
+      <SceneTree x="61%" h={110} flip />
+      <SceneTree x="69%" h={166} />
+      <SceneTree x="78%" h={118} flip />
+      <SceneTree x="86%" h={156} />
+      <SceneTree x="94%" h={108} flip />
+      <SceneBush x="6%" />
+      <SceneBush x="21%" w={48} />
+      <SceneBush x="31%" />
+      <SceneBush x="47%" w={44} />
+      <SceneBush x="58%" />
+      <SceneBush x="74%" w={50} />
+      <SceneBush x="90%" />
 
       {/* grassy bank */}
       <div className="absolute bottom-[64px] left-0 right-0 h-3" style={{ background: LEAF_DARK }} />
@@ -259,6 +356,27 @@ function ArcadeScene() {
           }}
         />
       </div>
+
+      {/* storm darken */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-slate-900"
+        style={{ opacity: darken, transition: "opacity 1.8s ease" }}
+      />
+
+      {/* rain */}
+      <div
+        className="wx-rain pointer-events-none absolute inset-0"
+        style={{
+          opacity: raining ? (storming ? 0.6 : 0.4) : 0,
+          transition: "opacity 1.6s ease",
+          backgroundImage:
+            "repeating-linear-gradient(100deg, rgba(205,218,232,0.6) 0 1px, transparent 1px 9px), repeating-linear-gradient(100deg, rgba(205,218,232,0.35) 0 1px, transparent 1px 15px)",
+          backgroundSize: "90px 90px, 50px 50px",
+        }}
+      />
+
+      {/* lightning */}
+      {storming ? <div className="wx-lightning pointer-events-none absolute inset-0 bg-white" /> : null}
     </div>
   );
 }
