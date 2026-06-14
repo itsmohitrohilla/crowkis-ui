@@ -129,54 +129,20 @@ function SceneBush({ x, w = 60 }: { x: string; w?: number }) {
   );
 }
 
-type Weather = "clear" | "cloudy" | "rain" | "storm" | "rainbow";
+type Weather = "clear" | "cloudy" | "rain" | "storm";
 
-// random weather — mostly clear, occasional rain/storm, rainbow only after wet
-function nextWeather(prev: Weather): Weather {
-  if ((prev === "rain" || prev === "storm") && Math.random() < 0.55) return "rainbow";
+// random weather — mostly clear skies; rain is a once-in-a-while treat
+function nextWeather(): Weather {
   const r = Math.random();
-  if (r < 0.48) return "clear";
-  if (r < 0.72) return "cloudy";
-  if (r < 0.9) return "rain";
+  if (r < 0.64) return "clear";
+  if (r < 0.9) return "cloudy";
+  if (r < 0.97) return "rain";
   return "storm";
 }
 function weatherMs(w: Weather): number {
   if (w === "clear") return 15000 + Math.random() * 15000;
-  if (w === "rainbow") return 9000 + Math.random() * 5000;
   if (w === "storm") return 7000 + Math.random() * 6000;
   return 8000 + Math.random() * 8000; // cloudy / rain
-}
-
-function Rainbow({ show }: { show: boolean }) {
-  // a real rainbow: soft concentric bands of light blended like a prism,
-  // semi-transparent against the sky. A radial gradient (centred below the
-  // horizon) forms the ring; a blur melts the bands into each other.
-  return (
-    <svg
-      viewBox="0 0 900 380"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute inset-x-0 top-0 h-[80%] w-full"
-      style={{ opacity: show ? 0.55 : 0, transition: "opacity 2.4s ease" }}
-      aria-hidden
-    >
-      <defs>
-        <radialGradient id="rainbow-prism" cx="450" cy="380" r="360" gradientUnits="userSpaceOnUse">
-          <stop offset="0.60" stopColor="#8b6fc6" stopOpacity="0" />
-          <stop offset="0.655" stopColor="#8b6fc6" stopOpacity="0.55" />
-          <stop offset="0.70" stopColor="#5b8fd6" stopOpacity="0.6" />
-          <stop offset="0.745" stopColor="#5cae72" stopOpacity="0.6" />
-          <stop offset="0.79" stopColor="#ecc94b" stopOpacity="0.62" />
-          <stop offset="0.835" stopColor="#ef8f43" stopOpacity="0.6" />
-          <stop offset="0.875" stopColor="#e05650" stopOpacity="0.55" />
-          <stop offset="0.93" stopColor="#e05650" stopOpacity="0" />
-        </radialGradient>
-        <filter id="rainbow-soft" x="-10%" y="-10%" width="120%" height="120%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-      </defs>
-      <rect x="0" y="0" width="900" height="380" fill="url(#rainbow-prism)" filter="url(#rainbow-soft)" />
-    </svg>
-  );
 }
 
 function ArcadeScene() {
@@ -190,7 +156,7 @@ function ArcadeScene() {
     let cur: Weather = "clear";
     let to: ReturnType<typeof setTimeout>;
     const step = () => {
-      cur = nextWeather(cur);
+      cur = nextWeather();
       setWeather(cur);
       to = setTimeout(step, weatherMs(cur));
     };
@@ -285,9 +251,6 @@ function ArcadeScene() {
           style={{ left: "74%", top: "10%", boxShadow: "0 0 6px #fff, -10px 0 10px #fff" }}
         />
       </div>
-
-      {/* rainbow — appears after the rain */}
-      <Rainbow show={weather === "rainbow"} />
 
       {/* clouds */}
       <div className="absolute inset-0" style={{ opacity: "var(--cloud-op,0.85)" }}>
