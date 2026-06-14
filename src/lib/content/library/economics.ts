@@ -46,7 +46,7 @@ export const economicsSpecs: PostSpec[] = [
       "Infrastructure buying is plagued by projected ROI: vendor benchmarks on synthetic workloads that mysteriously flatter the vendor. We built Crowkis Replay specifically to exit that genre. Bring a sample of your real production queries to the demo call; we replay them through the full engine — intent classes, templates, confidence gates, everything — and hand you your actual hit rate and dollar savings.",
       "The honesty cuts both ways, which is the point. If your workload is genuinely novel-heavy — some are — Replay says so, and we'll tell you the cache earns less here. That costs us a deal and buys something more valuable: every number we ever show you afterward is credible. Infrastructure relationships run on exactly that currency.",
       "Mechanically it's simple: export a query sample (no responses needed — Crowkis computes what it would have served and what the misses would have cost at your model prices), thirty minutes on a call, and you leave with the multiplication done by your own traffic.",
-      "The ask is one email to info.crowkis@gmail.com with 'Replay' in the subject. The worst case is a free, rigorous analysis of your LLM spend's shape. The usual case is the easiest infrastructure approval you'll file this year.",
+      "The ask is one email to contact@crowkis.com with 'Replay' in the subject. The worst case is a free, rigorous analysis of your LLM spend's shape. The usual case is the easiest infrastructure approval you'll file this year.",
     ],
     chart: "read-path",
   },

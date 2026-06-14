@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { SiteShell } from "@/components/layout/site-shell";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { CountUp } from "@/components/ui/count-up";
@@ -184,70 +183,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* founder */}
-      <section className="border-t-2 border-ink bg-paper-deep py-16 md:py-20">
-        <div className="section">
-          <p className="eyebrow">The founder</p>
-          <div className="mt-6 grid items-center gap-8 md:grid-cols-[200px_1fr]">
-            <div className="relative mx-auto md:mx-0">
-              <div className="overflow-hidden rounded-2xl border-2 border-ink shadow-block">
-                <Image
-                  src="/brand/founder.jpg"
-                  alt="Mohit Rohilla, founder of Crowkis"
-                  width={200}
-                  height={200}
-                  className="h-[200px] w-[200px] object-cover"
-                />
-              </div>
-              <svg
-                viewBox="0 0 16 12"
-                className="absolute -top-7 right-3 h-9 w-auto"
-                shapeRendering="crispEdges"
-                aria-hidden
-              >
-                <rect x="9" y="0" width="4" height="4" fill={INK} />
-                <rect x="13" y="1" width="2" height="1" fill={INK} />
-                <rect x="3" y="3" width="8" height="5" fill={INK} />
-                <rect x="0" y="3" width="3" height="2" fill={INK} />
-                <rect x="4" y="4" width="5" height="3" fill={WING} />
-                <rect x="6" y="8" width="1" height="2" fill={INK} />
-                <rect x="9" y="8" width="1" height="2" fill={INK} />
-                <rect x="11" y="1" width="1" height="1" fill={EYE} />
-              </svg>
-            </div>
-            <div>
-              <h2 className="font-display text-2xl font-bold">Mohit Rohilla</h2>
-              <p className="mt-1 font-mono text-xs text-ink-faint">
-                builder of Crowkis · Rust, caches, and one very opinionated crow
-              </p>
-              <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
-                &ldquo;I built Crowkis because every LLM team I met was overpaying for answers they
-                already had, and reaching for tools that couldn&apos;t tell when reuse was safe. So I
-                wrote a cache that understands meaning and refuses when it should — from the storage
-                engine up, in Rust. No meters, no phone-home, no nonsense. If it lands in your stack,
-                it should quietly save you money first and your time soon after.&rdquo;
-              </p>
-              <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-                <a
-                  href="https://www.linkedin.com/in/itsmohitrohilla/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="btn-secondary !py-2 text-sm"
-                >
-                  Connect on LinkedIn
-                </a>
-                <a
-                  href="mailto:info.crowkis@gmail.com?subject=Hi%20Mohit"
-                  className="btn-ghost !py-2 text-sm"
-                >
-                  info.crowkis@gmail.com →
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* connect CTA */}
       <section className="section py-16 md:py-24">
         <div className="card-block flex flex-col items-center gap-5 p-10 text-center">
@@ -255,17 +190,17 @@ export default function AboutPage() {
             Building with LLMs? Let&apos;s talk caches.
           </h2>
           <p className="max-w-lg text-sm text-ink-soft">
-            Questions, ideas, or just want to compare notes on semantic caching — the inbox is open.
+            Questions, ideas, or just want to compare notes on semantic caching — come say hi.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a href="mailto:info.crowkis@gmail.com?subject=Hello%20Crowkis" className="btn-primary">
-              Email us
-            </a>
+            <Link href="/contact" className="btn-primary">
+              Contact us
+            </Link>
             <Link href="/docker" className="btn-secondary">
               Run Crowkis free
             </Link>
           </div>
-          <p className="mt-2 font-mono text-xs text-ink-faint">info.crowkis@gmail.com</p>
+          <p className="mt-2 font-mono text-xs text-ink-faint">contact@crowkis.com</p>
         </div>
       </section>
     </SiteShell>

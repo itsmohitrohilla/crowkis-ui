@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "Crowkis is free to run. Enterprise is the layer that turns the cache into leverage — unlimited scale, compliance you can pass an audit with, smart provider routing, and a human on call. No checkout, a conversation.",
 };
 
-const DEMO_MAILTO = "mailto:info.crowkis@gmail.com?subject=Crowkis%20Enterprise%20%E2%80%94%20let%27s%20talk";
+const DEMO_MAILTO = "mailto:contact@crowkis.com?subject=Crowkis%20Enterprise%20%E2%80%94%20let%27s%20talk";
 
 const VALUE = [
   {
@@ -240,7 +240,7 @@ export default function EnterprisePage() {
               Or run it free now
             </Link>
           </div>
-          <p className="mt-2 font-mono text-xs text-ink-faint">info.crowkis@gmail.com</p>
+          <p className="mt-2 font-mono text-xs text-ink-faint">contact@crowkis.com</p>
         </div>
       </section>
     </SiteShell>

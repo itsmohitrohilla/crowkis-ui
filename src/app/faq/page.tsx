@@ -285,7 +285,7 @@ const GROUPS: Group[] = [
     items: [
       [
         "What does Crowkis cost?",
-        "Community is free forever — full engine, no license, no sign-up. Enterprise is flat per cluster per year, priced in one conversation: email info.crowkis@gmail.com and we'll get on a call. No usage metering, no per-seat math.",
+        "Community is free forever — full engine, no license, no sign-up. Enterprise is flat per cluster per year, priced in one conversation: email contact@crowkis.com and we'll get on a call. No usage metering, no per-seat math.",
       ],
       [
         "What counts as a cluster?",
@@ -305,7 +305,7 @@ const GROUPS: Group[] = [
       ],
       [
         "How do I buy or see a demo?",
-        "Email info.crowkis@gmail.com. For Enterprise we'll run Crowkis Replay on a sample of your own traffic during the call, so you see your real savings before spending anything.",
+        "Email contact@crowkis.com. For Enterprise we'll run Crowkis Replay on a sample of your own traffic during the call, so you see your real savings before spending anything.",
       ],
     ],
   },
@@ -408,7 +408,7 @@ export default function FaqPage() {
               </p>
             </div>
             <a
-              href="mailto:info.crowkis@gmail.com?subject=Crowkis%20question"
+              href="mailto:contact@crowkis.com?subject=Crowkis%20question"
               className="btn-primary shrink-0"
             >
               Ask us directly

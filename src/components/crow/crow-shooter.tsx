@@ -1,6 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { ArcadeAudio } from "./arcade-audio";
+
+const MUTE_KEY = "crowkis-arcade-muted";
 
 /**
  * BRAIN ROT: a full-screen crow shooter. Crows fly across the screen, you click
@@ -145,10 +148,12 @@ function weatherMs(w: Weather): number {
   return 8000 + Math.random() * 8000; // cloudy / rain
 }
 
-function ArcadeScene() {
+function ArcadeScene({ onWeather }: { onWeather?: (w: Weather) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const start = useRef(performance.now());
   const [weather, setWeather] = useState<Weather>("clear");
+  const onWeatherRef = useRef(onWeather);
+  onWeatherRef.current = onWeather;
 
   // random weather, re-rolled each spell
   useEffect(() => {
@@ -158,6 +163,7 @@ function ArcadeScene() {
     const step = () => {
       cur = nextWeather();
       setWeather(cur);
+      onWeatherRef.current?.(cur);
       to = setTimeout(step, weatherMs(cur));
     };
     to = setTimeout(step, 9000 + Math.random() * 8000); // start clear for a bit
@@ -377,7 +383,10 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
   const [best, setBest] = useState(0);
   const [combo, setCombo] = useState(0);
   const [time, setTime] = useState(ROUND_SECONDS);
+  const [muted, setMuted] = useState(false);
+  const [arcWeather, setArcWeather] = useState<Weather>("clear");
 
+  const audioRef = useRef<ArcadeAudio | null>(null);
   const modeRef = useRef<Mode>("idle");
   const scoreRef = useRef(0);
   const comboRef = useRef(0);
@@ -391,7 +400,31 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
 
   useEffect(() => {
     setBest(Number(localStorage.getItem(BEST_KEY) ?? 0));
+    const startMuted = localStorage.getItem(MUTE_KEY) === "1";
+    setMuted(startMuted);
+    const audio = new ArcadeAudio(startMuted);
+    audioRef.current = audio;
+    return () => audio.dispose();
   }, []);
+
+  // rain bed follows the sky
+  useEffect(() => {
+    const lvl = arcWeather === "storm" ? 0.75 : arcWeather === "rain" ? 0.4 : 0;
+    audioRef.current?.setRain(lvl);
+  }, [arcWeather]);
+
+  const toggleMute = () => {
+    setMuted((m) => {
+      const next = !m;
+      localStorage.setItem(MUTE_KEY, next ? "1" : "0");
+      const a = audioRef.current;
+      if (a) {
+        if (!next) a.resume(); // let the user switch sound on anytime
+        a.setMuted(next);
+      }
+      return next;
+    });
+  };
 
   const syncMeta = () => {
     setBirdMeta(birdsRef.current.map((b) => ({ id: b.id, facing: b.facing, frame: b.frame, golden: b.golden })));
@@ -416,6 +449,8 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
       golden,
       born: now,
     });
+    // the odd caw drifting in keeps the murder alive
+    if (Math.random() < 0.18) audioRef.current?.caw(golden);
     syncMeta();
   };
 
@@ -423,6 +458,7 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
     if (modeRef.current !== "playing") return;
     const bird = birdsRef.current.find((b) => b.id === id);
     if (!bird) return;
+    audioRef.current?.hit(bird.golden);
     const now = performance.now();
     const isCombo = now - lastKill.current < 1400;
     lastKill.current = now;
@@ -444,6 +480,7 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
 
   const endRound = useCallback(() => {
     setMode("over");
+    audioRef.current?.stopMusic();
     birdsRef.current = [];
     syncMeta();
     setBest((b) => {
@@ -463,6 +500,13 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
     syncMeta();
     startedAt.current = performance.now();
     lastSpawn.current = 0;
+    const a = audioRef.current;
+    if (a) {
+      a.resume();
+      a.startMusic();
+      const lvl = arcWeather === "storm" ? 0.75 : arcWeather === "rain" ? 0.4 : 0;
+      a.setRain(lvl);
+    }
     setMode("playing");
   };
 
@@ -542,7 +586,7 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
 
   return (
     <div ref={wrapRef} className="fixed inset-0 z-[100] cursor-crosshair overflow-hidden bg-paper">
-      <ArcadeScene />
+      <ArcadeScene onWeather={setArcWeather} />
       <div className="paper-grid pointer-events-none absolute inset-0 opacity-25" />
 
       {/* HUD — fixed high-contrast colours so it reads on any sky / theme */}
@@ -574,6 +618,17 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
               </p>
             </div>
           ) : null}
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-label={muted ? "turn sound on" : "turn sound off"}
+            aria-pressed={!muted}
+            title={muted ? "Sound off" : "Sound on"}
+            className="pointer-events-auto flex items-center gap-1.5 rounded-lg border-2 border-stone-900 bg-stone-50/95 px-3 py-2 font-mono text-xs font-semibold text-stone-900 shadow-[3px_3px_0_0_rgba(12,12,12,0.85)] transition hover:-translate-y-0.5"
+          >
+            <span className="text-base leading-none">{muted ? "🔇" : "🔊"}</span>
+            <span className="hidden sm:inline">{muted ? "off" : "on"}</span>
+          </button>
           <button
             type="button"
             onClick={onClose}
@@ -654,7 +709,9 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
             <button type="button" onClick={onClose} className="btn-ghost mt-2 w-full !py-2 text-sm">
               ← leave the aviary
             </button>
-            <p className="mt-2 font-mono text-[11px] text-ink-faint">space to start · esc to exit</p>
+            <p className="mt-2 font-mono text-[11px] text-ink-faint">
+              space to start · esc to exit · 🔊 sound toggle top-right
+            </p>
           </div>
         </div>
       ) : null}

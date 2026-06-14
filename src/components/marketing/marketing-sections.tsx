@@ -956,7 +956,7 @@ export function FounderSection() {
               Connect on LinkedIn
             </a>
             <a
-              href="mailto:info.crowkis@gmail.com?subject=Hi%20Mohit"
+              href="mailto:contact@crowkis.com?subject=Hi%20Mohit"
               className="btn-ghost !py-2 text-sm"
             >
               Or just email →

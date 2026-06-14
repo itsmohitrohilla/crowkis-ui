@@ -7,6 +7,7 @@ export const navLinks = [
   { label: "Enterprise", href: "/enterprise" },
   { label: "The Roost", href: "/roost" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const heroStats = [

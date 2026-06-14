@@ -139,7 +139,7 @@ export default function DocsHome() {
             Read the FAQ
           </Link>
           <a
-            href="mailto:info.crowkis@gmail.com?subject=Crowkis%20docs%20question"
+            href="mailto:contact@crowkis.com?subject=Crowkis%20docs%20question"
             className="btn-ghost !py-2 text-sm"
           >
             Email us →
