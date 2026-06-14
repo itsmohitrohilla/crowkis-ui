@@ -4,10 +4,23 @@ import { useState } from "react";
 
 const TO = "contact@crowkis.com";
 
+/** Gmail web compose — opens a real compose window in the browser, no desktop
+ *  mail app required (which is why a plain mailto: often appears to "do nothing"). */
+function gmailCompose(subject: string, body: string) {
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+    TO,
+  )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function mailto(subject: string, body: string) {
+  return `mailto:${TO}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 /**
- * A static marketing site has no backend, so the form composes a message and
- * hands it to the visitor's own mail app addressed to contact@crowkis.com — it
- * lands in the real inbox, nothing is stored or sent through a third party.
+ * A static marketing site has no backend, so the form composes the message and
+ * hands it off addressed to contact@crowkis.com. It opens Gmail's web compose in
+ * a new tab (reliable everywhere), and offers a mailto fallback for anyone who'd
+ * rather use their own mail app. Nothing is stored or routed through a third party.
  */
 export function ContactForm() {
   const [name, setName] = useState("");
@@ -15,21 +28,19 @@ export function ContactForm() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
 
-  const submit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const subject = `Crowkis — message from ${name || "a visitor"}`;
-    const body = [
-      message,
-      "",
-      "—",
-      name ? `From: ${name}` : null,
-      email ? `Reply to: ${email}` : null,
-    ]
+  const buildSubject = () => `Crowkis — message from ${name || "a visitor"}`;
+  const buildBody = () =>
+    [message, "", "—", name ? `From: ${name}` : null, email ? `Reply to: ${email}` : null]
       .filter(Boolean)
       .join("\n");
-    window.location.href = `mailto:${TO}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const subject = buildSubject();
+    const body = buildBody();
+    const win = window.open(gmailCompose(subject, body), "_blank", "noopener,noreferrer");
+    // popup blocked or no window → fall back to the OS mail handler
+    if (!win) window.location.href = mailto(subject, body);
     setSent(true);
   };
 
@@ -81,9 +92,17 @@ export function ContactForm() {
       </button>
 
       <p className="mt-3 text-center font-mono text-[11px] text-ink-faint">
-        {sent
-          ? "Opening your mail app — hit send and it reaches us."
-          : "Opens your mail app, addressed to contact@crowkis.com."}
+        {sent ? (
+          <>Opened a compose window — hit send and it reaches us.</>
+        ) : (
+          <>
+            Opens a Gmail compose window. Prefer your own mail app?{" "}
+            <a href={mailto(buildSubject(), buildBody())} className="font-semibold text-crow underline">
+              email us
+            </a>
+            .
+          </>
+        )}
       </p>
     </form>
   );

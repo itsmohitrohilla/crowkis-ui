@@ -229,7 +229,9 @@ export default function AboutPage() {
                   Our inbox is open and read by people, not bots.
                 </p>
                 <a
-                  href={`mailto:${EMAIL}?subject=Hello%20Crowkis`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=Hello%20Crowkis`}
+                  target="_blank"
+                  rel="noreferrer"
                   className="mt-4 inline-flex items-center gap-2 font-mono text-sm font-semibold text-crow"
                 >
                   {EMAIL} <span aria-hidden>→</span>
@@ -269,7 +271,11 @@ export default function AboutPage() {
                   savings before you commit.
                 </p>
                 <a
-                  href={`mailto:${EMAIL}?subject=Crowkis%20Enterprise%20%E2%80%94%20let%27s%20talk`}
+                  href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${encodeURIComponent(
+                    "Crowkis Enterprise — let's talk",
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
                   className="btn-secondary mt-4 !py-2 text-sm"
                 >
                   Book a call
