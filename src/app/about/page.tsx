@@ -4,8 +4,7 @@ import { TiltCard } from "@/components/ui/tilt-card";
 import { CountUp } from "@/components/ui/count-up";
 import { ContactForm } from "@/components/marketing/contact-form";
 
-// TODO: swap in the real invite once it's ready.
-const DISCORD_URL = "#";
+const DISCORD_URL = "https://discord.gg/cDSvfNCBJ";
 const EMAIL = "contact@crowkis.com";
 
 function DiscordMark({ className }: { className?: string }) {
