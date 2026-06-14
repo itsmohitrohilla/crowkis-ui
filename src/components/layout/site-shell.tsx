@@ -81,12 +81,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
           </div>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <a
-              href="mailto:contact@crowkis.com?subject=Crowkis%20Enterprise%20enquiry"
-              className="text-sm font-semibold text-ink-soft transition hover:text-ink"
-            >
-              Talk to sales
-            </a>
             <ThemeToggle />
             <Link href="/docs" className="btn-primary !px-4 !py-2">
               Get started
@@ -130,12 +124,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
               >
                 ▸ Arcade — brain-rot crow game
               </button>
-              <a
-                href="mailto:contact@crowkis.com?subject=Crowkis%20Enterprise%20enquiry"
-                className="touch-target rounded-lg border border-ink-line bg-paper-card px-3 py-2.5"
-              >
-                Talk to sales
-              </a>
               <Link
                 href="/docs"
                 onClick={() => setMenuOpen(false)}
@@ -200,7 +188,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 ["The Murder ▸ game", "/murder"],
                 ["Changelog", "/changelog"],
                 ["FAQ", "/faq"],
-                ["Talk to sales", "mailto:contact@crowkis.com?subject=Crowkis%20Enterprise%20enquiry"],
+                ["Contact", "/about#contact"],
               ],
             },
           ].map((col) => (
