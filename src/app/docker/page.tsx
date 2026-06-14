@@ -356,7 +356,7 @@ export default function DockerPage() {
                 ["Quickstart", "First commands against a running instance.", "/docs"],
                 ["Configuration", "Every environment variable, explained.", "/docs/configuration"],
                 ["MCP for AI apps", "Let Claude Code and agents use the cache.", "/docs/mcp"],
-                ["Pricing", "Community is free. Enterprise unlocks with a license file.", "/pricing"],
+                ["Pricing", "Community is free. Enterprise unlocks with a license file.", "/enterprise"],
               ].map(([title, desc, href]) => (
                 <Link key={href} href={href} className="card-quiet group p-5 transition-colors hover:border-ink">
                   <p className="font-display font-bold">

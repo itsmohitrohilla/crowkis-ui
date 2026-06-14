@@ -5,7 +5,7 @@ import { Reveal } from "@/components/ui/motion";
 export const metadata: Metadata = {
   title: "FAQ",
   description:
-    "Sixty straight answers about Crowkis: the problems it solves, what it can and cannot do, every enterprise feature, deployment, pricing, and security.",
+    "Sixty straight answers about Crowkis: the problems it solves, what it can and cannot do, every enterprise feature, deployment, editions, and security.",
 };
 
 type QA = [string, string];
@@ -280,7 +280,7 @@ const GROUPS: Group[] = [
   },
   {
     id: "pricing",
-    title: "Pricing & licensing",
+    title: "Editions & licensing",
     intro: "Flat, per cluster, no meter.",
     items: [
       [

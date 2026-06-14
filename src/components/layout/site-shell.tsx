@@ -178,7 +178,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               title: "Product",
               links: [
                 ["Overview", "/product"],
-                ["Enterprise", "/pricing"],
+                ["Enterprise", "/enterprise"],
                 ["Docker image", "/docker"],
                 ["Benchmarks", "/benchmarks"],
                 ["Security model", "/security"],
@@ -197,7 +197,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
             {
               title: "Company",
               links: [
-                ["The Roost", "/roost"],
+                                ["About", "/about"],
+["The Roost", "/roost"],
                 ["The Murder ▸ game", "/murder"],
                 ["Changelog", "/changelog"],
                 ["FAQ", "/faq"],

@@ -4,8 +4,9 @@ export const navLinks = [
   { label: "Docker", href: "/docker" },
   { label: "MCP", href: "/mcp" },
   { label: "Docs", href: "/docs" },
-  { label: "Enterprise", href: "/pricing" },
+  { label: "Enterprise", href: "/enterprise" },
   { label: "The Roost", href: "/roost" },
+  { label: "About", href: "/about" },
 ];
 
 export const heroStats = [
