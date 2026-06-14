@@ -9,7 +9,8 @@ const DOC_NAV: { group: string; items: [string, string][] }[] = [
   {
     group: "Getting started",
     items: [
-      ["Quickstart", "/docs"],
+      ["Overview", "/docs"],
+      ["Quickstart", "/docs/quickstart"],
       ["Docker deployment", "/docs/docker"],
     ],
   },

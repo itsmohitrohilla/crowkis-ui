@@ -353,7 +353,7 @@ export default function DockerPage() {
             <h2 className="font-display text-2xl font-bold">Where to next</h2>
             <div className="mt-5 grid gap-3">
               {[
-                ["Quickstart", "First commands against a running instance.", "/docs"],
+                ["Quickstart", "First commands against a running instance.", "/docs/quickstart"],
                 ["Configuration", "Every environment variable, explained.", "/docs/configuration"],
                 ["MCP for AI apps", "Let Claude Code and agents use the cache.", "/docs/mcp"],
                 ["Pricing", "Community is free. Enterprise unlocks with a license file.", "/enterprise"],

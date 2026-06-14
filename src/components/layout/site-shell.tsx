@@ -185,7 +185,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             {
               title: "Build",
               links: [
-                ["Quickstart", "/docs"],
+                ["Quickstart", "/docs/quickstart"],
                 ["Commands", "/docs/commands"],
                 ["Python SDK", "/docs/sdk-python"],
                 ["Node SDK", "/docs/sdk-node"],

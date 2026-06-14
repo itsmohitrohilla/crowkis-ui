@@ -115,7 +115,7 @@ docker compose down -v           # stop and remove the data volume
 docker exec -it crowkis crowkis cli   # REPL into the running server`}
       />
 
-      <DocPager prev={["Quickstart", "/docs"]} next={["Commands", "/docs/commands"]} />
+      <DocPager prev={["Quickstart", "/docs/quickstart"]} next={["Commands", "/docs/commands"]} />
     </article>
   );
 }

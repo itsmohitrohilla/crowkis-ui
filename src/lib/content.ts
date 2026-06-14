@@ -1,7 +1,7 @@
 export const navLinks = [
   { label: "Why", href: "/why" },
   { label: "Product", href: "/product" },
-  { label: "Docker", href: "/docker" },
+  { label: "Usage", href: "/docker" },
   { label: "MCP", href: "/mcp" },
   { label: "Docs", href: "/docs" },
   { label: "Enterprise", href: "/enterprise" },
