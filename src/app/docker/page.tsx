@@ -6,10 +6,12 @@ import { CodeTabs, CommandCard, CopyButton } from "@/components/ui/code-tabs";
 import { TiltCard } from "@/components/ui/tilt-card";
 
 export const metadata: Metadata = {
-  title: "Official Docker Image",
+  title: "Usage — Get Crowkis running",
   description:
-    "Run Crowkis in production with one hardened Docker image: non-root, read-only filesystem, dropped capabilities, built-in healthcheck, amd64 + arm64. Free Community edition, no license required.",
+    "Every way to use Crowkis: the official Docker image, the Python and Node SDKs, the CLI, and signed desktop/server downloads for macOS, Windows, and Linux. Free Community edition, no license required.",
 };
+
+const DOCKER_HUB = "https://hub.docker.com/r/crowkis/crowkis";
 
 const ENV_VARS: [string, string, string][] = [
   ["CROWKIS_ADMIN_KEY", "change-me-admin-key", "Auth key for the management API and dashboard metrics."],
@@ -134,6 +136,164 @@ function StepCard({
   );
 }
 
+/* ----------------------- ways to use + icons ----------------------- */
+
+function DockerMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="#fff" aria-hidden>
+      <rect x="3" y="10.5" width="3" height="3" /><rect x="7" y="10.5" width="3" height="3" />
+      <rect x="11" y="10.5" width="3" height="3" /><rect x="7" y="6.5" width="3" height="3" />
+      <rect x="11" y="6.5" width="3" height="3" />
+      <path d="M2 14.5h18c0 3-2.4 4.8-6 4.8H7.2C4 19.3 2 17.4 2 14.5z" />
+    </svg>
+  );
+}
+function PythonMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="#fff" aria-hidden>
+      <rect x="5" y="3.5" width="9" height="9" rx="2.6" />
+      <rect x="10" y="11.5" width="9" height="9" rx="2.6" opacity="0.8" />
+    </svg>
+  );
+}
+function NodeMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="#fff" aria-hidden>
+      <path d="M12 2.4l8.7 5v9.2L12 21.6 3.3 16.6V7.4z" />
+    </svg>
+  );
+}
+function CliMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" aria-hidden>
+      <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" fill="#fff" />
+      <path d="M6.5 9.5l3 2.5-3 2.5" fill="none" stroke="#16130e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <rect x="11.5" y="13.2" width="5.5" height="1.8" rx="0.9" fill="#16130e" />
+    </svg>
+  );
+}
+
+const WAYS: {
+  name: string;
+  tint: string;
+  mark: React.ReactNode;
+  cmd: string;
+  blurb: string;
+  href: string;
+  cta: string;
+}[] = [
+  {
+    name: "Docker",
+    tint: "#2496ED",
+    mark: <DockerMark />,
+    cmd: "docker pull crowkis/crowkis",
+    blurb: "The whole engine in one hardened image — the way to run it in production.",
+    href: "#run",
+    cta: "Run with Docker",
+  },
+  {
+    name: "Python",
+    tint: "#3776AB",
+    mark: <PythonMark />,
+    cmd: "pip install crowkis",
+    blurb: "Drop-in SDK: sync + async, get_or_compute, streaming. Cache LLM calls in three lines.",
+    href: "/docs/sdk-python",
+    cta: "Python guide",
+  },
+  {
+    name: "Node.js",
+    tint: "#5FA04E",
+    mark: <NodeMark />,
+    cmd: "npm install crowkis",
+    blurb: "Typed client with retry/backoff and a CachedOpenAI wrapper for TS and JS.",
+    href: "/docs/sdk-node",
+    cta: "Node guide",
+  },
+  {
+    name: "CLI",
+    tint: "#16130e",
+    mark: <CliMark />,
+    cmd: "crowkis cli",
+    blurb: "The command line — talk to any instance, script it, pipe it. Ships in the binary.",
+    href: "/docs/commands",
+    cta: "Command reference",
+  },
+];
+
+function AppleMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="#fff" aria-hidden>
+      <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.7 1.1 8.9.7 1.1 1.6 2.3 2.8 2.2 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.3-.9-2.3-3.7zM14.2 5.8c.6-.8 1-1.8.9-2.9-.9 0-2 .6-2.6 1.3-.6.7-1.1 1.7-.9 2.8 1 0 2-.5 2.6-1.2z" />
+    </svg>
+  );
+}
+function WindowsMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="#fff" aria-hidden>
+      <rect x="3" y="3" width="8.2" height="8.2" /><rect x="12.8" y="3" width="8.2" height="8.2" />
+      <rect x="3" y="12.8" width="8.2" height="8.2" /><rect x="12.8" y="12.8" width="8.2" height="8.2" />
+    </svg>
+  );
+}
+function LinuxMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
+      <ellipse cx="12" cy="13" rx="6.4" ry="7.6" fill="#fff" />
+      <ellipse cx="12" cy="15" rx="3.6" ry="4.8" fill="#f7d04a" />
+      <circle cx="9.8" cy="9.5" r="1.5" fill="#16130e" />
+      <circle cx="14.2" cy="9.5" r="1.5" fill="#16130e" />
+      <path d="M10.4 11.6l1.6 1.2 1.6-1.2-1.6-1z" fill="#f59e0b" />
+      <ellipse cx="9" cy="20.5" rx="2" ry="1.1" fill="#f59e0b" />
+      <ellipse cx="15" cy="20.5" rx="2" ry="1.1" fill="#f59e0b" />
+    </svg>
+  );
+}
+
+const INSTALLS: {
+  os: string;
+  method: string;
+  tint: string;
+  mark: React.ReactNode;
+  steps: { cmd: string; note?: string }[];
+  hint?: string;
+}[] = [
+  {
+    os: "macOS",
+    method: "Homebrew",
+    tint: "#16130e",
+    mark: <AppleMark />,
+    steps: [{ cmd: "brew install crowkis/tap/crowkis" }],
+  },
+  {
+    os: "Linux",
+    method: "Homebrew or script",
+    tint: "#26282c",
+    mark: <LinuxMark />,
+    steps: [
+      { cmd: "brew install crowkis/tap/crowkis", note: "with Homebrew" },
+      { cmd: "curl -fsSL https://get.crowkis.io/crowkis-linux.sh | sh", note: "or, no Homebrew" },
+    ],
+  },
+  {
+    os: "Windows",
+    method: "Scoop",
+    tint: "#0078D6",
+    mark: <WindowsMark />,
+    steps: [
+      { cmd: "scoop bucket add crowkis https://github.com/crowkis/scoop-bucket" },
+      { cmd: "scoop install crowkis" },
+    ],
+  },
+  {
+    os: "Docker",
+    method: "Any system",
+    tint: "#2496ED",
+    mark: <DockerMark />,
+    hint: "works today · no setup",
+    steps: [{ cmd: "docker run -d -p 6383:6383 -p 6384:6384 crowkis/crowkis" }],
+  },
+];
+
 export default function DockerPage() {
   return (
     <SiteShell>
@@ -142,9 +302,14 @@ export default function DockerPage() {
         <div className="section grid items-center gap-10 py-14 lg:grid-cols-[1fr_1.1fr] md:py-20">
           <Reveal>
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-md border-2 border-ink bg-paper-card px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider">
-                Official image
-              </span>
+              <a
+                href={DOCKER_HUB}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-md border-2 border-ink bg-paper-card px-2.5 py-1 font-mono text-[11px] font-bold uppercase tracking-wider transition hover:bg-ink hover:text-paper"
+              >
+                Official image ↗
+              </a>
               <span className="rounded-md border border-ink-line bg-paper-card px-2.5 py-1 font-mono text-[11px] text-ink-soft">
                 amd64 · arm64
               </span>
@@ -168,12 +333,12 @@ export default function DockerPage() {
               boot.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="#run" className="btn-primary">
-                Get running
+              <a href="#ways" className="btn-primary">
+                Ways to use it
               </a>
-              <Link href="/docs" className="btn-secondary">
-                Read the quickstart
-              </Link>
+              <a href="#download" className="btn-secondary">
+                Install Crowkis
+              </a>
             </div>
           </Reveal>
           <Reveal delay={0.1}>
@@ -201,8 +366,105 @@ export default function DockerPage() {
         </div>
       </section>
 
+      {/* ways to use */}
+      <section id="ways" className="section scroll-mt-24 py-14 md:py-20">
+        <Reveal>
+          <div className="max-w-2xl">
+            <p className="eyebrow">Four ways in</p>
+            <h2 className="responsive-title mt-3">Make Crowkis part of your stack.</h2>
+            <p className="responsive-subtitle mt-4">
+              Run the engine with Docker, or reach it from your code with the SDKs and CLI. Pick the
+              one that fits — they all talk to the same cache.
+            </p>
+          </div>
+        </Reveal>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {WAYS.map((w) => (
+            <TiltCard key={w.name} className="flex h-full flex-col p-6" max={6}>
+              <div className="flex items-center gap-3">
+                <span
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-ink shadow-block-sm"
+                  style={{ background: w.tint }}
+                >
+                  {w.mark}
+                </span>
+                <h3 className="font-display text-lg font-bold">{w.name}</h3>
+              </div>
+              <p className="mt-4 flex-1 text-[13.5px] leading-relaxed text-ink-soft">{w.blurb}</p>
+              <div className="mt-4">
+                <CommandCard command={w.cmd} />
+              </div>
+              {w.href.startsWith("#") ? (
+                <a href={w.href} className="group mt-3 font-mono text-xs font-semibold text-crow">
+                  {w.cta} <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                </a>
+              ) : (
+                <Link href={w.href} className="group mt-3 font-mono text-xs font-semibold text-crow">
+                  {w.cta} <span className="transition-transform group-hover:translate-x-0.5">→</span>
+                </Link>
+              )}
+            </TiltCard>
+          ))}
+        </div>
+      </section>
+
+      {/* install */}
+      <section id="download" className="scroll-mt-24 border-y-2 border-ink bg-paper-deep py-14 md:py-20">
+        <div className="section">
+          <Reveal>
+            <div className="max-w-2xl">
+              <p className="eyebrow">One command per platform</p>
+              <h2 className="responsive-title mt-3">Install Crowkis.</h2>
+              <p className="responsive-subtitle mt-4">
+                Native installs through the package manager you already use — or the Docker image,
+                which works today with no setup. Same engine either way.
+              </p>
+            </div>
+          </Reveal>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {INSTALLS.map((d) => (
+              <div key={d.os} className="card-block flex flex-col p-6">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-ink shadow-block-sm"
+                      style={{ background: d.tint }}
+                    >
+                      {d.mark}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-xl font-bold">{d.os}</h3>
+                      <p className="font-mono text-[11px] text-ink-faint">{d.method}</p>
+                    </div>
+                  </div>
+                  {d.hint ? (
+                    <span className="rounded-md border-2 border-ink bg-crow px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
+                      {d.hint}
+                    </span>
+                  ) : null}
+                </div>
+                <div className="mt-5">
+                  {d.steps.map((s, i) => (
+                    <div key={i} className={i > 0 ? "mt-3" : ""}>
+                      {s.note ? (
+                        <p className="mb-1.5 font-mono text-[11px] text-ink-faint">{s.note}</p>
+                      ) : null}
+                      <CommandCard command={s.cmd} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 font-mono text-xs text-ink-faint">
+            Every build is signed, with checksums published alongside the release. Latest stable ·
+            macOS · Linux · Windows · Docker.
+          </p>
+        </div>
+      </section>
+
       {/* run + compose tabs */}
-      <section id="run" className="section scroll-mt-24 pb-4">
+      <section id="run" className="section scroll-mt-24 pt-14 md:pt-20">
         <div className="grid items-start gap-8 lg:grid-cols-[1fr_1.2fr]">
           <Reveal>
             <p className="eyebrow">Step 1 · run it</p>
@@ -356,7 +618,7 @@ export default function DockerPage() {
                 ["Quickstart", "First commands against a running instance.", "/docs/quickstart"],
                 ["Configuration", "Every environment variable, explained.", "/docs/configuration"],
                 ["MCP for AI apps", "Let Claude Code and agents use the cache.", "/docs/mcp"],
-                ["Pricing", "Community is free. Enterprise unlocks with a license file.", "/enterprise"],
+                ["Enterprise", "Community is free. Enterprise unlocks with a license file.", "/enterprise"],
               ].map(([title, desc, href]) => (
                 <Link key={href} href={href} className="card-quiet group p-5 transition-colors hover:border-ink">
                   <p className="font-display font-bold">
