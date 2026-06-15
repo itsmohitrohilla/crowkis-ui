@@ -5,6 +5,7 @@ import { Reveal } from "@/components/ui/motion";
 import { CodeTabs, CommandCard, CopyButton } from "@/components/ui/code-tabs";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { WaysSelector, type Way } from "@/components/marketing/ways-selector";
+import { InstallPicker, type Install } from "@/components/marketing/install-picker";
 
 export const metadata: Metadata = {
   title: "Usage — Get Crowkis running",
@@ -242,14 +243,7 @@ function LinuxMark() {
   );
 }
 
-const INSTALLS: {
-  os: string;
-  method: string;
-  tint: string;
-  mark: React.ReactNode;
-  steps: { cmd: string; note?: string }[];
-  hint?: string;
-}[] = [
+const INSTALLS: Install[] = [
   {
     os: "macOS",
     method: "Homebrew",
@@ -343,9 +337,9 @@ export default function DockerPage() {
       {/* ports */}
       <section className="section py-12 md:py-16">
         <p className="eyebrow">Three ports, three surfaces</p>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
+        <div className="mt-5 grid items-stretch gap-4 md:grid-cols-3">
           {PORTS.map(([port, proto, desc, color]) => (
-            <TiltCard key={port} className="p-5" max={6}>
+            <TiltCard key={port} className="h-full p-5" max={6}>
               <div className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-sm" style={{ background: color }} aria-hidden />
                 <p className="font-mono text-2xl font-bold">
@@ -389,40 +383,8 @@ export default function DockerPage() {
               </p>
             </div>
           </Reveal>
-          <div className="mt-10 grid gap-5 md:grid-cols-2">
-            {INSTALLS.map((d) => (
-              <div key={d.os} className="card-block flex flex-col p-6">
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border-2 border-ink shadow-block-sm"
-                      style={{ background: d.tint }}
-                    >
-                      {d.mark}
-                    </span>
-                    <div>
-                      <h3 className="font-display text-xl font-bold">{d.os}</h3>
-                      <p className="font-mono text-[11px] text-ink-faint">{d.method}</p>
-                    </div>
-                  </div>
-                  {d.hint ? (
-                    <span className="rounded-md border-2 border-ink bg-crow px-2 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
-                      {d.hint}
-                    </span>
-                  ) : null}
-                </div>
-                <div className="mt-5">
-                  {d.steps.map((s, i) => (
-                    <div key={i} className={i > 0 ? "mt-3" : ""}>
-                      {s.note ? (
-                        <p className="mb-1.5 font-mono text-[11px] text-ink-faint">{s.note}</p>
-                      ) : null}
-                      <CommandCard command={s.cmd} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+          <div className="mt-10">
+            <InstallPicker installs={INSTALLS} />
           </div>
           <p className="mt-6 font-mono text-xs text-ink-faint">
             Every build is signed, with checksums published alongside the release. Latest stable ·
