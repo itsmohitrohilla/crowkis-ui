@@ -58,8 +58,8 @@ export function CodeTabs({
 export function CommandCard({ command, note }: { command: string; note?: string }) {
   return (
     <div className="code-panel">
-      <div className="flex items-center justify-between gap-3 p-4 sm:p-5">
-        <code className="overflow-x-auto whitespace-pre font-mono text-[13px] text-stone-200">
+      <div className="flex items-start justify-between gap-3 p-4 sm:p-5">
+        <code className="min-w-0 flex-1 whitespace-pre-wrap [overflow-wrap:anywhere] font-mono text-[13px] leading-relaxed text-stone-200">
           <span className="tok-dim">$ </span>
           {command}
         </code>

@@ -4,6 +4,7 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/ui/motion";
 import { CodeTabs, CommandCard, CopyButton } from "@/components/ui/code-tabs";
 import { TiltCard } from "@/components/ui/tilt-card";
+import { WaysSelector, type Way } from "@/components/marketing/ways-selector";
 
 export const metadata: Metadata = {
   title: "Usage — Get Crowkis running",
@@ -173,15 +174,7 @@ function CliMark() {
   );
 }
 
-const WAYS: {
-  name: string;
-  tint: string;
-  mark: React.ReactNode;
-  cmd: string;
-  blurb: string;
-  href: string;
-  cta: string;
-}[] = [
+const WAYS: Way[] = [
   {
     name: "Docker",
     tint: "#2496ED",
@@ -378,33 +371,8 @@ export default function DockerPage() {
             </p>
           </div>
         </Reveal>
-        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {WAYS.map((w) => (
-            <TiltCard key={w.name} className="flex h-full flex-col p-6" max={6}>
-              <div className="flex items-center gap-3">
-                <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border-2 border-ink shadow-block-sm"
-                  style={{ background: w.tint }}
-                >
-                  {w.mark}
-                </span>
-                <h3 className="font-display text-lg font-bold">{w.name}</h3>
-              </div>
-              <p className="mt-4 flex-1 text-[13.5px] leading-relaxed text-ink-soft">{w.blurb}</p>
-              <div className="mt-4">
-                <CommandCard command={w.cmd} />
-              </div>
-              {w.href.startsWith("#") ? (
-                <a href={w.href} className="group mt-3 font-mono text-xs font-semibold text-crow">
-                  {w.cta} <span className="transition-transform group-hover:translate-x-0.5">→</span>
-                </a>
-              ) : (
-                <Link href={w.href} className="group mt-3 font-mono text-xs font-semibold text-crow">
-                  {w.cta} <span className="transition-transform group-hover:translate-x-0.5">→</span>
-                </Link>
-              )}
-            </TiltCard>
-          ))}
+        <div className="mt-10">
+          <WaysSelector ways={WAYS} />
         </div>
       </section>
 
