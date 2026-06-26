@@ -1,9 +1,40 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
-import { CopyButton, CommandCard } from "@/components/ui/code-tabs";
-import { InstallPicker, type Install } from "@/components/marketing/install-picker";
+import { Mermaid } from "@/components/ui/mermaid";
 import Cubes from "@/components/ui/cubes";
+
+const BRAIN_DIAGRAM = `flowchart LR
+  C["a conversation"] --> X["extract<br/>durable facts"]
+  X --> CN["consolidate<br/>retire contradictions"]
+  CN --> ST["memory store<br/>(agent, user) · bounded · persists"]
+  ST --> G["graph edges<br/>subject → relation → object"]
+  Q["a new question"] --> R["semantic recall<br/>+ cross-encoder rerank"]
+  ST --> R
+  G --> R
+  R --> A["the right fact, right now"]
+  style A fill:#fbe9e8,stroke:#d62221,stroke-width:2.5px
+  style ST fill:#f3eee5,stroke:#16130e,stroke-width:2px`;
+
+// How Crowkis memory compares to the dedicated memory tools (as of June 2026;
+// competitor capabilities vary by plan and version).
+const COMPARE_ROWS: { feature: string; crowkis: string; mem0: string; zep: string; letta: string }[] = [
+  { feature: "Runs fully self-hosted", crowkis: "yes", mem0: "partial", zep: "partial", letta: "yes" },
+  { feature: "Zero external API calls (local models)", crowkis: "yes", mem0: "no", zep: "no", letta: "partial" },
+  { feature: "Consolidates contradictions", crowkis: "yes", mem0: "yes", zep: "yes", letta: "partial" },
+  { feature: "Bi-temporal recall (as-of a past time)", crowkis: "yes", mem0: "partial", zep: "yes", letta: "partial" },
+  { feature: "Graph memory", crowkis: "yes", mem0: "yes", zep: "yes", letta: "partial" },
+  { feature: "Cross-encoder reranking", crowkis: "yes", mem0: "partial", zep: "partial", letta: "no" },
+  { feature: "Also a Redis-compatible cache", crowkis: "yes", mem0: "no", zep: "no", letta: "no" },
+  { feature: "Guardrails + evals built in", crowkis: "yes", mem0: "no", zep: "no", letta: "no" },
+  { feature: "Reasoning reuse", crowkis: "yes", mem0: "no", zep: "no", letta: "no" },
+];
+
+function Mark({ v }: { v: string }) {
+  if (v === "yes") return <span className="font-bold text-crow" aria-label="yes">●</span>;
+  if (v === "partial") return <span className="text-ink-faint" aria-label="partial">◐</span>;
+  return <span className="text-ink-line" aria-label="no">○</span>;
+}
 
 export const metadata: Metadata = {
   title: "Agent Memory",
@@ -99,90 +130,6 @@ const longmem: { label: string; v: number }[] = [
   { label: "Single-session user", v: 81.8 },
   { label: "Multi-session", v: 76.2 },
   { label: "Single-session preference", v: 60.0 },
-];
-
-/* platform marks for the install picker */
-function AppleMark() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="#fff" aria-hidden>
-      <path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-2.9.9-3.7 2.3-1.6 2.7-.4 6.7 1.1 8.9.7 1.1 1.6 2.3 2.8 2.2 1.1 0 1.5-.7 2.9-.7 1.3 0 1.7.7 2.9.7 1.2 0 2-1.1 2.7-2.1.8-1.2 1.2-2.4 1.2-2.5-.1 0-2.3-.9-2.3-3.7zM14.2 5.8c.6-.8 1-1.8.9-2.9-.9 0-2 .6-2.6 1.3-.6.7-1.1 1.7-.9 2.8 1 0 2-.5 2.6-1.2z" />
-    </svg>
-  );
-}
-function WindowsMark() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" fill="#fff" aria-hidden>
-      <rect x="3" y="3" width="8.2" height="8.2" />
-      <rect x="12.8" y="3" width="8.2" height="8.2" />
-      <rect x="3" y="12.8" width="8.2" height="8.2" />
-      <rect x="12.8" y="12.8" width="8.2" height="8.2" />
-    </svg>
-  );
-}
-function LinuxMark() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-7 w-7" aria-hidden>
-      <ellipse cx="12" cy="13" rx="6.4" ry="7.6" fill="#fff" />
-      <ellipse cx="12" cy="15" rx="3.6" ry="4.8" fill="#f7d04a" />
-      <circle cx="9.8" cy="9.5" r="1.5" fill="#16130e" />
-      <circle cx="14.2" cy="9.5" r="1.5" fill="#16130e" />
-      <ellipse cx="9" cy="20.5" rx="2" ry="1.1" fill="#f59e0b" />
-      <ellipse cx="15" cy="20.5" rx="2" ry="1.1" fill="#f59e0b" />
-    </svg>
-  );
-}
-function DockerMark() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="#fff" aria-hidden>
-      <rect x="3" y="10.5" width="3" height="3" />
-      <rect x="7" y="10.5" width="3" height="3" />
-      <rect x="11" y="10.5" width="3" height="3" />
-      <rect x="7" y="6.5" width="3" height="3" />
-      <rect x="11" y="6.5" width="3" height="3" />
-      <path d="M2 14.5h18c0 3-2.4 4.8-6 4.8H7.2C4 19.3 2 17.4 2 14.5z" />
-    </svg>
-  );
-}
-
-const INSTALLS: Install[] = [
-  {
-    os: "macOS",
-    method: "Homebrew",
-    tint: "#16130e",
-    mark: <AppleMark />,
-    steps: [
-      { cmd: "brew install crowkis/tap/crowkis", note: "install the engine + CLI" },
-      { cmd: "crowkis server", note: "start it — RESP on :6379, dashboard on :6380" },
-    ],
-  },
-  {
-    os: "Linux",
-    method: "Homebrew or script",
-    tint: "#26282c",
-    mark: <LinuxMark />,
-    steps: [
-      { cmd: "brew install crowkis/tap/crowkis", note: "with Homebrew" },
-      { cmd: "curl -fsSL https://get.crowkis.io/crowkis-linux.sh | sh", note: "or, no Homebrew" },
-    ],
-  },
-  {
-    os: "Windows",
-    method: "Scoop",
-    tint: "#0078D6",
-    mark: <WindowsMark />,
-    steps: [
-      { cmd: "scoop bucket add crowkis https://github.com/crowkis/scoop-bucket" },
-      { cmd: "scoop install crowkis" },
-    ],
-  },
-  {
-    os: "Docker",
-    method: "Any system",
-    tint: "#2496ED",
-    mark: <DockerMark />,
-    hint: "works today · no setup",
-    steps: [{ cmd: "docker run -d -p 6379:6379 -p 6380:6380 crowkis/crowkis" }],
-  },
 ];
 
 function Stat({ value, label }: { value: string; label: string }) {
@@ -473,6 +420,19 @@ export default function AgentMemoryPage() {
             Six design decisions separate a memory layer from a vector dump. Each one is a default you
             can tune, not a black box you have to trust.
           </p>
+
+          {/* the memory "brain" — one fact's journey from conversation to recall */}
+          <figure className="card-block mt-9 overflow-hidden !p-0">
+            <figcaption className="border-b-2 border-ink bg-paper-card px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+              the memory brain — how a fact gets in, and back out
+            </figcaption>
+            <Mermaid chart={BRAIN_DIAGRAM} />
+            <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
+              Facts flow left-to-right into the store; a question pulls them back through recall and
+              reranking. Consolidation keeps the picture current; the graph keeps it connected.
+            </p>
+          </figure>
+
           <div className="mt-9 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {mechanics.map((m, i) => (
               <div key={m.title} className="card-block p-5">
@@ -624,71 +584,97 @@ export default function AgentMemoryPage() {
         </div>
       </section>
 
-      {/* ── Install ───────────────────────────────────────────────────── */}
-      <section id="install" className="section scroll-mt-24 py-16 md:py-20">
-        <span className="eyebrow">One command per platform</span>
-        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">Get Crowkis running</h2>
+      {/* ── Why Crowkis vs the memory tools ───────────────────────────── */}
+      <section className="section py-16 md:py-20">
+        <span className="eyebrow">Why Crowkis</span>
+        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">
+          How it compares to the dedicated memory tools
+        </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
-          Install the engine and CLI through the package manager you already use, or run the Docker
-          image — same engine either way. Then talk to it with any Redis client.
+          Mem0, Zep, and Letta are good at memory — but they&apos;re memory <em>only</em>, and most
+          lean on a hosted API or an external model to do their work. Crowkis matches them on the
+          memory features and adds the part nobody else has: it&apos;s also your{" "}
+          <span className="font-semibold text-ink">cache, your guardrails, and your gateway</span> —
+          one self-hosted binary, with nothing leaving your machine.
         </p>
-        <div className="mt-9">
-          <InstallPicker installs={INSTALLS} />
+
+        <div className="card-block mt-9 overflow-hidden !p-0">
+          <div className="table-scroll">
+            <table className="w-full min-w-[640px] text-left text-sm">
+              <thead>
+                <tr className="border-b-2 border-ink bg-paper-deep font-display">
+                  <th className="px-5 py-3.5 font-bold">Capability</th>
+                  <th className="px-4 py-3.5 text-center font-bold text-crow">Crowkis</th>
+                  <th className="px-4 py-3.5 text-center font-bold">Mem0</th>
+                  <th className="px-4 py-3.5 text-center font-bold">Zep</th>
+                  <th className="px-4 py-3.5 text-center font-bold">Letta</th>
+                </tr>
+              </thead>
+              <tbody>
+                {COMPARE_ROWS.map((r) => (
+                  <tr key={r.feature} className="border-b border-ink-line last:border-0">
+                    <td className="px-5 py-3 text-ink-soft">{r.feature}</td>
+                    <td className="bg-crow-tint/40 px-4 py-3 text-center text-base">
+                      <Mark v={r.crowkis} />
+                    </td>
+                    <td className="px-4 py-3 text-center text-base">
+                      <Mark v={r.mem0} />
+                    </td>
+                    <td className="px-4 py-3 text-center text-base">
+                      <Mark v={r.zep} />
+                    </td>
+                    <td className="px-4 py-3 text-center text-base">
+                      <Mark v={r.letta} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div className="flex flex-wrap items-center gap-4 border-t border-ink-line px-5 py-3 font-mono text-[11px] text-ink-faint">
+            <span className="flex items-center gap-1.5">
+              <span className="font-bold text-crow">●</span> yes
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-ink-faint">◐</span> partial / plan-dependent
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-ink-line">○</span> no
+            </span>
+            <span className="ml-auto italic">As of June 2026; competitor features vary by plan &amp; version.</span>
+          </div>
         </div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <CommandCard command="crowkis cli" note="the built-in REPL — ships in the binary" />
-          <CommandCard command="crowkis cli 127.0.0.1:6379" note="point it at any running instance" />
-        </div>
-        <p className="mt-5 font-mono text-xs text-ink-faint">
-          Every build is signed, with checksums published alongside the release · macOS · Linux ·
-          Windows · Docker.
+
+        <p className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-soft">
+          Honest take: on raw headline recall, the hosted leaders post strong numbers too. Crowkis
+          wins on a different axis — comparable recall while running{" "}
+          <span className="font-semibold text-ink">fully local with zero egress</span>, and folding
+          memory, semantic caching, guardrails, evals, and an AI gateway into one Redis-compatible
+          process instead of four services to wire together.
         </p>
       </section>
 
-      {/* ── Quickstart ────────────────────────────────────────────────── */}
+      {/* ── Closing CTA ───────────────────────────────────────────────── */}
       <section className="border-t-2 border-ink bg-paper-deep">
         <div className="section py-16 md:py-20">
-          <span className="eyebrow">Four lines</span>
-          <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">
-            Give an agent a memory in four lines
-          </h2>
-          <div className="code-panel mt-8">
-            <div className="code-chrome justify-between">
-              <span>crowkis cli · port 6379</span>
-              <CopyButton
-                text={`CMEMSET support u_42 "prefers email over phone"
-CMEMSET support u_42 "moved to Berlin in March"
-CMEMSET support u_42 "no longer in Munich"
-CMEMGET support u_42 "where does this customer live?" K 1`}
-              />
+          <div className="card-block flex flex-col items-start gap-4 p-8 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h2 className="font-display text-2xl font-bold tracking-tight">
+                Give your agents a memory that lasts.
+              </h2>
+              <p className="mt-2 max-w-xl text-ink-soft">
+                Self-hosted, zero-egress, and free to run. Install it from the Usage page and the
+                CMEM commands are live in seconds.
+              </p>
             </div>
-            <pre>
-              <span className="tok-dim"># teach it three things across a conversation</span>
-              {"\n"}
-              <span className="tok-cmd">CMEMSET</span> support u_42{" "}
-              <span className="tok-str">&quot;prefers email over phone&quot;</span>
-              {"\n"}
-              <span className="tok-cmd">CMEMSET</span> support u_42{" "}
-              <span className="tok-str">&quot;moved to Berlin in March&quot;</span>
-              {"\n"}
-              <span className="tok-cmd">CMEMSET</span> support u_42{" "}
-              <span className="tok-str">&quot;no longer in Munich&quot;</span>
-              {"\n\n"}
-              <span className="tok-dim"># ask — consolidation already retired &quot;Munich&quot;</span>
-              {"\n"}
-              <span className="tok-cmd">CMEMGET</span> support u_42{" "}
-              <span className="tok-str">&quot;where does this customer live?&quot;</span> K 1
-              {"\n"}
-              <span className="tok-ok">→ &quot;moved to Berlin in March&quot;</span>
-            </pre>
-          </div>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/docs" className="btn-primary">
-              Read the docs
-            </Link>
-            <Link href="/roost/csession-multi-turn-memory" className="btn-secondary">
-              More on memory & sessions →
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/docker" className="btn-primary">
+                Install Crowkis
+              </Link>
+              <Link href="/roost/csession-multi-turn-memory" className="btn-secondary">
+                Memory &amp; sessions →
+              </Link>
+            </div>
           </div>
         </div>
       </section>

@@ -1,35 +1,12 @@
 export const navLinks = [
   { label: "Why", href: "/why" },
   { label: "Product", href: "/product" },
+  { label: "Features", href: "/features" },
   { label: "Usage", href: "/docker" },
   { label: "Docs", href: "/docs" },
   { label: "Enterprise", href: "/enterprise" },
   { label: "The Roost", href: "/roost" },
   { label: "About", href: "/about" },
-];
-
-/** GTM feature pages, grouped under the "Features" nav menu. (MCP lives under Usage.) */
-export const featureMenu = [
-  {
-    label: "Agent Memory",
-    href: "/agent-memory",
-    desc: "Long-term memory that survives restarts",
-  },
-  {
-    label: "Reasoning reuse",
-    href: "/roost/cthink-creuse-reasoning-store",
-    desc: "Cache the thinking, not just the answer",
-  },
-  {
-    label: "Guardrails & evals",
-    href: "/roost/how-to-use-cguard",
-    desc: "CGUARD, COUTCHECK, CEVAL — local, zero-egress",
-  },
-  {
-    label: "AI Gateway",
-    href: "/roost/ai-gateway-openai-compatible",
-    desc: "Drop-in semantic cache for any OpenAI API",
-  },
 ];
 
 export const heroStats = [

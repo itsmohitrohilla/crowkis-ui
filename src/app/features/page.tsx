@@ -1,6 +1,45 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
+import Cubes from "@/components/ui/cubes";
+
+/* The Crowkis pixel crow — same house mark used on the About page. */
+const INK = "#16130e";
+const WING = "#37322a";
+const EYE = "#d62221";
+const CROW_PX: [number, number, number, number, string?][] = [
+  [10, 0, 1, 1, EYE], // crest
+  [12, 0, 1, 1, INK],
+  [9, 1, 4, 4], // head
+  [10, 2, 1, 1, "eye"],
+  [13, 2, 3, 1], // beak
+  [13, 3, 2, 1],
+  [8, 3, 2, 1], // neck
+  [3, 4, 9, 5], // body
+  [0, 4, 3, 2], // tail
+  [0, 6, 2, 1],
+  [5, 5, 5, 3, WING], // wing
+  [6, 9, 1, 2], // legs
+  [9, 9, 1, 2],
+  [5, 11, 2, 1], // feet
+  [9, 11, 2, 1],
+];
+
+function PixelCrow() {
+  return (
+    <svg
+      viewBox="0 0 16 12"
+      className="h-auto w-full max-w-[260px]"
+      shapeRendering="crispEdges"
+      role="img"
+      aria-label="Crowkis pixel crow"
+    >
+      {CROW_PX.map(([x, y, w, h, fill], i) => (
+        <rect key={i} x={x} y={y} width={w} height={h} fill={fill === "eye" ? EYE : (fill ?? INK)} />
+      ))}
+    </svg>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Features — everything Crowkis does",
@@ -22,6 +61,20 @@ export const metadata: Metadata = {
 
 type Feature = { name: string; desc: string; href: string };
 type Group = { eyebrow: string; title: string; blurb: string; items: Feature[] };
+
+// GTM features that are hot in the AI market right now (agent memory, MCP, RAG,
+// guardrails, evals, gateways, reasoning reuse) — flagged so buyers spot them fast.
+const TRENDING = new Set<string>([
+  "Agent memory",
+  "Reasoning reuse",
+  "MCP for AI apps",
+  "Multimodal cache",
+  "Input guardrails (CGUARD)",
+  "Online evals (CEVAL)",
+  "AI Gateway",
+  "Self-hosted RAG (CDOC)",
+  "Semantic + structural matching",
+]);
 
 const GROUPS: Group[] = [
   {
@@ -207,13 +260,22 @@ export default function FeaturesPage() {
     <SiteShell>
       {/* hero */}
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
-        <div className="section py-16 md:py-20">
+        <div className="section grid items-center gap-10 py-16 md:py-20 lg:grid-cols-[1.25fr_0.75fr]">
+          <div>
           <span className="eyebrow">Features</span>
           <h1 className="responsive-title mt-4 max-w-3xl">Everything Crowkis does, on one page.</h1>
           <p className="responsive-subtitle mt-5 max-w-2xl">
             A semantic cache that understands meaning, long-term memory for your agents, guardrails
             that say no, and the Rust engine that makes it all sub-millisecond — every capability,
             grouped and linked.
+          </p>
+          <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-soft">
+            The ones marked{" "}
+            <span className="rounded-md border-2 border-ink bg-crow px-1.5 py-0.5 align-middle font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
+              ▲ Trending
+            </span>{" "}
+            are what the AI market is buying right now — agent memory, MCP, RAG, guardrails, evals,
+            and gateways. Crowkis ships them all in one self-hosted, zero-egress binary.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link href="/agent-memory" className="btn-primary">
@@ -234,6 +296,19 @@ export default function FeaturesPage() {
                 <span className="font-display text-lg font-bold text-ink">{v}</span> {l}
               </span>
             ))}
+          </div>
+          </div>
+
+          {/* the pixel crow */}
+          <div className="mx-auto w-full max-w-[340px]">
+            <div className="card-block faded-grid relative overflow-hidden p-8">
+              <div className="chip-float-a flex justify-center">
+                <PixelCrow />
+              </div>
+              <p className="mt-5 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint">
+                one engine · every feature
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -263,9 +338,14 @@ export default function FeaturesPage() {
                     className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-crow transition-transform duration-300 group-hover:scale-x-100"
                   />
                   <div className="flex items-center justify-between">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-ink bg-paper-deep font-mono text-xs font-bold text-ink transition-colors group-hover:bg-crow group-hover:text-stone-50">
-                      {String(gi + 1)}.{String(i + 1).padStart(2, "0")}
+                    <span className="inline-flex h-7 items-center justify-center rounded-md border-2 border-ink bg-paper-deep px-2 font-mono text-[11px] font-bold leading-none tabular-nums text-ink transition-colors group-hover:bg-crow group-hover:text-stone-50">
+                      {gi + 1}.{String(i + 1).padStart(2, "0")}
                     </span>
+                    {TRENDING.has(f.name) ? (
+                      <span className="rounded-md border-2 border-ink bg-crow px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
+                        ▲ Trending
+                      </span>
+                    ) : null}
                   </div>
                   <h3 className="mt-4 font-display text-base font-bold leading-snug">{f.name}</h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{f.desc}</p>
@@ -279,6 +359,43 @@ export default function FeaturesPage() {
           </div>
         </section>
       ))}
+
+      {/* 3D interactive accent */}
+      <section className="border-y-2 border-ink bg-paper-deep">
+        <div className="section grid items-center gap-10 py-16 md:py-20 lg:grid-cols-[0.85fr_1.15fr]">
+          <div className="mx-auto w-full max-w-[320px]">
+            <div className="card-block overflow-hidden p-6">
+              <div className="aspect-square">
+                <Cubes
+                  gridSize={6}
+                  maxAngle={50}
+                  radius={3}
+                  borderStyle="1.5px solid #16130e"
+                  faceColor="#fffdf9"
+                  rippleColor="#d62221"
+                  rippleSpeed={1.6}
+                  autoAnimate
+                  rippleOnClick
+                />
+              </div>
+              <p className="mt-4 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint">
+                hover · click to ripple
+              </p>
+            </div>
+          </div>
+          <div>
+            <span className="eyebrow">One surface, many features</span>
+            <h2 className="mt-3 font-display text-2xl font-bold tracking-tight sm:text-3xl">
+              Every feature is a cell in the same grid
+            </h2>
+            <p className="mt-4 max-w-xl leading-relaxed text-ink-soft">
+              Cache, memory, guardrails, gateway — they aren&apos;t bolt-ons stitched across
+              services. They&apos;re facets of one Redis-compatible engine, sharing the same store,
+              the same embedder, the same trust pipeline. Touch one and the whole thing responds.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* close */}
       <section className="section py-16 md:py-20">
