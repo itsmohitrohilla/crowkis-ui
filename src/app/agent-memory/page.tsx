@@ -11,58 +11,6 @@ export const metadata: Metadata = {
     "Crowkis gives your agents long-term memory that survives restarts, consolidates contradictions, and recalls the right fact at the right time — 70.4% recall@10 on LoCoMo, 92.7% recall@5 on LongMemEval, zero external API calls.",
 };
 
-/* ── memory command suite, with a worked example each ───────────────────── */
-const memCommands: { cmd: string; sig: string; body: string; ex: string }[] = [
-  {
-    cmd: "CMEMSET",
-    sig: "CMEMSET agent user fact [TOPIC t]",
-    body: "Store a durable fact, scoped to (agent, user). Consolidating: a contradicting fact auto-retires the old one instead of piling up.",
-    ex: `CMEMSET support u_42 "moved to Berlin in March"`,
-  },
-  {
-    cmd: "CMEMGET",
-    sig: "CMEMGET agent user query [K n]",
-    body: "Semantic recall of the top-K facts, ranked by relevance blended with recency. An optional cross-encoder rerank sharpens the order.",
-    ex: `CMEMGET support u_42 "where do they live?" K 3`,
-  },
-  {
-    cmd: "CMEMHISTORY",
-    sig: "CMEMHISTORY agent user query",
-    body: "Recall including retired versions, each with its validity window — so you can see what the agent used to believe and when it changed.",
-    ex: `CMEMHISTORY support u_42 "where do they live?"`,
-  },
-  {
-    cmd: "CMEMASOF",
-    sig: "CMEMASOF agent user query AT instant",
-    body: "Bi-temporal recall: the facts that were believed current at a given moment in time. Memory with a clock.",
-    ex: `CMEMASOF support u_42 "address" AT 2026-04-01`,
-  },
-  {
-    cmd: "CMEMEXTRACT",
-    sig: "CMEMEXTRACT agent user conversation",
-    body: "Auto-extract durable facts from a conversation — deterministic, no model call, no egress.",
-    ex: `CMEMEXTRACT support u_42 "<transcript…>"`,
-  },
-  {
-    cmd: "CMEMFORGET",
-    sig: "CMEMFORGET agent user [query]",
-    body: "Forget facts matching a query, or wipe all memory for an (agent, user) — the active half of the right to be forgotten.",
-    ex: `CMEMFORGET support u_42 "payment details"`,
-  },
-  {
-    cmd: "CMEMLINK",
-    sig: "CMEMLINK agent user subj rel obj",
-    body: "Graph memory: store a subject→relation→object edge so facts connect, not just accumulate.",
-    ex: `CMEMLINK support u_42 acme employs alice`,
-  },
-  {
-    cmd: "CMEMGRAPH",
-    sig: "CMEMGRAPH agent user start [HOPS n]",
-    body: "Traverse the memory graph multi-hop from a starting node, fan-out bounded to 512 edges.",
-    ex: `CMEMGRAPH support u_42 acme HOPS 2`,
-  },
-];
-
 /* ── how memory actually works ──────────────────────────────────────────── */
 const mechanics: { title: string; body: string }[] = [
   {
@@ -536,30 +484,6 @@ export default function AgentMemoryPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── Command suite ─────────────────────────────────────────────── */}
-      <section className="section py-16 md:py-20">
-        <span className="eyebrow">The memory command suite</span>
-        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">
-          If you can talk to Redis, you can give your agent a memory
-        </h2>
-        <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
-          Speak it over plain RESP, gRPC, or the SDKs. No new protocol to learn — every command below
-          ships in the free Community edition.
-        </p>
-        <div className="mt-9 grid gap-4 md:grid-cols-2">
-          {memCommands.map((c) => (
-            <div key={c.cmd} className="card-block p-5">
-              <span className="font-mono text-sm font-bold text-crow">{c.cmd}</span>
-              <code className="mt-2 block font-mono text-xs text-ink-soft">{c.sig}</code>
-              <p className="mt-3 text-sm leading-relaxed text-ink-soft">{c.body}</p>
-              <div className="mt-3 rounded-lg border border-ink-line bg-paper-deep px-3 py-2 font-mono text-[11px] text-ink-soft">
-                {c.ex}
-              </div>
-            </div>
-          ))}
         </div>
       </section>
 

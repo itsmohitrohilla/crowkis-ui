@@ -15,18 +15,20 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
   const active = featureMenu.some((f) => pathname.startsWith(f.href));
   return (
     <div className="group relative">
-      <button
-        type="button"
+      <Link
+        href="/features"
         aria-haspopup="true"
         className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[13px] font-semibold transition ${
-          active ? "bg-ink text-paper" : "text-ink-soft hover:bg-paper-deep hover:text-ink"
+          active || pathname.startsWith("/features")
+            ? "bg-ink text-paper"
+            : "text-ink-soft hover:bg-paper-deep hover:text-ink"
         }`}
       >
         Features
         <span aria-hidden className="text-[10px] opacity-70 transition group-hover:rotate-180">
           ▾
         </span>
-      </button>
+      </Link>
       <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
         <div className="w-72 rounded-xl border-2 border-ink bg-paper-card p-2 shadow-block">
           {featureMenu.map((f) => (
@@ -40,7 +42,7 @@ function FeaturesDropdown({ pathname }: { pathname: string }) {
             </Link>
           ))}
           <Link
-            href="/product"
+            href="/features"
             className="mt-1 block rounded-lg border-t-2 border-ink-line px-3 py-2 text-[13px] font-semibold text-crow transition hover:bg-paper-deep"
           >
             All features →
@@ -160,9 +162,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
               ))}
 
               {/* Features group */}
-              <p className="mt-2 px-1 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
-                Features
-              </p>
+              <Link
+                href="/features"
+                onClick={() => setMenuOpen(false)}
+                className="mt-2 px-1 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-crow"
+              >
+                Features — view all →
+              </Link>
               {featureMenu.map((f) => (
                 <Link
                   key={f.href}
