@@ -8,10 +8,12 @@ import { securitySpecs } from "./security";
 import { opsSpecs } from "./ops";
 import { featuresSpecs } from "./features-deep";
 import { benchmarkPosts } from "./benchmarks-posts";
+import { codePosts } from "./code-posts";
 
 export const allRoostPosts: RoostPost[] = [
   ...roostPosts,
   ...benchmarkPosts,
+  ...codePosts,
   ...buildPosts([
     ...vsSpecs,
     ...useCaseSpecs,

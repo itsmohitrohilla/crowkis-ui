@@ -248,6 +248,132 @@ function Stat({ value, label }: { value: string; label: string }) {
   );
 }
 
+/* ── pure-SVG charts, theme-aware via CSS vars ──────────────────────────── */
+function RadialGauge({ value, label, sub }: { value: number; label: string; sub: string }) {
+  const R = 54;
+  const C = 2 * Math.PI * R;
+  const off = C * (1 - value / 100);
+  return (
+    <div className="card-block flex flex-col items-center p-5 text-center">
+      <svg viewBox="0 0 140 140" className="w-full max-w-[150px]" role="img" aria-label={`${value}%`}>
+        <circle
+          cx="70"
+          cy="70"
+          r={R}
+          fill="none"
+          strokeWidth="13"
+          style={{ stroke: "rgb(var(--c-ink-line))" }}
+        />
+        <circle
+          cx="70"
+          cy="70"
+          r={R}
+          fill="none"
+          strokeWidth="13"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          strokeDashoffset={off}
+          transform="rotate(-90 70 70)"
+          style={{ stroke: "rgb(var(--c-crow))" }}
+        />
+        <text
+          x="70"
+          y="71"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fontSize="27"
+          fontWeight="700"
+          fontFamily="var(--font-display), sans-serif"
+          style={{ fill: "rgb(var(--c-ink))" }}
+        >
+          {value}%
+        </text>
+      </svg>
+      <p className="mt-3 font-display text-sm font-bold">{label}</p>
+      <p className="mt-0.5 font-mono text-[11px] text-ink-faint">{sub}</p>
+    </div>
+  );
+}
+
+function Donut({
+  segments,
+  centerTop,
+  centerSub,
+}: {
+  segments: { label: string; value: number; color: string }[];
+  centerTop: string;
+  centerSub: string;
+}) {
+  const R = 54;
+  const C = 2 * Math.PI * R;
+  let acc = 0;
+  return (
+    <div className="card-block p-5">
+      <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-6">
+        <svg viewBox="0 0 140 140" className="w-full max-w-[160px] shrink-0" role="img" aria-label={centerTop}>
+          {segments.map((s) => {
+            const f = s.value / 100;
+            const dash = `${f * C} ${C - f * C}`;
+            const offset = -acc * C;
+            acc += f;
+            return (
+              <circle
+                key={s.label}
+                cx="70"
+                cy="70"
+                r={R}
+                fill="none"
+                strokeWidth="22"
+                stroke={s.color}
+                strokeDasharray={dash}
+                strokeDashoffset={offset}
+                transform="rotate(-90 70 70)"
+              />
+            );
+          })}
+          <text
+            x="70"
+            y="65"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize="26"
+            fontWeight="700"
+            fontFamily="var(--font-display), sans-serif"
+            style={{ fill: "rgb(var(--c-ink))" }}
+          >
+            {centerTop}
+          </text>
+          <text
+            x="70"
+            y="84"
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fontSize="9"
+            fontFamily="var(--font-mono), monospace"
+            style={{ fill: "rgb(var(--c-ink-faint))" }}
+          >
+            {centerSub}
+          </text>
+        </svg>
+        <ul className="w-full space-y-2 text-sm">
+          {segments.map((s) => (
+            <li key={s.label} className="flex items-center justify-between gap-3">
+              <span className="flex items-center gap-2 text-ink-soft">
+                <span
+                  className="inline-block h-3 w-3 shrink-0 rounded-sm"
+                  style={{ background: s.color }}
+                />
+                {s.label}
+              </span>
+              <span className="font-mono text-xs text-ink-faint">{s.value}%</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
 export default function AgentMemoryPage() {
   return (
     <SiteShell>
@@ -299,6 +425,33 @@ export default function AgentMemoryPage() {
                 every fact a cell · click to ripple recall
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Recall at a glance — charts ───────────────────────────────── */}
+      <section className="section py-16 md:py-20">
+        <span className="eyebrow">Recall at a glance</span>
+        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">
+          The numbers, drawn
+        </h2>
+        <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
+          One donut and three gauges — the whole memory story in a glance, then the full bars below.
+        </p>
+        <div className="mt-9 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
+          <Donut
+            centerTop="70.4%"
+            centerSub="LoCoMo recall@10"
+            segments={[
+              { label: "Found by bi-encoder", value: 25, color: "#8a8275" },
+              { label: "Added by reranking", value: 45.4, color: "#d62221" },
+              { label: "Not recalled", value: 29.6, color: "#e2dccf" },
+            ]}
+          />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
+            <RadialGauge value={92.7} label="LongMemEval" sub="recall@5 · oracle" />
+            <RadialGauge value={84.3} label="LongMemEval" sub="recall@5 · hard" />
+            <RadialGauge value={95.5} label="Temporal" sub="recall@5 · best type" />
           </div>
         </div>
       </section>
