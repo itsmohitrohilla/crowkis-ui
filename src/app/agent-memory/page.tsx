@@ -296,21 +296,31 @@ function RadialGauge({ value, label, sub }: { value: number; label: string; sub:
 }
 
 function Donut({
+  title,
   segments,
   centerTop,
   centerSub,
+  caption,
 }: {
+  title: string;
   segments: { label: string; value: number; color: string }[];
   centerTop: string;
   centerSub: string;
+  caption: string;
 }) {
   const R = 54;
   const C = 2 * Math.PI * R;
   let acc = 0;
   return (
-    <div className="card-block p-5">
-      <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center sm:gap-6">
-        <svg viewBox="0 0 140 140" className="w-full max-w-[160px] shrink-0" role="img" aria-label={centerTop}>
+    <div className="card-block flex flex-col p-6">
+      <h3 className="font-display text-lg font-bold">{title}</h3>
+      <div className="mt-5 flex flex-col items-center gap-6 sm:flex-row sm:gap-8">
+        <svg
+          viewBox="0 0 140 140"
+          className="w-40 shrink-0"
+          role="img"
+          aria-label={`${centerTop} ${centerSub}`}
+        >
           {segments.map((s) => {
             const f = s.value / 100;
             const dash = `${f * C} ${C - f * C}`;
@@ -323,7 +333,7 @@ function Donut({
                 cy="70"
                 r={R}
                 fill="none"
-                strokeWidth="22"
+                strokeWidth="20"
                 stroke={s.color}
                 strokeDasharray={dash}
                 strokeDashoffset={offset}
@@ -333,10 +343,10 @@ function Donut({
           })}
           <text
             x="70"
-            y="65"
+            y="64"
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize="26"
+            fontSize="25"
             fontWeight="700"
             fontFamily="var(--font-display), sans-serif"
             style={{ fill: "rgb(var(--c-ink))" }}
@@ -345,31 +355,33 @@ function Donut({
           </text>
           <text
             x="70"
-            y="84"
+            y="83"
             textAnchor="middle"
             dominantBaseline="middle"
-            fontSize="9"
+            fontSize="8.5"
+            letterSpacing="0.5"
             fontFamily="var(--font-mono), monospace"
             style={{ fill: "rgb(var(--c-ink-faint))" }}
           >
             {centerSub}
           </text>
         </svg>
-        <ul className="w-full space-y-2 text-sm">
+        <ul className="w-full space-y-3 text-sm">
           {segments.map((s) => (
             <li key={s.label} className="flex items-center justify-between gap-3">
-              <span className="flex items-center gap-2 text-ink-soft">
+              <span className="flex items-center gap-2.5 text-ink-soft">
                 <span
                   className="inline-block h-3 w-3 shrink-0 rounded-sm"
                   style={{ background: s.color }}
                 />
                 {s.label}
               </span>
-              <span className="font-mono text-xs text-ink-faint">{s.value}%</span>
+              <span className="font-mono text-xs font-semibold text-ink">{s.value}%</span>
             </li>
           ))}
         </ul>
       </div>
+      <p className="mt-5 border-t border-ink-line pt-3 text-xs italic text-ink-faint">{caption}</p>
     </div>
   );
 }
@@ -438,17 +450,19 @@ export default function AgentMemoryPage() {
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
           One donut and three gauges — the whole memory story in a glance, then the full bars below.
         </p>
-        <div className="mt-9 grid gap-4 lg:grid-cols-[1.3fr_1fr]">
+        <div className="mt-9 space-y-4">
           <Donut
+            title="LoCoMo · how 70.4% recall@10 is built"
             centerTop="70.4%"
-            centerSub="LoCoMo recall@10"
+            centerSub="recall@10"
             segments={[
               { label: "Found by bi-encoder", value: 25, color: "#8a8275" },
               { label: "Added by reranking", value: 45.4, color: "#d62221" },
               { label: "Not recalled", value: 29.6, color: "#e2dccf" },
             ]}
+            caption="The cross-encoder reranker contributes the largest slice — the lift from ~25% to 70.4%."
           />
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1">
+          <div className="grid gap-4 sm:grid-cols-3">
             <RadialGauge value={92.7} label="LongMemEval" sub="recall@5 · oracle" />
             <RadialGauge value={84.3} label="LongMemEval" sub="recall@5 · hard" />
             <RadialGauge value={95.5} label="Temporal" sub="recall@5 · best type" />
