@@ -19,7 +19,33 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = allRoostPosts.find((p) => p.slug === slug);
   if (!post) return { title: "The Roost" };
-  return { title: post.title, description: post.summary };
+  const url = `/roost/${post.slug}`;
+  return {
+    title: post.title,
+    description: post.summary,
+    keywords: [
+      post.tag,
+      "Crowkis",
+      "LLM cache",
+      "semantic cache",
+      "agent memory",
+      "agentic AI",
+    ],
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: post.title,
+      description: post.summary,
+      url,
+      publishedTime: `${post.date}T00:00:00Z`,
+      tags: [post.tag],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+    },
+  };
 }
 
 function formatDate(iso: string) {

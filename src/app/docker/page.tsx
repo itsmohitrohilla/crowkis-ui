@@ -174,6 +174,16 @@ function CliMark() {
     </svg>
   );
 }
+function McpMark() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="#fff" strokeWidth="1.8" aria-hidden>
+      <circle cx="6" cy="6" r="2.4" />
+      <circle cx="18" cy="6" r="2.4" />
+      <circle cx="12" cy="18" r="2.4" />
+      <path d="M7.6 7.6L11 15M16.4 7.6L13 15" strokeLinecap="round" />
+    </svg>
+  );
+}
 
 const WAYS: Way[] = [
   {
@@ -211,6 +221,15 @@ const WAYS: Way[] = [
     blurb: "The command line — talk to any instance, script it, pipe it. Ships in the binary.",
     href: "/docs/commands",
     cta: "Command reference",
+  },
+  {
+    name: "MCP",
+    tint: "#8b5cf6",
+    mark: <McpMark />,
+    cmd: "crowkis mcp",
+    blurb: "Let Claude Code and agents use the cache as a tool over MCP — one config block.",
+    href: "/mcp",
+    cta: "MCP guide",
   },
 ];
 

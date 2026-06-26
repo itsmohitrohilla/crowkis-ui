@@ -4,11 +4,52 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ReactNode, useState } from "react";
-import { navLinks } from "@/lib/content";
+import { navLinks, featureMenu } from "@/lib/content";
 import { PixelCrow } from "@/components/crow/pixel-crow";
 import { FooterGarden } from "@/components/crow/footer-garden";
 import { CrowShooter } from "@/components/crow/crow-shooter";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+
+/** Desktop "Features" dropdown — grouped GTM feature pages. Opens on hover/focus. */
+function FeaturesDropdown({ pathname }: { pathname: string }) {
+  const active = featureMenu.some((f) => pathname.startsWith(f.href));
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        aria-haspopup="true"
+        className={`flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[13px] font-semibold transition ${
+          active ? "bg-ink text-paper" : "text-ink-soft hover:bg-paper-deep hover:text-ink"
+        }`}
+      >
+        Features
+        <span aria-hidden className="text-[10px] opacity-70 transition group-hover:rotate-180">
+          ▾
+        </span>
+      </button>
+      <div className="invisible absolute left-0 top-full z-50 pt-2 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+        <div className="w-72 rounded-xl border-2 border-ink bg-paper-card p-2 shadow-block">
+          {featureMenu.map((f) => (
+            <Link
+              key={f.href}
+              href={f.href}
+              className="block rounded-lg px-3 py-2 transition hover:bg-paper-deep"
+            >
+              <span className="block text-[13px] font-bold text-ink">{f.label}</span>
+              <span className="block text-xs text-ink-faint">{f.desc}</span>
+            </Link>
+          ))}
+          <Link
+            href="/product"
+            className="mt-1 block rounded-lg border-t-2 border-ink-line px-3 py-2 text-[13px] font-semibold text-crow transition hover:bg-paper-deep"
+          >
+            All features →
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Wordmark({ className = "h-4" }: { className?: string }) {
   return (
@@ -57,17 +98,20 @@ export function SiteShell({ children }: { children: ReactNode }) {
               const active =
                 link.href === "/" ? pathname === "/" : pathname.startsWith(link.href);
               return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`rounded-lg px-2.5 py-1.5 text-[13px] font-semibold transition ${
-                    active
-                      ? "bg-ink text-paper"
-                      : "text-ink-soft hover:bg-paper-deep hover:text-ink"
-                  }`}
-                >
-                  {link.label}
-                </Link>
+                <span key={link.href} className="contents">
+                  <Link
+                    href={link.href}
+                    className={`rounded-lg px-2.5 py-1.5 text-[13px] font-semibold transition ${
+                      active
+                        ? "bg-ink text-paper"
+                        : "text-ink-soft hover:bg-paper-deep hover:text-ink"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                  {/* Features dropdown sits right after "Product" */}
+                  {link.label === "Product" ? <FeaturesDropdown pathname={pathname} /> : null}
+                </span>
               );
             })}
             <button
@@ -112,6 +156,21 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   className="touch-target rounded-lg border border-ink-line bg-paper-card px-3 py-2.5"
                 >
                   {link.label}
+                </Link>
+              ))}
+
+              {/* Features group */}
+              <p className="mt-2 px-1 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+                Features
+              </p>
+              {featureMenu.map((f) => (
+                <Link
+                  key={f.href}
+                  href={f.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="touch-target rounded-lg border border-ink-line bg-paper-card px-3 py-2.5"
+                >
+                  {f.label}
                 </Link>
               ))}
               <button

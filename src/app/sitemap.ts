@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 import { allRoostPosts } from "@/lib/content/library";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://crowkis.io";
+  const base = "https://crowkis.com";
   const routes = [
     "",
     "/why",
