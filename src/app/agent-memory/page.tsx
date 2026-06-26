@@ -699,7 +699,7 @@ export default function AgentMemoryPage() {
         </div>
         <div className="mt-6 grid gap-3 sm:grid-cols-2">
           <CommandCard command="crowkis cli" note="the built-in REPL — ships in the binary" />
-          <CommandCard command="redis-cli -p 6379" note="or point any Redis client at it" />
+          <CommandCard command="crowkis cli 127.0.0.1:6379" note="point it at any running instance" />
         </div>
         <p className="mt-5 font-mono text-xs text-ink-faint">
           Every build is signed, with checksums published alongside the release · macOS · Linux ·
@@ -716,7 +716,7 @@ export default function AgentMemoryPage() {
           </h2>
           <div className="code-panel mt-8">
             <div className="code-chrome justify-between">
-              <span>redis-cli · port 6379</span>
+              <span>crowkis cli · port 6379</span>
               <CopyButton
                 text={`CMEMSET support u_42 "prefers email over phone"
 CMEMSET support u_42 "moved to Berlin in March"

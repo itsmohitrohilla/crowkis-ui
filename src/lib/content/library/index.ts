@@ -9,11 +9,13 @@ import { opsSpecs } from "./ops";
 import { featuresSpecs } from "./features-deep";
 import { benchmarkPosts } from "./benchmarks-posts";
 import { codePosts } from "./code-posts";
+import { commandGuidePosts } from "./command-guides";
 
 export const allRoostPosts: RoostPost[] = [
   ...roostPosts,
   ...benchmarkPosts,
   ...codePosts,
+  ...commandGuidePosts,
   ...buildPosts([
     ...vsSpecs,
     ...useCaseSpecs,
