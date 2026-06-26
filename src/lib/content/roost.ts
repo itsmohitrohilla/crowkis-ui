@@ -14,7 +14,14 @@ export type RoostBlock =
       caption?: string;
     }
   | { kind: "plain"; text: string }
-  | { kind: "quote"; text: string };
+  | { kind: "quote"; text: string }
+  | {
+      kind: "bars";
+      title: string;
+      unit?: string;
+      series: { label: string; value: number; sub?: string; accent?: boolean }[];
+      caption?: string;
+    };
 
 export type RoostPost = {
   slug: string;

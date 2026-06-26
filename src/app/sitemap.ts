@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/docs/mcp",
     "/roost",
     "/mcp",
+    "/agent-memory",
     ...allRoostPosts.map((post) => `/roost/${post.slug}`),
     "/integrations",
     "/changelog",

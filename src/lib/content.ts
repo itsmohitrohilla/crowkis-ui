@@ -3,6 +3,7 @@ export const navLinks = [
   { label: "Product", href: "/product" },
   { label: "Usage", href: "/docker" },
   { label: "MCP", href: "/mcp" },
+  { label: "Agent Memory", href: "/agent-memory" },
   { label: "Docs", href: "/docs" },
   { label: "Enterprise", href: "/enterprise" },
   { label: "The Roost", href: "/roost" },

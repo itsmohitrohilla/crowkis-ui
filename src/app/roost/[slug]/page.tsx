@@ -76,6 +76,42 @@ function Block({ block }: { block: RoostBlock }) {
           ) : null}
         </figure>
       );
+    case "bars": {
+      const max = Math.max(...block.series.map((s) => s.value), 1);
+      return (
+        <figure className="card-block mt-7 overflow-hidden !p-0">
+          <figcaption className="flex items-baseline justify-between border-b-2 border-ink bg-paper-deep px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+            <span>{block.title}</span>
+            {block.unit ? <span className="text-ink-faint">{block.unit}</span> : null}
+          </figcaption>
+          <div className="space-y-3 p-5">
+            {block.series.map((s) => (
+              <div key={s.label}>
+                <div className="mb-1 flex items-baseline justify-between gap-3 text-sm">
+                  <span className="font-medium text-ink">{s.label}</span>
+                  <span className="font-mono text-xs text-ink-soft">
+                    {s.value}
+                    {block.unit && /%/.test(block.unit) ? "%" : ""}
+                    {s.sub ? <span className="text-ink-faint"> · {s.sub}</span> : null}
+                  </span>
+                </div>
+                <div className="h-2.5 rounded-full bg-paper-deep">
+                  <div
+                    className={`h-2.5 rounded-full ${s.accent ? "bg-crow" : "bg-ink"}`}
+                    style={{ width: `${(s.value / max) * 100}%` }}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          {block.caption ? (
+            <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
+              {block.caption}
+            </p>
+          ) : null}
+        </figure>
+      );
+    }
     case "venn":
       return (
         <figure className="card-block mt-7 overflow-hidden !p-0">

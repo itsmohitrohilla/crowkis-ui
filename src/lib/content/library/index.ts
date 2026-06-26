@@ -6,9 +6,12 @@ import { economicsSpecs } from "./economics";
 import { engineeringSpecs } from "./engineering";
 import { securitySpecs } from "./security";
 import { opsSpecs } from "./ops";
+import { featuresSpecs } from "./features-deep";
+import { benchmarkPosts } from "./benchmarks-posts";
 
 export const allRoostPosts: RoostPost[] = [
   ...roostPosts,
+  ...benchmarkPosts,
   ...buildPosts([
     ...vsSpecs,
     ...useCaseSpecs,
@@ -16,6 +19,7 @@ export const allRoostPosts: RoostPost[] = [
     ...engineeringSpecs,
     ...securitySpecs,
     ...opsSpecs,
+    ...featuresSpecs,
   ]),
 ].sort((a, b) => b.date.localeCompare(a.date));
 
