@@ -41,7 +41,7 @@ docker run -d --name crowkis \\
       <DocTable
         head={["Port", "Surface"]}
         rows={[
-          ["127.0.0.1:6379", "RESP3 — crowkis cli or any Redis client"],
+          ["127.0.0.1:6379", "RESP3, crowkis cli or any Redis client"],
           ["127.0.0.1:6380", "Dashboard, management REST API, /health"],
           ["127.0.0.1:6381", "gRPC h2c"],
         ]}
@@ -49,7 +49,7 @@ docker run -d --name crowkis \\
       <DocP>
         Ports publish to localhost. If you bind to <code className="inline">0.0.0.0</code>, the
         management API and dashboard metrics require{" "}
-        <code className="inline">CROWKIS_ADMIN_KEY</code> or an RBAC API key — enforced by the
+        <code className="inline">CROWKIS_ADMIN_KEY</code> or an RBAC API key, enforced by the
         server, not left to convention.
       </DocP>
 
@@ -58,8 +58,7 @@ docker run -d --name crowkis \\
         The recommended deployment is the hardened compose file on the{" "}
         <Link href="/docker" className="font-semibold text-crow underline underline-offset-2">
           Docker image page
-        </Link>{" "}
-        — read-only filesystem, dropped capabilities, non-root, pids limit, localhost ports. Copy
+        </Link>{" "}, read-only filesystem, dropped capabilities, non-root, pids limit, localhost ports. Copy
         it, set the two credentials, <code className="inline">docker compose up -d</code>.
       </DocP>
 
@@ -94,7 +93,7 @@ curl -H "x-crowkis-admin-key: change-me-admin-key" \\
       />
       <DocP>
         The signature is verified offline (Ed25519) at boot and every six hours. Renewal is
-        replacing the file — no downtime, picked up at the next check.
+        replacing the file, no downtime, picked up at the next check.
       </DocP>
 
       <DocH2 id="upgrade">Upgrades</DocH2>
@@ -103,7 +102,7 @@ curl -H "x-crowkis-admin-key: change-me-admin-key" \\
 docker compose up -d   # or docker restart after re-create`}
       />
       <DocP>
-        That&apos;s the entire upgrade path: binary swap. The on-disk format is stable — no schema
+        That&apos;s the entire upgrade path: binary swap. The on-disk format is stable, no schema
         migrations, no export/import.
       </DocP>
 

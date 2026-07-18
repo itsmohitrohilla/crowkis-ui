@@ -88,6 +88,25 @@ function Block({ block }: { block: RoostBlock }) {
           {block.text}
         </div>
       );
+    case "art":
+      return (
+        <figure className="card-block mt-7 overflow-hidden !p-0">
+          {block.title ? (
+            <figcaption className="border-b-2 border-ink bg-paper-deep px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+              {block.title}
+            </figcaption>
+          ) : null}
+          <div
+            className="bg-paper-card p-4 [&_svg]:h-auto [&_svg]:w-full"
+            dangerouslySetInnerHTML={{ __html: block.svg }}
+          />
+          {block.caption ? (
+            <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
+              {block.caption}
+            </p>
+          ) : null}
+        </figure>
+      );
     case "diagram":
       return (
         <figure className="card-block mt-7 overflow-hidden !p-0">

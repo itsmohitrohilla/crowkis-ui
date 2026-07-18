@@ -1,6 +1,6 @@
 "use client";
 
-// Adapted from React Bits — https://reactbits.dev/components/cubes
+// Adapted from React Bits, https://reactbits.dev/components/cubes
 // Component inspired from Can Tastemel's original work for the lambda.ai landing page.
 // ponytail: upstream logic verbatim; added "use client" + TS prop types only.
 import { useCallback, useEffect, useRef } from "react";

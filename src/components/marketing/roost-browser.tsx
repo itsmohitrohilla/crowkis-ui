@@ -121,7 +121,7 @@ export function RoostBrowser({ posts }: { posts: RoostPost[] }) {
         <div className="card-quiet mt-8 p-10 text-center">
           <p className="font-display text-xl font-bold">(nil)</p>
           <p className="mt-2 text-sm text-ink-soft">
-            No posts match — even the crow looked. Try another tag or search.
+            No posts match, even the crow looked. Try another tag or search.
           </p>
         </div>
       ) : null}

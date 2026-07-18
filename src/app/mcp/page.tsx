@@ -7,9 +7,9 @@ import { CountUp } from "@/components/ui/count-up";
 import { CrowBot } from "@/components/crow/crow-bot";
 
 export const metadata: Metadata = {
-  title: "Crowkis MCP — memory for AI apps",
+  title: "Crowkis MCP, memory for AI apps",
   description:
-    "The Crowkis binary ships an MCP server. Claude Code, agents, and any MCP-capable app check the cache before spending tokens — repeated work becomes free, locally.",
+    "The Crowkis binary ships an MCP server. Claude Code, agents, and any MCP-capable app check the cache before spending tokens, repeated work becomes free, locally.",
 };
 
 const MCP_JSON = `{
@@ -39,7 +39,7 @@ const STEPS = [
   {
     n: "2",
     title: "Register the server",
-    body: "One config block — or one CLI line — and your assistant holds the cache as a tool.",
+    body: "One config block, or one CLI line, and your assistant holds the cache as a tool.",
   },
   {
     n: "3",
@@ -51,7 +51,7 @@ const STEPS = [
 const WORKLOADS: [string, string][] = [
   ["Doc & API lookups", "The same 'how does X work?' recurs across your whole team, all day. First ask pays; every ask after is free."],
   ["Code explanation", "Explanations of stable code are stable. Cached until the file changes, then invalidated."],
-  ["Agent tool results", "Deterministic tool calls — schema fetches, searches — are pure savings on replay."],
+  ["Agent tool results", "Deterministic tool calls, schema fetches, searches, are pure savings on replay."],
   ["Multi-agent fan-out", "Five agents asking variants of one question become one model call and four sub-millisecond hits."],
 ];
 
@@ -71,7 +71,7 @@ export default function McpPage() {
             <p className="responsive-subtitle mt-4 max-w-xl">
               Claude Code and every MCP-capable app can hold the Crowkis cache as a tool: check it
               before spending tokens, bank every answer they compute. Repeated work becomes a local
-              sub-millisecond hit — and nothing leaves your machine.
+              sub-millisecond hit, and nothing leaves your machine.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <a href="#setup" className="btn-primary">
@@ -94,7 +94,7 @@ export default function McpPage() {
           {[
             { to: 1, suffix: " config block", label: "is the entire integration" },
             { to: 0, suffix: " tokens", label: "spent on a cache hit" },
-            { to: 100, suffix: "%", label: "local — nothing leaves your machine" },
+            { to: 100, suffix: "%", label: "local, nothing leaves your machine" },
           ].map((f) => (
             <div key={f.label} className="px-2">
               <p className="font-display text-2xl font-bold sm:text-3xl">
@@ -118,14 +118,14 @@ export default function McpPage() {
             <p className="mt-4 leading-relaxed text-ink-soft">
               AI coding assistants and agents re-ask the same questions with industrial
               enthusiasm: the same doc lookups, the same code explanations, the same boilerplate
-              reasoning — dozens of times a day, billed at full token price every time. With
+              reasoning, dozens of times a day, billed at full token price every time. With
               Crowkis behind MCP, the model gains two reflexes: <em>check the cache first</em>, and{" "}
               <em>bank what you compute</em>.
             </p>
             <p className="mt-4 rounded-lg border border-ink-line bg-paper-deep p-4 text-sm leading-relaxed text-ink-soft">
               <span className="font-semibold text-ink">In plain words:</span> your AI assistant
               gets a memory that lives on your machine. Questions it has already answered stop
-              costing you money — and your whole team shares the same memory.
+              costing you money, and your whole team shares the same memory.
             </p>
           </div>
           <div className="grid gap-3">
@@ -161,10 +161,10 @@ export default function McpPage() {
             <div>
               <CommandCard
                 command="claude mcp add crowkis -- crowkis mcp"
-                note="the one-liner — Claude Code registers the cache as a tool"
+                note="the one-liner, Claude Code registers the cache as a tool"
               />
               <p className="mt-4 text-sm text-ink-soft">
-                Or add the config block by hand — works in any MCP-capable app, with a Docker
+                Or add the config block by hand, works in any MCP-capable app, with a Docker
                 variant if Crowkis runs in a container:
               </p>
             </div>
@@ -194,7 +194,7 @@ export default function McpPage() {
             <p className="mt-3 text-sm leading-relaxed text-ink-soft">
               Every MCP write walks the same five-stage trust pipeline as all other traffic, with
               the assistant tracked as a source in the trust ledger. An agent that stores garbage
-              earns a higher bar automatically — one assistant&apos;s hallucination never becomes
+              earns a higher bar automatically, one assistant&apos;s hallucination never becomes
               the team&apos;s shared belief.
             </p>
             <p className="mt-3 font-mono text-xs text-ink-faint">

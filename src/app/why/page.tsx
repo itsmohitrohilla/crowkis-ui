@@ -47,7 +47,7 @@ const PROBLEMS = [
     n: "02",
     title: "Exact caches miss everything",
     plain:
-      "Redis-style caches compare bytes. Change one word and it's a 'new' question — so LLM hit rates round to zero.",
+      "Redis-style caches compare bytes. Change one word and it's a 'new' question, so LLM hit rates round to zero.",
     solve: "Crowkis compares meaning and structure, so rephrasing doesn't reset the bill.",
   },
   {
@@ -61,7 +61,7 @@ const PROBLEMS = [
     n: "04",
     title: "One bad entry poisons the neighbourhood",
     plain:
-      "A hallucination or injected answer in a semantic cache gets served to every nearby query — poison radiates.",
+      "A hallucination or injected answer in a semantic cache gets served to every nearby query, poison radiates.",
     solve: "A five-stage trust pipeline scores every write before it can ever be served.",
   },
   {
@@ -86,7 +86,7 @@ export default function WhyPage() {
             <span className="text-crow">déjà vu</span>.
           </h1>
           <p className="responsive-subtitle mx-auto mt-5 max-w-2xl">
-            Support bots, copilots, RAG apps, and agents answer the same questions all day — just
+            Support bots, copilots, RAG apps, and agents answer the same questions all day, just
             phrased differently. This page is the anatomy of that waste, and what Crowkis does
             about each piece of it.
           </p>
@@ -101,14 +101,14 @@ export default function WhyPage() {
               Same question. Different words. Full price, every time.
             </h2>
             <p className="mt-4 leading-relaxed text-ink-soft">
-              A production assistant doesn&apos;t get a thousand unique questions — it gets a few
+              A production assistant doesn&apos;t get a thousand unique questions, it gets a few
               hundred questions a thousand ways. Without a cache that understands meaning, each
               variation is a separate, billable, seconds-long model round-trip.
             </p>
             <div className="card-quiet mt-6 grid grid-cols-3 divide-x divide-ink-line p-4 text-center">
               <div>
                 <p className="font-display text-3xl font-bold">
-                  <CountUp to={30} suffix="–70%" />
+                  <CountUp to={30} suffix="-70%" />
                 </p>
                 <p className="mt-1 font-mono text-[10px] text-ink-faint">of spend is repeats*</p>
               </div>
@@ -124,7 +124,7 @@ export default function WhyPage() {
               </div>
             </div>
             <p className="mt-3 font-mono text-[10px] text-ink-faint">
-              *typical range for support, docs, and copilot workloads — measure yours with Crowkis
+              *typical range for support, docs, and copilot workloads, measure yours with Crowkis
               Replay.
             </p>
           </div>
@@ -158,7 +158,7 @@ export default function WhyPage() {
           </p>
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <Figure
-              title="fix #1 — exact-match caching (redis-style)"
+              title="fix #1, exact-match caching (redis-style)"
               caption="Byte-for-byte matching means paraphrases never hit. Hit rate ≈ 0 on LLM traffic."
             >
               <Mermaid
@@ -172,13 +172,13 @@ export default function WhyPage() {
               />
             </Figure>
             <Figure
-              title="fix #2 — similarity-only caching (vector-style)"
-              caption="Everything near in embedding space gets served — including the things that must not be."
+              title="fix #2, similarity-only caching (vector-style)"
+              caption="Everything near in embedding space gets served, including the things that must not be."
             >
               <Mermaid
                 chart={`flowchart LR
   D["'cancel my subscription'"] -->|0.91 similar| W["serves the cached<br/>'pause' answer ✗"]
-  E["'pause my subscription'"] -->|cached| W2["HIT — correct"]
+  E["'pause my subscription'"] -->|cached| W2["HIT, correct"]
   style W fill:#fbe9e8,stroke:#d62221,stroke-width:2.5px
   style W2 fill:#f3eee5`}
               />
@@ -234,7 +234,7 @@ export default function WhyPage() {
             Stop reading about the waste. Measure yours.
           </h2>
           <p className="max-w-lg text-sm text-ink-soft">
-            Pull the free image and watch the dashboard count what you save — or book a call and
+            Pull the free image and watch the dashboard count what you save, or book a call and
             we&apos;ll replay your own traffic through the cache live.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">

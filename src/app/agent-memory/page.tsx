@@ -39,14 +39,14 @@ function Mark({ v }: { v: string }) {
 export const metadata: Metadata = {
   title: "Agent Memory",
   description:
-    "Crowkis gives your agents long-term memory that survives restarts, consolidates contradictions, and recalls the right fact at the right time — 70.4% recall@10 on LoCoMo, 92.7% recall@5 on LongMemEval, zero external API calls.",
+    "Crowkis gives your agents long-term memory that survives restarts, consolidates contradictions, and recalls the right fact at the right time, 70.4% recall@10 on LoCoMo, 92.7% recall@5 on LongMemEval, zero external API calls.",
 };
 
 /* ── how memory actually works ──────────────────────────────────────────── */
 const mechanics: { title: string; body: string }[] = [
   {
     title: "Consolidation, not accumulation",
-    body: "When a new fact contradicts an old one above a similarity threshold, Crowkis retires the old version instead of storing both. 'Lives in Munich' becomes 'moved to Berlin' — and a later question gets the current answer, not all three.",
+    body: "When a new fact contradicts an old one above a similarity threshold, Crowkis retires the old version instead of storing both. 'Lives in Munich' becomes 'moved to Berlin', and a later question gets the current answer, not all three.",
   },
   {
     title: "Recency-blended relevance",
@@ -54,11 +54,11 @@ const mechanics: { title: string; body: string }[] = [
   },
   {
     title: "Bi-temporal recall",
-    body: "Memory keeps validity windows, so you can ask what was believed true at any past instant. The agent can reason about the present and reconstruct the past — useful for audits, disputes, and 'what did we know when?'",
+    body: "Memory keeps validity windows, so you can ask what was believed true at any past instant. The agent can reason about the present and reconstruct the past, useful for audits, disputes, and 'what did we know when?'",
   },
   {
     title: "Cross-encoder reranking",
-    body: "A second, sharper model re-scores the top candidates before they're returned. It's the single change that tripled LoCoMo recall — bounded to the top-K so the cost stays small.",
+    body: "A second, sharper model re-scores the top candidates before they're returned. It's the single change that tripled LoCoMo recall, bounded to the top-K so the cost stays small.",
   },
   {
     title: "Graph edges",
@@ -66,7 +66,7 @@ const mechanics: { title: string; body: string }[] = [
   },
   {
     title: "Bounded & durable",
-    body: "Memory is capped per user (500 facts by default) so it can't sprawl, and it persists across restarts — a rescheduled pod comes back remembering exactly what it knew.",
+    body: "Memory is capped per user (500 facts by default) so it can't sprawl, and it persists across restarts, a rescheduled pod comes back remembering exactly what it knew.",
   },
 ];
 
@@ -75,7 +75,7 @@ const useCases: { tag: string; title: string; body: string }[] = [
   {
     tag: "Support agents",
     title: "Remember the customer across tickets",
-    body: "Channel preference, past issues, account context — recalled on the next ticket without re-asking. Consolidation keeps 'their address' current as it changes.",
+    body: "Channel preference, past issues, account context, recalled on the next ticket without re-asking. Consolidation keeps 'their address' current as it changes.",
   },
   {
     tag: "Coding agents",
@@ -85,17 +85,17 @@ const useCases: { tag: string; title: string; body: string }[] = [
   {
     tag: "Personal assistants",
     title: "Remember the human, not just the chat",
-    body: "Preferences, relationships, recurring context that should outlive a single conversation — recalled by meaning, ranked by recency.",
+    body: "Preferences, relationships, recurring context that should outlive a single conversation, recalled by meaning, ranked by recency.",
   },
   {
     tag: "Multi-agent systems",
     title: "Shared memory, isolated per tenant",
-    body: "A swarm of agents writes to one (agent, user)-scoped store with zero cross-tenant leakage — proven under 16-thread concurrency with zero leaks.",
+    body: "A swarm of agents writes to one (agent, user)-scoped store with zero cross-tenant leakage, proven under 16-thread concurrency with zero leaks.",
   },
   {
     tag: "Compliance-bound apps",
     title: "Memory that never leaves the building",
-    body: "Bundled models mean recall happens locally — no conversation shipped to a hosted memory API. CMEMFORGET executes erasure on request.",
+    body: "Bundled models mean recall happens locally, no conversation shipped to a hosted memory API. CMEMFORGET executes erasure on request.",
   },
   {
     tag: "Long-running chats",
@@ -106,15 +106,15 @@ const useCases: { tag: string; title: string; body: string }[] = [
 
 /* ── achievements / milestones ──────────────────────────────────────────── */
 const achievements: { value: string; label: string }[] = [
-  { value: "70.4%", label: "LoCoMo recall@10 — 3× the bi-encoder baseline" },
+  { value: "70.4%", label: "LoCoMo recall@10, 3× the bi-encoder baseline" },
   { value: "92.7%", label: "LongMemEval recall@5 (oracle); 84.3% on the hard split" },
   { value: "95.5%", label: "recall@5 on temporal-reasoning questions" },
   { value: "0", label: "cross-tenant leaks under 16-thread concurrency" },
   { value: "29/29", label: "free features pass; 84/84 stress checks green" },
-  { value: "0", label: "external API calls — fully self-hosted, zero egress" },
+  { value: "0", label: "external API calls, fully self-hosted, zero egress" },
 ];
 
-// LoCoMo recall@10 — bi-encoder baseline vs + cross-encoder rerank.
+// LoCoMo recall@10, bi-encoder baseline vs + cross-encoder rerank.
 const locomo: { label: string; base: number; rerank: number }[] = [
   { label: "Overall", base: 25, rerank: 70.4 },
   { label: "Single-hop", base: 28, rerank: 73.7 },
@@ -293,7 +293,7 @@ export default function AgentMemoryPage() {
             <p className="responsive-subtitle mt-5 max-w-2xl">
               Most agents forget the moment a session ends. Crowkis gives them long-term memory that
               survives restarts, consolidates contradictions instead of hoarding them, and recalls
-              the right fact at the right time — all from one self-hosted binary, with{" "}
+              the right fact at the right time, all from one self-hosted binary, with{" "}
               <span className="font-semibold text-ink">zero external API calls</span>.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -312,7 +312,7 @@ export default function AgentMemoryPage() {
             </div>
           </div>
 
-          {/* Cubes accent — themed to the paper/ink palette */}
+          {/* Cubes accent, themed to the paper/ink palette */}
           <div className="mx-auto w-full max-w-[340px]">
             <div className="card-block overflow-hidden p-6">
               <div className="aspect-square">
@@ -336,14 +336,14 @@ export default function AgentMemoryPage() {
         </div>
       </section>
 
-      {/* ── Recall at a glance — charts ───────────────────────────────── */}
+      {/* ── Recall at a glance, charts ───────────────────────────────── */}
       <section className="section py-16 md:py-20">
         <span className="eyebrow">Recall at a glance</span>
         <h2 className="mt-3 font-display text-3xl font-bold tracking-tight">
           The numbers, drawn
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
-          One donut and three gauges — the whole memory story in a glance, then the full bars below.
+          One donut and three gauges, the whole memory story in a glance, then the full bars below.
         </p>
         <div className="mt-9 space-y-4">
           <Donut
@@ -355,7 +355,7 @@ export default function AgentMemoryPage() {
               { label: "Added by reranking", value: 45.4, color: "#d62221" },
               { label: "Not recalled", value: 29.6, color: "#e2dccf" },
             ]}
-            caption="The cross-encoder reranker contributes the largest slice — the lift from ~25% to 70.4%."
+            caption="The cross-encoder reranker contributes the largest slice, the lift from ~25% to 70.4%."
           />
           <div className="grid gap-4 sm:grid-cols-3">
             <RadialGauge value={92.7} label="LongMemEval" sub="recall@5 · oracle" />
@@ -377,7 +377,7 @@ export default function AgentMemoryPage() {
               A pile of embeddings is not memory. Real memory knows that &ldquo;I moved to
               Berlin&rdquo; retires &ldquo;I live in Munich,&rdquo; that a preference stated today
               outranks one from six months ago, and that the question &ldquo;where do they
-              live?&rdquo; should surface the current answer — not all three.
+              live?&rdquo; should surface the current answer, not all three.
             </p>
             <p className="mt-4 leading-relaxed text-ink-soft">
               Crowkis memory is scoped to <span className="font-semibold text-ink">(agent, user)</span>,
@@ -390,7 +390,7 @@ export default function AgentMemoryPage() {
             <p className="eyebrow">What makes it memory</p>
             <ul className="mt-4 space-y-3 text-sm text-ink-soft">
               {[
-                ["Consolidating", "A contradicting fact retires the old one — no stale pile-up."],
+                ["Consolidating", "A contradicting fact retires the old one, no stale pile-up."],
                 ["Bi-temporal", "Recall what was believed true at any past instant."],
                 ["Per-user bounded", "Scoped to (agent, user), capped so memory can't sprawl."],
                 ["Rerank-boosted", "A cross-encoder sharpens recall over the top candidates."],
@@ -421,10 +421,10 @@ export default function AgentMemoryPage() {
             can tune, not a black box you have to trust.
           </p>
 
-          {/* the memory "brain" — one fact's journey from conversation to recall */}
+          {/* the memory "brain", one fact's journey from conversation to recall */}
           <figure className="card-block mt-9 overflow-hidden !p-0">
             <figcaption className="border-b-2 border-ink bg-paper-card px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
-              the memory brain — how a fact gets in, and back out
+              the memory brain, how a fact gets in, and back out
             </figcaption>
             <Mermaid chart={BRAIN_DIAGRAM} />
             <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
@@ -514,7 +514,7 @@ export default function AgentMemoryPage() {
           {/* LoCoMo */}
           <div className="card-block mt-9 p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h3 className="font-display text-lg font-bold">LoCoMo — retrieval recall@10</h3>
+              <h3 className="font-display text-lg font-bold">LoCoMo, retrieval recall@10</h3>
               <div className="flex items-center gap-4 font-mono text-[11px] uppercase tracking-wider">
                 <span className="flex items-center gap-1.5 text-ink-faint">
                   <span className="inline-block h-2.5 w-2.5 rounded-sm bg-ink-faint" /> bi-encoder
@@ -549,7 +549,7 @@ export default function AgentMemoryPage() {
               ))}
             </div>
             <p className="mt-5 border-t border-ink-line pt-3 text-xs italic text-ink-faint">
-              The cross-encoder reranker roughly triples overall recall — from ~25% to 70.4%.
+              The cross-encoder reranker roughly triples overall recall, from ~25% to 70.4%.
             </p>
           </div>
 
@@ -557,7 +557,7 @@ export default function AgentMemoryPage() {
           <div className="card-block mt-6 p-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="font-display text-lg font-bold">
-                LongMemEval-S (hard) — recall@5 by question type
+                LongMemEval-S (hard), recall@5 by question type
               </h3>
               <span className="font-mono text-[11px] uppercase tracking-wider text-ink-faint">
                 ~49 sessions · ~500 turns / question
@@ -577,7 +577,7 @@ export default function AgentMemoryPage() {
               ))}
             </div>
             <p className="mt-5 border-t border-ink-line pt-3 text-xs italic text-ink-faint">
-              92.7% recall@5 in oracle mode; 84.3% on the stratified hard split — competitive with
+              92.7% recall@5 in oracle mode; 84.3% on the stratified hard split, competitive with
               hosted memory services, with nothing leaving your machine.
             </p>
           </div>
@@ -591,11 +591,10 @@ export default function AgentMemoryPage() {
           How it compares to the dedicated memory tools
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
-          Mem0, Zep, and Letta are good at memory — but they&apos;re memory <em>only</em>, and most
+          Mem0, Zep, and Letta are good at memory, but they&apos;re memory <em>only</em>, and most
           lean on a hosted API or an external model to do their work. Crowkis matches them on the
           memory features and adds the part nobody else has: it&apos;s also your{" "}
-          <span className="font-semibold text-ink">cache, your guardrails, and your gateway</span> —
-          one self-hosted binary, with nothing leaving your machine.
+          <span className="font-semibold text-ink">cache, your guardrails, and your gateway</span>, one self-hosted binary, with nothing leaving your machine.
         </p>
 
         <div className="card-block mt-9 overflow-hidden !p-0">
@@ -647,7 +646,7 @@ export default function AgentMemoryPage() {
 
         <p className="mt-5 max-w-2xl text-sm leading-relaxed text-ink-soft">
           Honest take: on raw headline recall, the hosted leaders post strong numbers too. Crowkis
-          wins on a different axis — comparable recall while running{" "}
+          wins on a different axis, comparable recall while running{" "}
           <span className="font-semibold text-ink">fully local with zero egress</span>, and folding
           memory, semantic caching, guardrails, evals, and an AI gateway into one Redis-compatible
           process instead of four services to wire together.

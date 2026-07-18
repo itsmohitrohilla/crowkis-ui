@@ -4,13 +4,12 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * A pixel-art crow that lives in the site. It flies in, perches (bottom
- * corners or on the header's edge), looks left/right/up/down, hops, blinks —
- * and startles away if your cursor creeps up on it. Catch it with a click
+ * corners or on the header's edge), looks left/right/up/down, hops, blinks, * and startles away if your cursor creeps up on it. Catch it with a click
  * before it escapes and it gets ANGRY: the whole site flips into rage mode
  * for a few seconds. Reduced-motion users get a calm static sprite.
  */
 
-const PX = 3.2; // pixel scale — visible, not overbearing
+const PX = 3.2; // pixel scale, visible, not overbearing
 const GRID_W = 16;
 const GRID_H = 12;
 const W = GRID_W * PX;
@@ -318,7 +317,7 @@ export function PixelCrow() {
       });
     };
 
-    // a real crow doesn't let you walk straight up to it — but it hesitates
+    // a real crow doesn't let you walk straight up to it, but it hesitates
     // for a beat first, which is your one chance to actually catch it
     const onMouseMove = (e: MouseEvent) => {
       if (modeRef.current !== "perched" || angryRef.current) return;

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /**
  * The footer forest: a green pixel garden running under the footer links, with
- * its OWN slow day → afternoon → evening → night sky cycle — scoped entirely to
+ * its OWN slow day → afternoon → evening → night sky cycle, scoped entirely to
  * this ~180px strip via CSS variables on a rAF clock, so nothing else on the
  * page is affected. Fruit trees, bushes, grass, blinking perched crows, a
  * drifting flyer, and the copyright living on the grass.
@@ -261,7 +261,7 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
       <PerchedCrow x="89%" bottom={188} flip delay="0.8s" />
       <PerchedCrow x="47%" bottom={34} delay="3.1s" />
 
-      {/* the lawn — copyright lives on the grass */}
+      {/* the lawn, copyright lives on the grass */}
       <div className="absolute bottom-0 left-0 right-0 h-[34px] border-t-2 border-ink" style={{ background: LEAF_DARK }}>
         <div className="section flex h-full items-center justify-between gap-2 font-mono text-[11px]" style={{ color: "#f0ead9" }}>
           {children}

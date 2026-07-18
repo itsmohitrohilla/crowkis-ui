@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/docs/security",
     "/docs/sdk-python",
     "/docs/sdk-node",
+    "/docs/frameworks",
     "/docs/mcp",
     "/roost",
     "/mcp",

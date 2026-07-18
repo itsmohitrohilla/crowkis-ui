@@ -21,31 +21,31 @@ export default function McpPage() {
       <DocTitle
         eyebrow="SDKs & integrations"
         title="Crowkis MCP"
-        lead="The Crowkis binary doubles as an MCP server. Claude Code, agent frameworks, and any MCP-capable app can check the cache before calling the model — and store what they compute."
+        lead="The Crowkis binary doubles as an MCP server. Claude Code, agent frameworks, and any MCP-capable app can check the cache before calling the model, and store what they compute."
       />
 
       <DocH2 id="why">Why this exists</DocH2>
       <DocP>
         AI coding assistants and agents repeat themselves: the same documentation lookups, the
         same explanations, the same boilerplate reasoning, dozens of times a day, billed at full
-        token price every time. With Crowkis behind MCP, the model gains two tools — roughly
-        &quot;check the cache&quot; and &quot;store this answer&quot; — and repeated work becomes a
+        token price every time. With Crowkis behind MCP, the model gains two tools, roughly
+        &quot;check the cache&quot; and &quot;store this answer&quot;, and repeated work becomes a
         local sub-millisecond hit instead of a paid round-trip.
       </DocP>
       <DocNote>
         In plain words: your AI assistant gets a memory that lives on your machine. Questions it
         has already answered stop costing you money. Nothing is sent anywhere except to the model
-        you were already using — and only for genuinely new questions.
+        you were already using, and only for genuinely new questions.
       </DocNote>
 
       <DocH2 id="setup">Set it up</DocH2>
       <DocP>
-        <code className="inline">crowkis mcp</code> speaks JSON-RPC over stdio — the standard MCP
+        <code className="inline">crowkis mcp</code> speaks JSON-RPC over stdio, the standard MCP
         transport. It boots silently (no banner) so the protocol stream stays clean. Register it
         in your client&apos;s MCP configuration:
       </DocP>
       <DocCode
-        title="claude code — .mcp.json"
+        title="claude code, .mcp.json"
         code={`{
   "mcpServers": {
     "crowkis": {
@@ -76,7 +76,7 @@ export default function McpPage() {
       <DocTable
         head={["Tool surface", "What it does"]}
         rows={[
-          ["Cache lookup", "Semantic CGET against the running server — paraphrases of previously answered questions hit, with the same confidence and safety gates as every other client."],
+          ["Cache lookup", "Semantic CGET against the running server, paraphrases of previously answered questions hit, with the same confidence and safety gates as every other client."],
           ["Cache store", "CSET with model and tenant attribution, so agent answers pass the same anti-poisoning pipeline before they're trusted."],
           ["Stats", "Hit rate and savings, so the agent (and you) can see what the cache is worth."],
         ]}
@@ -91,13 +91,13 @@ export default function McpPage() {
         head={["Workload", "Why it caches well"]}
         rows={[
           ["Doc & API lookups", "The same 'how does X work' questions recur across a team all day."],
-          ["Code explanation", "Explanations of stable code are stable — cache until the file changes, then invalidate."],
+          ["Code explanation", "Explanations of stable code are stable, cache until the file changes, then invalidate."],
           ["Agent tool results", "Deterministic tool calls (search, schema fetch) are pure savings on replay."],
           ["Multi-agent fan-out", "Five agents asking variants of one question become one model call and four hits."],
         ]}
       />
 
-      <DocPager prev={["Node.js / TypeScript SDK", "/docs/sdk-node"]} />
+      <DocPager prev={["LangChain, LangGraph & Shell", "/docs/frameworks"]} />
     </article>
   );
 }

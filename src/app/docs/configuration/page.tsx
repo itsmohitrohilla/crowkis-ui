@@ -50,7 +50,7 @@ export default function ConfigurationPage() {
       />
       <DocNote>
         Public-bind hardening is enforced in the server: if Crowkis detects a non-loopback
-        deployment, management and dashboard metrics require auth by default — misconfiguration
+        deployment, management and dashboard metrics require auth by default, misconfiguration
         fails closed, not open.
       </DocNote>
 
@@ -59,7 +59,7 @@ export default function ConfigurationPage() {
         head={["Variable", "Default", "Notes"]}
         rows={[
           [<C key="1">CROWKIS_MEMORY_LIMIT</C>, <C key="1d">512m</C>, "Runtime memory ceiling for the cache process."],
-          [<C key="2">CROWKIS_BLOCK_CACHE_BYTES</C>, <C key="2d">64m</C>, "Block cache for hot SSTable reads — your read-path accelerator."],
+          [<C key="2">CROWKIS_BLOCK_CACHE_BYTES</C>, <C key="2d">64m</C>, "Block cache for hot SSTable reads, your read-path accelerator."],
         ]}
       />
       <DocP>
@@ -85,7 +85,7 @@ CROWKIS_LICENSE_PLAN=Community
 CROWKIS_LICENSE_CUSTOMER=Local workspace`}
       />
       <DocP>
-        No license file means Community edition — the full engine with a soft 100K-entry cap and up
+        No license file means Community edition, the full engine with a soft 100K-entry cap and up
         to 3 tenants. A valid Ed25519-signed license unlocks Enterprise at boot; an invalid
         signature refuses to start; an expired license degrades gracefully through a 14-day grace
         period.

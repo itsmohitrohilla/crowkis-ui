@@ -1,8 +1,7 @@
 import { ReactNode } from "react";
 
 /**
- * Content is never hidden behind scroll-triggered animation on this site —
- * everything renders immediately. These wrappers keep the old call sites
+ * Content is never hidden behind scroll-triggered animation on this site, * everything renders immediately. These wrappers keep the old call sites
  * working while doing nothing but layout.
  */
 

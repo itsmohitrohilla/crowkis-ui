@@ -17,7 +17,7 @@ export type Way = {
 /**
  * The four ways to use Crowkis, stacked one on top of the other. Clicking a row
  * expands it (smooth grid-rows animation, no JS height measuring) to show the
- * full install command — so nothing gets truncated into a scrollbar.
+ * full install command, so nothing gets truncated into a scrollbar.
  */
 export function WaysSelector({ ways }: { ways: Way[] }) {
   const [open, setOpen] = useState(0);

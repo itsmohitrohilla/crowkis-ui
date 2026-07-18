@@ -72,7 +72,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               type="button"
               onClick={() => setGameOpen(true)}
               className="ml-0.5 flex items-center gap-1 rounded-lg border-2 border-crow px-2.5 py-1 text-[13px] font-bold text-crow transition hover:bg-crow hover:text-stone-50"
-              title="brain-rot crow game — opens full-screen"
+              title="brain-rot crow game, opens full-screen"
             >
               <span aria-hidden>▸</span> Arcade
             </button>
@@ -120,7 +120,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 }}
                 className="touch-target rounded-lg border-2 border-crow bg-crow-tint px-3 py-2.5 text-left font-bold text-crow"
               >
-                ▸ Arcade — brain-rot crow game
+                ▸ Arcade, brain-rot crow game
               </button>
               <Link
                 href="/docs"
@@ -154,7 +154,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               query means, checks whether reuse is safe, and only then answers from cache.
             </p>
             <p className="mt-4 font-mono text-xs text-ink-faint">
-              RESP3 · gRPC · REST · MCP — one binary, one Docker image.
+              RESP3 · gRPC · REST · MCP, one binary, one Docker image.
             </p>
           </div>
           {[

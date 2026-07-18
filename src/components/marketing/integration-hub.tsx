@@ -1,5 +1,5 @@
 /**
- * Integration hub — every client/protocol orbits one cache. A frosted central
+ * Integration hub, every client/protocol orbits one cache. A frosted central
  * plate holds the Crowkis mark, a soft gradient halo sits behind it, and dashed
  * arcs connect six surface nodes. Pure SVG, theme-aware via CSS variables,
  * scales cleanly with the container.
@@ -18,16 +18,18 @@ const HUB = { x: 450, y: 250 };
 const NODES: Node[] = [
   { label: "Python SDK", cx: 150, cy: 92, color: "#3b82f6", glyph: "py" },
   { label: "Node SDK", cx: 758, cy: 84, color: "#22c55e", glyph: "JS" },
-  { label: "redis-cli · RESP3", cx: 108, cy: 250, color: "#8b5cf6", glyph: "›_" },
+  { label: "crowkis cli · RESP3", cx: 108, cy: 250, color: "#8b5cf6", glyph: "›_" },
   { label: "MCP · agents", cx: 800, cy: 250, color: "#d62221", glyph: "AI" },
   { label: "gRPC", cx: 172, cy: 408, color: "#f59e0b", glyph: "gR" },
   { label: "REST API", cx: 732, cy: 408, color: "#14b8a6", glyph: "{}" },
 ];
 
 function NodeChip({ node }: { node: Node }) {
-  const w = 168;
+  // width adapts to the label so long names (e.g. "crowkis cli · RESP3") fit
+  const w = Math.max(168, Math.round(74 + node.label.length * 8.4));
   const h = 48;
-  const x = node.cx - w / 2;
+  // center on cx, but clamp inside the 900-wide canvas so nothing clips
+  const x = Math.max(6, Math.min(node.cx - w / 2, 894 - w));
   const y = node.cy - h / 2;
   return (
     <g>

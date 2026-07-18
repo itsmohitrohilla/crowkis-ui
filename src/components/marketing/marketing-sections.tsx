@@ -28,7 +28,7 @@ export function HeroSection() {
             </span>
           </h1>
           <p className="mt-7 max-w-md text-lg leading-relaxed text-ink-soft">
-            Crowkis understands what your LLM is being asked — and serves the answer it already
+            Crowkis understands what your LLM is being asked, and serves the answer it already
             has, only when it&apos;s safe to. Your bill drops. Your users stop waiting.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -59,7 +59,7 @@ const USPS = [
   },
   {
     title: "It refuses unsafe reuse",
-    body: "Five checks gate every hit — wrong, stale, or poisoned answers never leave the cache.",
+    body: "Five checks gate every hit, wrong, stale, or poisoned answers never leave the cache.",
     mark: "02",
   },
   {
@@ -100,7 +100,7 @@ export function ProblemTeaser() {
           </h2>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-stone-400">
             The same questions, rephrased all day, billed at full price every time. The obvious
-            fixes fail — exact-match caches miss the rephrasing, similarity caches serve answers
+            fixes fail, exact-match caches miss the rephrasing, similarity caches serve answers
             they shouldn&apos;t. We built the cache that does neither.
           </p>
           <div className="mt-7">
@@ -146,7 +146,7 @@ export function ConnectHub() {
           <h2 className="responsive-title mt-4">Whatever you already use, it already speaks.</h2>
           <p className="responsive-subtitle mt-4">
             Python, Node, the Redis CLI, gRPC, REST, and MCP all plug into the same engine. Point a
-            client at one port and you have a semantic cache — no rewrite, no new mental model.
+            client at one port and you have a semantic cache, no rewrite, no new mental model.
           </p>
         </div>
         <div className="mx-auto mt-10 max-w-4xl">
@@ -163,14 +163,14 @@ const USE_CASES = [
   {
     title: "Customer support bots",
     who: "SaaS · e-commerce · fintech support desks",
-    body: "Refunds, resets, shipping windows — the same fifty intents in thousands of phrasings. The repeats become instant, free answers; only new questions reach the model.",
+    body: "Refunds, resets, shipping windows, the same fifty intents in thousands of phrasings. The repeats become instant, free answers; only new questions reach the model.",
     stat: "the highest hit rates of any workload",
     href: "/roost/support-bots-cache-goldmine",
   },
   {
     title: "Internal copilots",
     who: "HR, IT, and engineering assistants",
-    body: "Your whole company asks the same policy and how-to questions. One shared memory across Slack bots, portals, and IDE plugins — the first answer serves everyone.",
+    body: "Your whole company asks the same policy and how-to questions. One shared memory across Slack bots, portals, and IDE plugins, the first answer serves everyone.",
     stat: "one answer, four hundred askers",
     href: "/roost/internal-copilots-shared-memory",
   },
@@ -184,14 +184,14 @@ const USE_CASES = [
   {
     title: "Agent fleets",
     who: "automation · multi-agent platforms",
-    body: "Agents re-ask, re-plan, and re-fetch relentlessly. Semantic hits, reasoning reuse, and tool-call caching deflate the 10–50× call multiplier that breaks agent economics.",
+    body: "Agents re-ask, re-plan, and re-fetch relentlessly. Semantic hits, reasoning reuse, and tool-call caching deflate the 10-50× call multiplier that breaks agent economics.",
     stat: "five agents, one model call",
     href: "/roost/agent-fleets-token-furnaces",
   },
   {
     title: "AI coding assistants",
     who: "engineering teams on Claude Code & friends",
-    body: "Ten developers, one codebase, the same questions. Behind MCP, the team shares a local memory — doc lookups and code explanations stop billing per person.",
+    body: "Ten developers, one codebase, the same questions. Behind MCP, the team shares a local memory, doc lookups and code explanations stop billing per person.",
     stat: "one config block via MCP",
     href: "/roost/coding-assistants-mcp",
   },
@@ -213,7 +213,7 @@ export function UseCasesSection() {
           If your app answers questions, Crowkis pays for itself.
         </h2>
         <p className="responsive-subtitle mt-4 max-w-2xl">
-          Six production workloads where teams deploy Crowkis today — each one a repetition engine
+          Six production workloads where teams deploy Crowkis today, each one a repetition engine
           wearing a product&apos;s clothes.
         </p>
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
@@ -233,7 +233,7 @@ export function UseCasesSection() {
           ))}
         </div>
         <p className="mt-8 text-center text-sm text-ink-faint">
-          Don&apos;t see yours? The Roost covers twenty more —{" "}
+          Don&apos;t see yours? The Roost covers twenty more, {" "}
           <Link href="/roost" className="font-semibold text-crow underline underline-offset-2">
             browse by use case →
           </Link>
@@ -253,10 +253,10 @@ export function DockerMcpStrip() {
         <h2 className="mt-3 font-display text-2xl font-bold">Free. Hardened. One pull away.</h2>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
           Community edition runs at full power with no license, no sign-up, no phone-home.
-          Non-root, read-only, every capability dropped — before you ask.
+          Non-root, read-only, every capability dropped, before you ask.
         </p>
         <div className="mt-5">
-          <CommandCard command="docker pull crowkis/crowkis:latest" note="then one docker run — full guide on the Docker page" />
+          <CommandCard command="docker pull crowkis/crowkis:latest" note="then one docker run, full guide on the Docker page" />
         </div>
         <Link href="/docker" className="btn-secondary mt-5 self-start">
           The Docker guide
@@ -269,7 +269,7 @@ export function DockerMcpStrip() {
         </h2>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
           The binary ships an MCP server, so AI assistants and agents check the cache before
-          burning tokens — repeated lookups become free, locally.
+          burning tokens, repeated lookups become free, locally.
         </p>
         <div className="mt-5">
           <CommandCard command="claude mcp add crowkis -- crowkis mcp" note="two minutes in any MCP-capable app" />
@@ -282,14 +282,14 @@ export function DockerMcpStrip() {
   );
 }
 
-/* ------------------- fact strip — Redis-style live counters ------------------- */
+/* ------------------- fact strip, Redis-style live counters ------------------- */
 
 const FACTS: { to: number; prefix?: string; suffix?: string; label: string }[] = [
   { to: 33000, prefix: "~", label: "lines of Rust, no GC pauses" },
   { to: 347, label: "integration tests in the suite" },
   { to: 12, label: "intent classes scored per query" },
   { to: 5, label: "anti-poisoning stages per write" },
-  { to: 3, label: "protocols — RESP3 · gRPC · REST" },
+  { to: 3, label: "protocols, RESP3 · gRPC · REST" },
   { to: 1, label: "image, every feature compiled in" },
 ];
 
@@ -327,7 +327,7 @@ const TRAPS = [
   },
   {
     title: "Poisoned entries spread",
-    body: "One bad write — a prompt injection, a hallucination, a cross-tenant leak — gets served back to every user who asks anything nearby. Most caches have no immune system.",
+    body: "One bad write, a prompt injection, a hallucination, a cross-tenant leak, gets served back to every user who asks anything nearby. Most caches have no immune system.",
     tag: "the trust problem",
   },
 ];
@@ -342,7 +342,7 @@ export function WhySection() {
         </h2>
         <p className="responsive-subtitle mt-4 max-w-2xl">
           Teams burn a large share of model spend recomputing answers they already paid for. The
-          two obvious fixes both fail — one misses too much, the other reuses too much.
+          two obvious fixes both fail, one misses too much, the other reuses too much.
         </p>
       </Reveal>
       <div className="mt-10 grid gap-5 md:grid-cols-3">
@@ -385,12 +385,12 @@ const PIPELINE = [
   {
     step: "03",
     title: "Match meaning",
-    body: "An HNSW vector index finds semantic neighbours, cross-checked against the structural template — two signals, not one.",
+    body: "An HNSW vector index finds semantic neighbours, cross-checked against the structural template, two signals, not one.",
   },
   {
     step: "04",
     title: "Score confidence",
-    body: "Five signals — similarity, freshness, trust, hit history, intent threshold — combine into one score. Below threshold, no reuse.",
+    body: "Five signals, similarity, freshness, trust, hit history, intent threshold, combine into one score. Below threshold, no reuse.",
   },
   {
     step: "05",
@@ -410,7 +410,7 @@ export function HowItWorks() {
           </h2>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-stone-400 sm:text-lg">
             Each stage can veto. A hit is only served when meaning, structure, confidence, and
-            trust all agree — anything else goes to the model.
+            trust all agree, anything else goes to the model.
           </p>
         </Reveal>
         <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-roost-line bg-roost-line md:grid-cols-5">
@@ -453,11 +453,11 @@ const SYSTEMS = [
   },
   {
     name: "Adaptive thresholds",
-    body: "Reuse thresholds tune themselves per intent class from live hit/miss feedback — stricter where mistakes hurt, looser where they don't.",
+    body: "Reuse thresholds tune themselves per intent class from live hit/miss feedback, stricter where mistakes hurt, looser where they don't.",
   },
   {
     name: "Reasoning reuse",
-    body: "Chain-of-thought structure is extracted, abstracted, and recomposed for new inputs — savings beyond response-level caching.",
+    body: "Chain-of-thought structure is extracted, abstracted, and recomposed for new inputs, savings beyond response-level caching.",
   },
   {
     name: "Smart eviction",
@@ -486,8 +486,7 @@ export function FeaturesSection() {
           Eight systems no other cache ships together.
         </h2>
         <p className="responsive-subtitle mt-4 max-w-2xl">
-          All of it on a custom LSM storage engine — WAL, SSTables, bloom filters, compaction —
-          written from scratch in Rust. No RocksDB underneath. No garbage collector in the path.
+          All of it on a custom LSM storage engine, WAL, SSTables, bloom filters, compaction, written from scratch in Rust. No RocksDB underneath. No garbage collector in the path.
         </p>
       </Reveal>
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -595,7 +594,7 @@ const TS_SNIPPET = (
 
 const CLI_SNIPPET = (
   <code>
-    <span className="tok-dim"># the built-in REPL — redis clients work too</span>
+    <span className="tok-dim"># the built-in REPL, redis clients work too</span>
     {"\n"}
     <span className="tok-cmd">crowkis cli</span>
     {"\n\n"}
@@ -651,7 +650,7 @@ export function DropInSection() {
           It speaks Redis, so your code already speaks Crowkis.
         </h2>
         <p className="responsive-subtitle mt-4">
-          Crowkis serves RESP3 — the Redis wire protocol — alongside gRPC and a REST management
+          Crowkis serves RESP3, the Redis wire protocol, alongside gRPC and a REST management
           API. Point your existing client at port 6383 and you have a semantic cache. The Python
           and Node SDKs add <code className="inline">get_or_compute</code>, streaming, and
           multimodal helpers on top.
@@ -696,7 +695,7 @@ export function DockerSection() {
         <Reveal className="order-2 md:order-1">
           <CommandCard
             command="docker pull crowkis/crowkis:latest"
-            note="free Community edition, full power, no license file needed — then docker run and you're live"
+            note="free Community edition, full power, no license file needed, then docker run and you're live"
           />
           <div className="mt-5 grid grid-cols-2 gap-3">
             {HARDENING.map(([what, why]) => (
@@ -711,7 +710,7 @@ export function DockerSection() {
           <p className="eyebrow">Official Docker image</p>
           <h2 className="responsive-title mt-4">Ships like infrastructure, because it is.</h2>
           <p className="responsive-subtitle mt-4">
-            One Alpine-based, multi-stage image with every feature compiled in — your license file
+            One Alpine-based, multi-stage image with every feature compiled in, your license file
             decides what unlocks. The default compose file is hardened the way you&apos;d harden it
             yourself, except it&apos;s already done.
           </p>
@@ -745,7 +744,7 @@ export function TrustSection() {
         <p className="responsive-subtitle mt-4">
           The built-in dashboard streams every verdict live: what was served, what was refused, and
           what it saved you. Hit-type breakdowns, per-tenant budgets, safety blocks, PII reports,
-          and migration state — all auditable through the same REST API it runs on.
+          and migration state, all auditable through the same REST API it runs on.
         </p>
         <ul className="mt-6 space-y-2.5 text-sm text-ink-soft">
           {[
@@ -764,7 +763,7 @@ export function TrustSection() {
       <Reveal delay={0.1}>
         <div className="code-panel">
           <div className="code-chrome">
-            <span>crowkis dashboard — live verdict feed</span>
+            <span>crowkis dashboard, live verdict feed</span>
           </div>
           <div className="p-4 font-mono text-[12px] leading-[2] sm:p-5 sm:text-[13px]">
             {CONSOLE_ROWS.map(([time, tenant, verdict, detail, tone]) => (
@@ -808,14 +807,14 @@ export function McpSection() {
             Your AI tools ask the same questions all day. Stop billing yourself for it.
           </h2>
           <p className="responsive-subtitle mt-4">
-            The Crowkis binary ships an MCP server —{" "}
-            <code className="inline">crowkis mcp</code> — so Claude Code, agent frameworks, and any
+            The Crowkis binary ships an MCP server, {" "}
+            <code className="inline">crowkis mcp</code>, so Claude Code, agent frameworks, and any
             MCP-capable app can check the cache before burning tokens, and bank every answer they
             compute.
           </p>
           <p className="mt-4 rounded-lg border border-ink-line bg-paper-card p-4 text-sm leading-relaxed text-ink-soft">
             <span className="font-semibold text-ink">In plain words:</span> AI assistants repeat
-            themselves constantly — same lookups, same explanations, same boilerplate reasoning.
+            themselves constantly, same lookups, same explanations, same boilerplate reasoning.
             Crowkis remembers those answers locally, so the expensive model is only called for
             genuinely new questions. Your token bill drops; nothing leaves your machine.
           </p>
@@ -858,7 +857,7 @@ export function McpSection() {
                     <span className="tok-cmd">{`}`}</span>
                     {"\n\n"}
                     <span className="tok-dim">
-                      # crowkis mcp speaks JSON-RPC on stdout —{"\n"}# cache lookups become a tool
+                      # crowkis mcp speaks JSON-RPC on stdout, {"\n"}# cache lookups become a tool
                       your agent calls first
                     </span>
                   </code>
@@ -886,7 +885,7 @@ export function RoostTeaser() {
             </h3>
             <p className="mt-2 max-w-xl text-sm text-ink-soft">
               Why we wrote our own LSM tree, what cache poisoning actually looks like, and how the
-              engine earned its production stripes — no growth-hack content, ever.
+              engine earned its production stripes, no growth-hack content, ever.
             </p>
           </div>
           <Link href="/roost" className="btn-secondary shrink-0">
@@ -943,7 +942,7 @@ export function FounderSection() {
           <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
             &ldquo;I built Crowkis because every LLM team I met was paying twice for the same
             answers and hoping a vector database would save them. A cache for AI traffic has to
-            understand meaning <em>and</em> know when to refuse — so I wrote one, from the storage
+            understand meaning <em>and</em> know when to refuse, so I wrote one, from the storage
             engine up, in Rust. No meters, no phone-home, no nonsense.&rdquo;
           </p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">

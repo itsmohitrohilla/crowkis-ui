@@ -8,7 +8,7 @@ import { allRoostPosts } from "@/lib/content/library";
 export const metadata: Metadata = {
   title: "The Roost",
   description:
-    "100 engineering notes from the people building Crowkis — comparisons, use cases, economics, internals, security, and operations. No growth-hack content.",
+    "100 engineering notes from the people building Crowkis, comparisons, use cases, economics, internals, security, and operations. No growth-hack content.",
 };
 
 function formatDate(iso: string) {
@@ -32,7 +32,7 @@ export default function RoostIndexPage() {
             <h1 className="responsive-title mt-3">The Roost</h1>
             <p className="responsive-subtitle mt-4 max-w-xl">
               Engineering notes written by the people building Crowkis. Comparisons with everything
-              else, use cases, economics, internals, security, operations — and nothing written to
+              else, use cases, economics, internals, security, operations, and nothing written to
               rank on a search engine.
             </p>
           </div>

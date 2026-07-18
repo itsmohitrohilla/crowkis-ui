@@ -9,7 +9,7 @@ const MUTE_KEY = "crowkis-arcade-muted";
  * BRAIN ROT: a full-screen crow shooter. Crows fly across the screen, you click
  * them out of the sky, the score counts up, combos stack, and a 30-second round
  * keeps you coming back. Behind it, a slow, continuous day → afternoon →
- * evening → night sky cycle drifts by — driven entirely by CSS variables on a
+ * evening → night sky cycle drifts by, driven entirely by CSS variables on a
  * rAF clock, so it never snaps and never re-renders the game. Paper/ink/crow.
  */
 
@@ -134,7 +134,7 @@ function SceneBush({ x, w = 60 }: { x: string; w?: number }) {
 
 type Weather = "clear" | "cloudy" | "rain" | "storm";
 
-// random weather — mostly clear skies; rain is a once-in-a-while treat
+// random weather, mostly clear skies; rain is a once-in-a-while treat
 function nextWeather(): Weather {
   const r = Math.random();
   if (r < 0.64) return "clear";
@@ -274,7 +274,7 @@ function ArcadeScene({ onWeather }: { onWeather?: (w: Weather) => void }) {
         ))}
       </div>
 
-      {/* storm clouds — darker, fade in for cloudy / rain / storm */}
+      {/* storm clouds, darker, fade in for cloudy / rain / storm */}
       <div
         className="absolute inset-0"
         style={{ opacity: extraClouds ? 1 : 0, transition: "opacity 1.8s ease" }}
@@ -292,7 +292,7 @@ function ArcadeScene({ onWeather }: { onWeather?: (w: Weather) => void }) {
         ))}
       </div>
 
-      {/* garden — a fuller treeline */}
+      {/* garden, a fuller treeline */}
       <SceneTree x="1%" h={150} />
       <SceneTree x="9%" h={116} flip />
       <SceneTree x="17%" h={170} />
@@ -589,7 +589,7 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
       <ArcadeScene onWeather={setArcWeather} />
       <div className="paper-grid pointer-events-none absolute inset-0 opacity-25" />
 
-      {/* HUD — fixed high-contrast colours so it reads on any sky / theme */}
+      {/* HUD, fixed high-contrast colours so it reads on any sky / theme */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start justify-between p-4 sm:p-6">
         <div className="flex gap-3">
           <div className="rounded-xl border-2 border-stone-900 bg-stone-50/95 px-4 py-2 shadow-[3px_3px_0_0_rgba(12,12,12,0.85)]">

@@ -1,5 +1,5 @@
 /**
- * CrowBot — the Crowkis mascot. A smart, slightly smug crow robot: visor eyes
+ * CrowBot, the Crowkis mascot. A smart, slightly smug crow robot: visor eyes
  * that blink and scan, a crest of feathers, an antenna pinging away, one wing
  * holding the red Crowkis cube, and saved coins drifting up. Pure SVG + CSS,
  * no JavaScript.

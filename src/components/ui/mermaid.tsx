@@ -84,7 +84,7 @@ export function Mermaid({ chart, className = "" }: { chart: string; className?: 
 }
 
 /**
- * A two-set Venn diagram in the house style — used for "them vs Crowkis"
+ * A two-set Venn diagram in the house style, used for "them vs Crowkis"
  * comparisons in the Roost. Pure SVG, no dependencies.
  */
 export function Venn({

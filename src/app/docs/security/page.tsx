@@ -41,7 +41,7 @@ export default function SecurityDocsPage() {
 
       <DocH2 id="tenancy">Tenant isolation</DocH2>
       <DocP>
-        Every semantic entry is namespaced by tenant. Lookups never cross the boundary — a
+        Every semantic entry is namespaced by tenant. Lookups never cross the boundary, a
         paraphrase match in tenant A cannot serve an answer cached by tenant B. Isolation is also
         one of the five anti-poisoning stages, so cross-tenant anomalies score against a write
         being trusted at all.
@@ -56,11 +56,11 @@ export default function SecurityDocsPage() {
       <DocTable
         head={["Stage", "Signal", "Weight"]}
         rows={[
-          ["1 — Coherence", "Does the answer semantically cohere with the question?", "0.30"],
-          ["2 — Content", "Content-level heuristics on the answer itself.", "0.10"],
-          ["3 — Source trust", "Track record of the writing source, from an append-only ledger.", "0.30"],
-          ["4 — Isolation", "Tenant-boundary and namespace consistency.", "0.15"],
-          ["5 — Neighbourhood", "Does it agree with its semantic neighbours?", "0.15"],
+          ["1, Coherence", "Does the answer semantically cohere with the question?", "0.30"],
+          ["2, Content", "Content-level heuristics on the answer itself.", "0.10"],
+          ["3, Source trust", "Track record of the writing source, from an append-only ledger.", "0.30"],
+          ["4, Isolation", "Tenant-boundary and namespace consistency.", "0.15"],
+          ["5, Neighbourhood", "Does it agree with its semantic neighbours?", "0.15"],
         ]}
       />
       <DocP>
@@ -81,9 +81,9 @@ export default function SecurityDocsPage() {
       <DocTable
         head={["Area", "Recommendation"]}
         rows={[
-          ["TLS", "Terminate at your proxy or service mesh, like most data-plane infrastructure — keep Crowkis ports off the public internet."],
+          ["TLS", "Terminate at your proxy or service mesh, like most data-plane infrastructure, keep Crowkis ports off the public internet."],
           ["Network placement", "Run on a trusted segment; bind beyond loopback only with CROWKIS_AUTH_TOKEN and CROWKIS_ADMIN_KEY set."],
-          ["License enforcement", "Tier gating is honor-system (the CockroachDB / Sentry model), not DRM — verification is offline, nothing phones home."],
+          ["License enforcement", "Tier gating is honor-system (the CockroachDB / Sentry model), not DRM, verification is offline, nothing phones home."],
         ]}
       />
 

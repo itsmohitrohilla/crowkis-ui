@@ -25,7 +25,7 @@ const SCRIPT: Line[] = [
   { text: "· semantic hit  0.4ms  one less call to gpt-4o", tone: "dim" },
   { text: 'CGET "cancel my subscription right now" TENANT support', tone: "cmd", prompt: true, typed: true },
   { text: "(nil)", tone: "key" },
-  { text: "· different intent — similar words are not the same question", tone: "dim" },
+  { text: "· different intent, similar words are not the same question", tone: "dim" },
 ];
 
 const toneClass: Record<Line["tone"], string> = {
@@ -99,7 +99,7 @@ export function HeroTerminal() {
           <i className="h-2.5 w-2.5 rounded-full bg-stone-600" />
           <i className="h-2.5 w-2.5 rounded-full bg-stone-600" />
         </span>
-        <span className="ml-2">crowkis cli — redis clients work too</span>
+        <span className="ml-2">crowkis cli, redis clients work too</span>
       </div>
       <div ref={bodyRef} className="max-h-[340px] overflow-y-auto p-4 sm:p-5">
         <div className="font-mono text-[12.5px] leading-[1.85] sm:text-[13px]">

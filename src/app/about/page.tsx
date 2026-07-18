@@ -18,7 +18,7 @@ function DiscordMark({ className }: { className?: string }) {
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Why Crowkis exists: an LLM cache that understands meaning and knows when to refuse. Built in Rust, closed-source, offline, free where it should be — by Mohit Rohilla.",
+    "Why Crowkis exists: an LLM cache that understands meaning and knows when to refuse. Built in Rust, closed-source, offline, free where it should be, by Mohit Rohilla.",
 };
 
 const INK = "#16130e";
@@ -69,11 +69,11 @@ function PixelCrowLogo() {
 const PRINCIPLES = [
   {
     title: "Free where it should be free",
-    body: "Everything an individual or small team needs costs nothing — full engine, real production use. We'd rather you grow into a conversation than resent a paywall.",
+    body: "Everything an individual or small team needs costs nothing, full engine, real production use. We'd rather you grow into a conversation than resent a paywall.",
   },
   {
     title: "Safety is the product",
-    body: "A cache that reuses LLM answers is a trust system. Saying 'no' to an unsafe hit is the feature — five checks gate every read, five stages gate every write.",
+    body: "A cache that reuses LLM answers is a trust system. Saying 'no' to an unsafe hit is the feature, five checks gate every read, five stages gate every write.",
   },
   {
     title: "No supply chain to attack",
@@ -81,7 +81,7 @@ const PRINCIPLES = [
   },
   {
     title: "Offline, always",
-    body: "Nothing phones home. The license check is local Ed25519. Your customers' questions never leave your network — air-gapped deployments are first-class.",
+    body: "Nothing phones home. The license check is local Ed25519. Your customers' questions never leave your network, air-gapped deployments are first-class.",
   },
   {
     title: "Built in Rust, on purpose",
@@ -118,7 +118,7 @@ export default function AboutPage() {
             </h1>
             <p className="responsive-subtitle mt-5 max-w-xl">
               Crowkis is a Redis-compatible cache, written in Rust, that understands what your LLM is
-              being asked — and only reuses an answer when it can prove the reuse is safe. It exists
+              being asked, and only reuses an answer when it can prove the reuse is safe. It exists
               because the cheapest token is the one you never spend twice, and the most dangerous
               cache is the one that can&apos;t tell two questions apart.
             </p>
@@ -142,8 +142,8 @@ export default function AboutPage() {
           <h2 className="responsive-title">Why it exists.</h2>
           <div className="space-y-4 text-[15px] leading-relaxed text-ink-soft">
             <p>
-              Every LLM team we met was paying twice for the same answers — the same questions,
-              rephrased all day, billed at full price every time — and hoping a vector database would
+              Every LLM team we met was paying twice for the same answers, the same questions,
+              rephrased all day, billed at full price every time, and hoping a vector database would
               save them. It doesn&apos;t. Match by raw similarity and you serve &ldquo;cancel my
               subscription&rdquo; the answer meant for &ldquo;pause my subscription.&rdquo; Match by
               exact bytes and you never hit at all.
@@ -152,7 +152,7 @@ export default function AboutPage() {
               Crowkis is the cache built for that gap: it reuses aggressively when meaning{" "}
               <em>and</em> structure agree, and refuses when they don&apos;t. We wrote the storage
               engine from scratch in Rust, gave it an immune system against poisoned writes, and
-              shipped it as a single signed image that never phones home — because the component
+              shipped it as a single signed image that never phones home, because the component
               holding every question your customers ask should be the most trustworthy thing in your
               stack, not the least.
             </p>
@@ -204,7 +204,7 @@ export default function AboutPage() {
             </h2>
             <p className="responsive-subtitle mt-4">
               Evaluating Crowkis, stuck on a deploy, weighing Enterprise, or just want to compare
-              notes on semantic caching — send a message and a human will get back to you.
+              notes on semantic caching, send a message and a human will get back to you.
             </p>
           </div>
 
@@ -247,7 +247,7 @@ export default function AboutPage() {
                   Join us on Discord
                 </h3>
                 <p className="mt-1.5 text-sm text-stone-400">
-                  Swap caching war stories, get help fast, and hear what&apos;s shipping next — be
+                  Swap caching war stories, get help fast, and hear what&apos;s shipping next, be
                   part of the community.
                 </p>
                 <a
@@ -271,7 +271,7 @@ export default function AboutPage() {
                 </p>
                 <a
                   href={`https://mail.google.com/mail/?view=cm&fs=1&to=${EMAIL}&su=${encodeURIComponent(
-                    "Crowkis Enterprise — let's talk",
+                    "Crowkis Enterprise, let's talk",
                   )}`}
                   target="_blank"
                   rel="noreferrer"

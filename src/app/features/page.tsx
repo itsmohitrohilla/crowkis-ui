@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
 import Cubes from "@/components/ui/cubes";
 
-/* The Crowkis pixel crow — same house mark used on the About page. */
+/* The Crowkis pixel crow, same house mark used on the About page. */
 const INK = "#16130e";
 const WING = "#37322a";
 const EYE = "#d62221";
@@ -42,7 +42,7 @@ function PixelCrow() {
 }
 
 export const metadata: Metadata = {
-  title: "Features — everything Crowkis does",
+  title: "Features, everything Crowkis does",
   description:
     "Every Crowkis feature in one place: semantic + structural caching, long-term agent memory, reasoning reuse, guardrails, evals, RAG, AI gateway, prompt versioning, and the Rust engine underneath. Self-hosted, zero-egress.",
   keywords: [
@@ -63,7 +63,7 @@ type Feature = { name: string; desc: string; href: string };
 type Group = { eyebrow: string; title: string; blurb: string; items: Feature[] };
 
 // GTM features that are hot in the AI market right now (agent memory, MCP, RAG,
-// guardrails, evals, gateways, reasoning reuse) — flagged so buyers spot them fast.
+// guardrails, evals, gateways, reasoning reuse), flagged so buyers spot them fast.
 const TRENDING = new Set<string>([
   "Agent memory",
   "Reasoning reuse",
@@ -81,11 +81,11 @@ const GROUPS: Group[] = [
     eyebrow: "The core",
     title: "A cache that understands meaning",
     blurb:
-      "Seven systems decide what is safe to reuse — semantic and structural together, gated by confidence, freshness, and trust.",
+      "Seven systems decide what is safe to reuse, semantic and structural together, gated by confidence, freshness, and trust.",
     items: [
       {
         name: "Semantic + structural matching",
-        desc: "Vector similarity and intent/template matching together — paraphrases hit, but a wrong number or entity never does.",
+        desc: "Vector similarity and intent/template matching together, paraphrases hit, but a wrong number or entity never does.",
         href: "/roost/template-matching-deep-dive",
       },
       {
@@ -100,12 +100,12 @@ const GROUPS: Group[] = [
       },
       {
         name: "Anti-poisoning pipeline",
-        desc: "Five stages score every write before it can be served — coherence, content, trust, isolation, neighbourhood.",
+        desc: "Five stages score every write before it can be served, coherence, content, trust, isolation, neighbourhood.",
         href: "/roost/cache-poisoning-is-the-whole-problem",
       },
       {
         name: "Smart eviction",
-        desc: "Composite retention by recency, frequency, isolation, and compute cost — keeps the answers that are expensive to rebuild.",
+        desc: "Composite retention by recency, frequency, isolation, and compute cost, keeps the answers that are expensive to rebuild.",
         href: "/roost/smart-eviction-design",
       },
       {
@@ -122,7 +122,7 @@ const GROUPS: Group[] = [
     items: [
       {
         name: "Agent memory",
-        desc: "Long-term, consolidating, bi-temporal memory scoped to (agent, user) — 70.4% recall@10 on LoCoMo.",
+        desc: "Long-term, consolidating, bi-temporal memory scoped to (agent, user), 70.4% recall@10 on LoCoMo.",
         href: "/agent-memory",
       },
       {
@@ -142,7 +142,7 @@ const GROUPS: Group[] = [
       },
       {
         name: "MCP for AI apps",
-        desc: "Let Claude Code and agents use the cache as a tool over MCP — one config block, same trust pipeline.",
+        desc: "Let Claude Code and agents use the cache as a tool over MCP, one config block, same trust pipeline.",
         href: "/mcp",
       },
       {
@@ -155,7 +155,7 @@ const GROUPS: Group[] = [
   {
     eyebrow: "Safety & guardrails",
     title: "The features that say no",
-    blurb: "Input and output gates, evals, and human-approved answers — all local, all zero-egress.",
+    blurb: "Input and output gates, evals, and human-approved answers, all local, all zero-egress.",
     items: [
       {
         name: "Input guardrails (CGUARD)",
@@ -169,7 +169,7 @@ const GROUPS: Group[] = [
       },
       {
         name: "Online evals (CEVAL)",
-        desc: "Nine deterministic evaluators that grade output without a second model — tracked over time on /metrics.",
+        desc: "Nine deterministic evaluators that grade output without a second model, tracked over time on /metrics.",
         href: "/roost/how-to-use-ceval",
       },
       {
@@ -196,12 +196,12 @@ const GROUPS: Group[] = [
     items: [
       {
         name: "AI Gateway",
-        desc: "An OpenAI-compatible proxy — point your client at Crowkis and get semantic caching, retries, and routing.",
+        desc: "An OpenAI-compatible proxy, point your client at Crowkis and get semantic caching, retries, and routing.",
         href: "/roost/ai-gateway-openai-compatible",
       },
       {
         name: "Self-hosted RAG (CDOC)",
-        desc: "Auto-chunking, metadata filtering, and reranking inside the cache — no separate vector database.",
+        desc: "Auto-chunking, metadata filtering, and reranking inside the cache, no separate vector database.",
         href: "/roost/how-to-use-cdoc",
       },
       {
@@ -216,12 +216,12 @@ const GROUPS: Group[] = [
       },
       {
         name: "Local embeddings (CEMBED)",
-        desc: "Free, cached, no-API-key embeddings from the bundled ONNX model — the foundation everything else stands on.",
+        desc: "Free, cached, no-API-key embeddings from the bundled ONNX model, the foundation everything else stands on.",
         href: "/roost/cembed-free-local-embeddings",
       },
       {
         name: "Observability",
-        desc: "Live dashboard, CINFO, and Prometheus /metrics — hit rate, saved spend, safety blocks, all in the box.",
+        desc: "Live dashboard, CINFO, and Prometheus /metrics, hit rate, saved spend, safety blocks, all in the box.",
         href: "/roost/how-to-use-cinfo",
       },
     ],
@@ -233,12 +233,12 @@ const GROUPS: Group[] = [
     items: [
       {
         name: "Redis-compatible (RESP3)",
-        desc: "Existing Redis clients connect unmodified — adoption is a port change, not a rewrite.",
+        desc: "Existing Redis clients connect unmodified, adoption is a port change, not a rewrite.",
         href: "/roost/resp3-protocol-choice",
       },
       {
         name: "Built in Rust",
-        desc: "A custom LSM engine and in-process vector index, no GC in the read path — sub-millisecond hits by design.",
+        desc: "A custom LSM engine and in-process vector index, no GC in the read path, sub-millisecond hits by design.",
         href: "/roost/why-rust",
       },
       {
@@ -248,7 +248,7 @@ const GROUPS: Group[] = [
       },
       {
         name: "Four protocols",
-        desc: "RESP, gRPC, REST, and MCP front the same engine — reach the cache however your stack prefers.",
+        desc: "RESP, gRPC, REST, and MCP front the same engine, reach the cache however your stack prefers.",
         href: "/docs/commands",
       },
     ],
@@ -266,7 +266,7 @@ export default function FeaturesPage() {
           <h1 className="responsive-title mt-4 max-w-3xl">Everything Crowkis does, on one page.</h1>
           <p className="responsive-subtitle mt-5 max-w-2xl">
             A semantic cache that understands meaning, long-term memory for your agents, guardrails
-            that say no, and the Rust engine that makes it all sub-millisecond — every capability,
+            that say no, and the Rust engine that makes it all sub-millisecond, every capability,
             grouped and linked.
           </p>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-soft">
@@ -274,7 +274,7 @@ export default function FeaturesPage() {
             <span className="rounded-md border-2 border-ink bg-crow px-1.5 py-0.5 align-middle font-mono text-[10px] font-bold uppercase tracking-wider text-stone-50">
               ▲ Trending
             </span>{" "}
-            are what the AI market is buying right now — agent memory, MCP, RAG, guardrails, evals,
+            are what the AI market is buying right now, agent memory, MCP, RAG, guardrails, evals,
             and gateways. Crowkis ships them all in one self-hosted, zero-egress binary.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
@@ -288,7 +288,7 @@ export default function FeaturesPage() {
           <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 font-mono text-xs text-ink-faint">
             {[
               ["28+", "features, one binary"],
-              ["4", "protocols — RESP · gRPC · REST · MCP"],
+              ["4", "protocols, RESP · gRPC · REST · MCP"],
               ["0", "external API calls"],
               ["$0", "to run Community"],
             ].map(([v, l]) => (
@@ -389,7 +389,7 @@ export default function FeaturesPage() {
               Every feature is a cell in the same grid
             </h2>
             <p className="mt-4 max-w-xl leading-relaxed text-ink-soft">
-              Cache, memory, guardrails, gateway — they aren&apos;t bolt-ons stitched across
+              Cache, memory, guardrails, gateway, they aren&apos;t bolt-ons stitched across
               services. They&apos;re facets of one Redis-compatible engine, sharing the same store,
               the same embedder, the same trust pipeline. Touch one and the whole thing responds.
             </p>

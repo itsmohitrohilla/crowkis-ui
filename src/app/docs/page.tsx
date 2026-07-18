@@ -5,7 +5,7 @@ import { CommandCard } from "@/components/ui/code-tabs";
 export const metadata: Metadata = {
   title: "Docs",
   description:
-    "Crowkis documentation — quickstart, the command reference, configuration, security, the SDKs, and MCP. Everything you need to run and build on the cache.",
+    "Crowkis documentation, quickstart, the command reference, configuration, security, the SDKs, and MCP. Everything you need to run and build on the cache.",
 };
 
 const PATHS = [
@@ -37,7 +37,7 @@ const SECTIONS = [
     group: "Getting started",
     blurb: "From zero to a cache hit.",
     items: [
-      ["Quickstart", "Pull, run, first hit — about five minutes.", "/docs/quickstart"],
+      ["Quickstart", "Pull, run, first hit, about five minutes.", "/docs/quickstart"],
       ["Docker deployment", "The hardened, production-shaped way to run it.", "/docs/docker"],
     ],
   },
@@ -69,13 +69,13 @@ export default function DocsHome() {
         <p className="eyebrow">Documentation</p>
         <h1 className="responsive-title mt-3">Run Crowkis. Build on it. In that order.</h1>
         <p className="responsive-subtitle mt-4">
-          Everything is here — but you only need a little of it to start. Pick the path that matches
+          Everything is here, but you only need a little of it to start. Pick the path that matches
           what you&apos;re doing, or jump straight to the section you need from the sidebar.
         </p>
         <div className="mt-6 max-w-xl">
           <CommandCard
             command="docker pull crowkis/crowkis:latest"
-            note="then the quickstart — first cache hit in about five minutes"
+            note="then the quickstart, first cache hit in about five minutes"
           />
         </div>
       </header>

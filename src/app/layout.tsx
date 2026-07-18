@@ -21,11 +21,11 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://crowkis.com"),
   title: {
-    default: "Crowkis — the semantic LLM cache & agent memory layer, in Rust",
+    default: "Crowkis, the semantic LLM cache & agent memory layer, in Rust",
     template: "%s | Crowkis",
   },
   description:
-    "Crowkis is a Redis-compatible semantic cache and long-term agent memory layer built in Rust for LLM and agentic AI workloads. It understands what a query means, gives agents memory that survives restarts, blocks cache poisoning, and cuts LLM cost — self-hosted, zero-egress.",
+    "Crowkis is a Redis-compatible semantic cache and long-term agent memory layer built in Rust for LLM and agentic AI workloads. It understands what a query means, gives agents memory that survives restarts, blocks cache poisoning, and cuts LLM cost, self-hosted, zero-egress.",
   keywords: [
     "Crowkis",
     "LLM cache",
@@ -62,14 +62,14 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "Crowkis",
     url: "https://crowkis.com",
-    title: "Crowkis — the semantic LLM cache & agent memory layer, in Rust",
+    title: "Crowkis, the semantic LLM cache & agent memory layer, in Rust",
     description:
       "Redis-compatible semantic cache and long-term agent memory for LLM and agentic AI workloads. Self-hosted, zero-egress, built in Rust.",
     images: [{ url: "/logo.png", width: 512, height: 512, alt: "Crowkis" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Crowkis — semantic LLM cache & agent memory",
+    title: "Crowkis, semantic LLM cache & agent memory",
     description:
       "Redis-compatible semantic cache and long-term agent memory for LLM & agentic AI. Self-hosted, zero-egress, in Rust.",
     images: ["/logo.png"],

@@ -17,7 +17,7 @@ const TIER_META: Record<FeatureTier, { label: string; cls: string }> = {
 
 /**
  * The full feature index as a field guide: every feature is a specimen tag;
- * hovering (or tapping) one pins its card — what it does, why it matters, plus
+ * hovering (or tapping) one pins its card, what it does, why it matters, plus
  * its honest shipped/hardening/designed status and tier gate.
  */
 export function FeatureExplorer() {
@@ -41,7 +41,7 @@ export function FeatureExplorer() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="font-display text-2xl font-bold sm:text-3xl">
-            The field guide — {total} features
+            The field guide, {total} features
           </h2>
           <p className="mt-2 font-mono text-xs text-ink-faint">
             {shipped} shipped &amp; in the binary today · hover a tag for what it does and why

@@ -8,7 +8,7 @@ import { WaysSelector, type Way } from "@/components/marketing/ways-selector";
 import { InstallPicker, type Install } from "@/components/marketing/install-picker";
 
 export const metadata: Metadata = {
-  title: "Usage — Get Crowkis running",
+  title: "Usage, Get Crowkis running",
   description:
     "Every way to use Crowkis: the official Docker image, the Python and Node SDKs, the CLI, and signed desktop/server downloads for macOS, Windows, and Linux. Free Community edition, no license required.",
 };
@@ -30,7 +30,7 @@ const HARDENING: [string, string][] = [
   ["read_only: true", "The container filesystem is immutable. Data lives on the mounted volume; /tmp is tmpfs."],
   ["cap_drop: ALL", "Every Linux capability dropped. The process needs none of them."],
   ["no-new-privileges", "Even a compromised process can't gain privileges it didn't start with."],
-  ["Non-root user", "Built into the image — not something you have to remember to configure."],
+  ["Non-root user", "Built into the image, not something you have to remember to configure."],
   ["pids_limit: 512", "Fork bombs hit a wall."],
   ["Localhost-only ports", "Published to 127.0.0.1 by default. Going public is an explicit choice."],
   ["HEALTHCHECK built in", "/health endpoint wired into the image, so orchestrators see real readiness."],
@@ -38,9 +38,9 @@ const HARDENING: [string, string][] = [
 ];
 
 const PORTS: [string, string, string, string][] = [
-  ["6379", "RESP3", "Redis wire protocol — crowkis cli or any Redis client.", "#d62221"],
+  ["6379", "RESP3", "Redis wire protocol, crowkis cli or any Redis client.", "#d62221"],
   ["6380", "HTTP", "Dashboard + management REST API + /health.", "#f59e0b"],
-  ["6381", "gRPC", "h2c — Get / Set / GetStream / Stats / Invalidate.", "#14b8a6"],
+  ["6381", "gRPC", "h2c, Get / Set / GetStream / Stats / Invalidate.", "#14b8a6"],
 ];
 
 const RUN_CMD = `docker run -d --name crowkis \\
@@ -84,7 +84,7 @@ function QuickstartTerminal() {
           <i className="h-2.5 w-2.5 rounded-full bg-crow" />
           <i className="h-2.5 w-2.5 rounded-full bg-stone-600" />
           <i className="h-2.5 w-2.5 rounded-full bg-stone-600" />
-          <span className="ml-2">quickstart — ~60s to a cache hit</span>
+          <span className="ml-2">quickstart, ~60s to a cache hit</span>
         </span>
         <CopyButton text={`docker pull crowkis/crowkis:latest\n${RUN_CMD}`} />
       </div>
@@ -191,7 +191,7 @@ const WAYS: Way[] = [
     tint: "#2496ED",
     mark: <DockerMark />,
     cmd: "docker pull crowkis/crowkis",
-    blurb: "The whole engine in one hardened image — the way to run it in production.",
+    blurb: "The whole engine in one hardened image, the way to run it in production.",
     href: "#run",
     cta: "Run with Docker",
   },
@@ -218,7 +218,7 @@ const WAYS: Way[] = [
     tint: "#16130e",
     mark: <CliMark />,
     cmd: "crowkis cli",
-    blurb: "The command line — talk to any instance, script it, pipe it. Ships in the binary.",
+    blurb: "The command line, talk to any instance, script it, pipe it. Ships in the binary.",
     href: "/docs/commands",
     cta: "Command reference",
   },
@@ -227,7 +227,7 @@ const WAYS: Way[] = [
     tint: "#8b5cf6",
     mark: <McpMark />,
     cmd: "crowkis mcp",
-    blurb: "Let Claude Code and agents use the cache as a tool over MCP — one config block.",
+    blurb: "Let Claude Code and agents use the cache as a tool over MCP, one config block.",
     href: "/mcp",
     cta: "MCP guide",
   },
@@ -335,7 +335,7 @@ export default function DockerPage() {
             </h1>
             <p className="responsive-subtitle mt-5 max-w-md">
               A single hardened Docker image with the whole engine compiled in. Pull it, run it, and
-              free Community edition is live at full power — a license file flips it to Enterprise at
+              free Community edition is live at full power, a license file flips it to Enterprise at
               boot.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
@@ -380,7 +380,7 @@ export default function DockerPage() {
             <h2 className="responsive-title mt-3">Make Crowkis part of your stack.</h2>
             <p className="responsive-subtitle mt-4">
               Run the engine with Docker, or reach it from your code with the SDKs and CLI. Pick the
-              one that fits — they all talk to the same cache.
+              one that fits, they all talk to the same cache.
             </p>
           </div>
         </Reveal>
@@ -397,7 +397,7 @@ export default function DockerPage() {
               <p className="eyebrow">One command per platform</p>
               <h2 className="responsive-title mt-3">Install Crowkis.</h2>
               <p className="responsive-subtitle mt-4">
-                Native installs through the package manager you already use — or the Docker image,
+                Native installs through the package manager you already use, or the Docker image,
                 which works today with no setup. Same engine either way.
               </p>
             </div>
@@ -420,7 +420,7 @@ export default function DockerPage() {
             <h2 className="responsive-title mt-3">Pick run or compose.</h2>
             <p className="responsive-subtitle mt-4">
               One <code className="inline">docker run</code> for a quick spin, or the hardened
-              compose file for the real thing. Ports publish to localhost only — going public is an
+              compose file for the real thing. Ports publish to localhost only, going public is an
               explicit choice, never a default you discover.
             </p>
             <div className="mt-5">
@@ -451,21 +451,21 @@ export default function DockerPage() {
         <div className="grid gap-5 md:grid-cols-3">
           <StepCard n="2" title="Verify it's healthy">
             <p className="text-sm leading-relaxed text-ink-soft">
-              Ask the container itself — the health endpoint reports status and whether admin auth
+              Ask the container itself, the health endpoint reports status and whether admin auth
               is active.
             </p>
             <CommandCard command="curl 127.0.0.1:6380/health" note='expect "admin_auth": "enabled"' />
           </StepCard>
           <StepCard n="3" title="Prove the auth boundary">
             <p className="text-sm leading-relaxed text-ink-soft">
-              Don&apos;t trust it — test it. Unauthenticated management reads must bounce when auth
+              Don&apos;t trust it, test it. Unauthenticated management reads must bounce when auth
               is on.
             </p>
             <CommandCard command="curl -i 127.0.0.1:6380/api/metrics" note="rejected without a key" />
           </StepCard>
           <StepCard n="4" title="Talk to it">
             <p className="text-sm leading-relaxed text-ink-soft">
-              The binary ships the REPL — or point any Redis client at 6379 and watch the dashboard.
+              The binary ships the REPL, or point any Redis client at 6379 and watch the dashboard.
             </p>
             <CommandCard command="docker exec -it crowkis crowkis cli" note="built-in REPL" />
           </StepCard>
@@ -504,7 +504,7 @@ export default function DockerPage() {
           <p className="eyebrow">Environment reference</p>
           <h2 className="responsive-title mt-4">The knobs that matter.</h2>
           <p className="responsive-subtitle mt-4 max-w-2xl">
-            None are required — the image boots with sensible defaults. Full reference in the{" "}
+            None are required, the image boots with sensible defaults. Full reference in the{" "}
             <Link href="/docs/configuration" className="font-semibold text-crow underline underline-offset-2">
               configuration docs
             </Link>
@@ -554,7 +554,7 @@ export default function DockerPage() {
             <div className="mt-5 space-y-3">
               <CommandCard
                 command="docker pull crowkis/crowkis:latest && docker compose up -d"
-                note="the entire upgrade path — binary swap, stable on-disk format, no migrations"
+                note="the entire upgrade path, binary swap, stable on-disk format, no migrations"
               />
               <CommandCard command="docker compose down" note="stop, keep data" />
               <CommandCard command="docker compose down -v" note="stop and remove the data volume" />

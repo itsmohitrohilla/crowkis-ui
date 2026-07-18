@@ -13,8 +13,7 @@ export type Install = {
 };
 
 /**
- * Pick-your-platform installer. A tab row up top, one full-width panel below —
- * so cards never end up half-empty and commands always have room. The visitor's
+ * Pick-your-platform installer. A tab row up top, one full-width panel below, * so cards never end up half-empty and commands always have room. The visitor's
  * OS is auto-selected on load, and the panel fades in when the tab changes.
  */
 export function InstallPicker({ installs }: { installs: Install[] }) {
@@ -63,7 +62,7 @@ export function InstallPicker({ installs }: { installs: Install[] }) {
         })}
       </div>
 
-      {/* selected panel — keyed so it re-mounts and replays the fade */}
+      {/* selected panel, keyed so it re-mounts and replays the fade */}
       <div key={sel} className="card-block install-fade mt-5 p-6 sm:p-7">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">

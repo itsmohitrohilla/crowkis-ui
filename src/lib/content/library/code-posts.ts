@@ -1,7 +1,7 @@
 import { RoostPost } from "@/lib/content/roost";
 
 /**
- * Code-first guides — authored as full posts so they can carry real `code`
+ * Code-first guides, authored as full posts so they can carry real `code`
  * blocks. Every command, flag, and SDK call here matches the shipped product.
  */
 
@@ -15,11 +15,11 @@ export const codePosts: RoostPost[] = [
     readMinutes: 8,
     tag: TAG,
     summary:
-      "The binary is the whole product — server, REPL, doctor, bench, and the inspect tools. A tour of the crowkis command line, from cold start to debugging a missed hit.",
+      "The binary is the whole product, server, REPL, doctor, bench, and the inspect tools. A tour of the crowkis command line, from cold start to debugging a missed hit.",
     blocks: [
       {
         kind: "p",
-        text: "Crowkis ships as one binary, and that binary is also your toolbox. There's no separate CLI package to install, no client library required to poke at a running instance — `crowkis` is the server, the REPL, the benchmark harness, and the debugger, all behind subcommands. Here's the tour.",
+        text: "Crowkis ships as one binary, and that binary is also your toolbox. There's no separate CLI package to install, no client library required to poke at a running instance, `crowkis` is the server, the REPL, the benchmark harness, and the debugger, all behind subcommands. Here's the tour.",
       },
       {
         kind: "h2",
@@ -28,20 +28,20 @@ export const codePosts: RoostPost[] = [
       {
         kind: "code",
         title: "cold start to first hit",
-        code: `# start the cache — RESP on :6379, dashboard on :6380, gRPC on :6381
+        code: `# start the cache, RESP on :6379, dashboard on :6380, gRPC on :6381
 crowkis server --port 6379 --data ./crowkis.data
 
 # in another shell, open the built-in REPL
 crowkis cli 127.0.0.1:6379
 
-> CSET "how do refunds work?" "Refunds take 5–7 business days."
+> CSET "how do refunds work?" "Refunds take 5-7 business days."
 OK
 > CGET "what's the refund timeline?"   # a paraphrase
-"Refunds take 5–7 business days."      # semantic hit`,
+"Refunds take 5-7 business days."      # semantic hit`,
       },
       {
         kind: "p",
-        text: "The REPL feels like redis-cli on purpose — every Redis command works, and the C* semantic commands sit right beside them. You can also point any Redis client at the same port; the CLI is just the one that ships in the box.",
+        text: "The REPL feels like redis-cli on purpose, every Redis command works, and the C* semantic commands sit right beside them. You can also point any Redis client at the same port; the CLI is just the one that ships in the box.",
       },
       {
         kind: "h2",
@@ -50,7 +50,7 @@ OK
       {
         kind: "code",
         title: "doctor + bench",
-        code: `# health check & diagnostics — config, ports, model, data dir
+        code: `# health check & diagnostics, config, ports, model, data dir
 crowkis doctor
 
 # built-in benchmarks: latency, throughput, paraphrase hit-rate, reasoning reuse
@@ -60,7 +60,7 @@ crowkis bench paraphrase`,
       },
       {
         kind: "p",
-        text: "`crowkis doctor` is the first thing to run when something feels off — it reports the bind addresses, the embedding model in use, the data directory, and whether auth is configured. `crowkis bench` runs the same harnesses we publish numbers from, against your hardware, so you can see your own latency rather than ours.",
+        text: "`crowkis doctor` is the first thing to run when something feels off, it reports the bind addresses, the embedding model in use, the data directory, and whether auth is configured. `crowkis bench` runs the same harnesses we publish numbers from, against your hardware, so you can see your own latency rather than ours.",
       },
       {
         kind: "h2",
@@ -69,10 +69,10 @@ crowkis bench paraphrase`,
       {
         kind: "code",
         title: "dump + why + tail",
-        code: `# inspect a cache entry — embedding, template, intent, trust
+        code: `# inspect a cache entry, embedding, template, intent, trust
 crowkis dump "how do refunds work?"
 
-# explain a hit-or-miss decision — which gate vetoed, and the scores
+# explain a hit-or-miss decision, which gate vetoed, and the scores
 crowkis why "can I get my money back?"
 
 # follow the structured JSON log, colour-coded, live
@@ -80,7 +80,7 @@ crowkis tail`,
       },
       {
         kind: "p",
-        text: "`crowkis why` is the one you'll reach for most: when a query you expected to hit comes back a miss, it walks the five gates and tells you which one vetoed — similarity too low, template mismatch, confidence under the bar, trust or freshness failing — with the actual scores. The cache stops being a black box.",
+        text: "`crowkis why` is the one you'll reach for most: when a query you expected to hit comes back a miss, it walks the five gates and tells you which one vetoed, similarity too low, template mismatch, confidence under the bar, trust or freshness failing, with the actual scores. The cache stops being a black box.",
       },
       {
         kind: "h2",
@@ -110,11 +110,11 @@ crowkis export-audit   # ship the audit log to your SIEM`,
     readMinutes: 5,
     tag: TAG,
     summary:
-      "The Python SDK wraps the semantic cache in an ergonomic client — get-or-compute, streaming, tenants, models. Here's the three-line version and the production version.",
+      "The Python SDK wraps the semantic cache in an ergonomic client, get-or-compute, streaming, tenants, models. Here's the three-line version and the production version.",
     blocks: [
       {
         kind: "p",
-        text: "The fastest way to feel the savings is the get-or-compute pattern: ask the cache first, and only call the model on a miss — banking the result for every future paraphrase. The Python SDK makes it three lines around your existing model call.",
+        text: "The fastest way to feel the savings is the get-or-compute pattern: ask the cache first, and only call the model on a miss, banking the result for every future paraphrase. The Python SDK makes it three lines around your existing model call.",
       },
       {
         kind: "code",
@@ -130,15 +130,15 @@ answer = cache.get_or_compute(
       },
       {
         kind: "p",
-        text: "On the first call, `compute` runs and the answer is stored with the full anti-poisoning pipeline. On every semantically similar call after, the cache returns the stored answer in well under a millisecond — no model call, no token cost.",
+        text: "On the first call, `compute` runs and the answer is stored with the full anti-poisoning pipeline. On every semantically similar call after, the cache returns the stored answer in well under a millisecond, no model call, no token cost.",
       },
       {
         kind: "code",
-        title: "the production version — explicit set/get with confidence",
+        title: "the production version, explicit set/get with confidence",
         code: `# store, with a TTL and the model that produced it
 cache.cset("Explain vector caches", answer, ttl=3600)
 
-# read, gated on confidence — fall back to the model if unsure
+# read, gated on confidence, fall back to the model if unsure
 hit = cache.cget("what is a semantic cache?", with_confidence=True)
 if hit and hit.confidence >= 0.88:
     return hit.value
@@ -148,7 +148,7 @@ cache.close()`,
       },
       {
         kind: "plain",
-        text: "Ask the cache first; only pay the model on a real miss. The second time anyone asks the same thing — even worded differently — it's free and instant.",
+        text: "Ask the cache first; only pay the model on a real miss. The second time anyone asks the same thing, even worded differently, it's free and instant.",
       },
       {
         kind: "p",
@@ -163,7 +163,7 @@ cache.close()`,
     readMinutes: 5,
     tag: TAG,
     summary:
-      "The Node SDK ships a typed client and a CachedOpenAI wrapper — keep your OpenAI calls exactly as they are, and a semantic cache slips in underneath.",
+      "The Node SDK ships a typed client and a CachedOpenAI wrapper, keep your OpenAI calls exactly as they are, and a semantic cache slips in underneath.",
     blocks: [
       {
         kind: "p",
@@ -178,7 +178,7 @@ import OpenAI from "openai";
 const cache = new CrowkisClient({ host: "127.0.0.1", port: 6379, tenant: "web" });
 const openai = new CachedOpenAI(new OpenAI(), cache);
 
-// identical to the OpenAI SDK — but paraphrases hit the cache
+// identical to the OpenAI SDK, but paraphrases hit the cache
 const res = await openai.chat.completions.create({
   model: "gpt-4o",
   messages: [{ role: "user", content: "What's your refund policy?" }],
@@ -187,7 +187,7 @@ console.log(res.choices[0].message.content, res.cached); // res.cached: boolean`
       },
       {
         kind: "p",
-        text: "Every response carries a `cached` flag so you can measure your hit rate from the application side, not just the dashboard. The wrapper handles the embedding, the semantic lookup, and the write-back on a miss — your code keeps thinking it's just calling OpenAI.",
+        text: "Every response carries a `cached` flag so you can measure your hit rate from the application side, not just the dashboard. The wrapper handles the embedding, the semantic lookup, and the write-back on a miss, your code keeps thinking it's just calling OpenAI.",
       },
       {
         kind: "code",
@@ -201,7 +201,7 @@ return answer;`,
       },
       {
         kind: "plain",
-        text: "Keep your OpenAI code exactly as it is. The wrapper checks the cache first, so repeated questions stop hitting the API — and every response tells you whether it was cached.",
+        text: "Keep your OpenAI code exactly as it is. The wrapper checks the cache first, so repeated questions stop hitting the API, and every response tells you whether it was cached.",
       },
     ],
   },
@@ -212,11 +212,11 @@ return answer;`,
     readMinutes: 5,
     tag: TAG,
     summary:
-      "The memory commands from application code — store facts, recall them semantically, and watch consolidation retire the stale ones. A worked example in Python.",
+      "The memory commands from application code, store facts, recall them semantically, and watch consolidation retire the stale ones. A worked example in Python.",
     blocks: [
       {
         kind: "p",
-        text: "Agent memory is a few commands, and from Python it's a few method calls. The pattern: extract durable facts from a conversation, store them scoped to (agent, user), and recall them by meaning on the next turn — letting consolidation keep the picture current.",
+        text: "Agent memory is a few commands, and from Python it's a few method calls. The pattern: extract durable facts from a conversation, store them scoped to (agent, user), and recall them by meaning on the next turn, letting consolidation keep the picture current.",
       },
       {
         kind: "code",
@@ -237,7 +237,7 @@ print(facts[0])   # -> "moved to Berlin in March"`,
       },
       {
         kind: "p",
-        text: "Because memory consolidates, you don't have to hunt down and delete the stale fact — storing the contradicting one retires it automatically. The recall is ranked by relevance blended with recency, so the current answer surfaces first.",
+        text: "Because memory consolidates, you don't have to hunt down and delete the stale fact, storing the contradicting one retires it automatically. The recall is ranked by relevance blended with recency, so the current answer surfaces first.",
       },
       {
         kind: "code",
@@ -253,7 +253,7 @@ mem.cmemforget(AGENT, USER, "payment details")`,
       },
       {
         kind: "plain",
-        text: "Tell the agent facts, ask by meaning, and let it retire what changed. Storing 'moved to Berlin' quietly forgets 'lives in Munich' — no manual cleanup.",
+        text: "Tell the agent facts, ask by meaning, and let it retire what changed. Storing 'moved to Berlin' quietly forgets 'lives in Munich', no manual cleanup.",
       },
     ],
   },
@@ -264,7 +264,7 @@ mem.cmemforget(AGENT, USER, "payment details")`,
     readMinutes: 5,
     tag: TAG,
     summary:
-      "Two commands wrap your model call in an input and an output gate — prompt-injection scanning before, PII and toxicity scanning after. No second model, no egress.",
+      "Two commands wrap your model call in an input and an output gate, prompt-injection scanning before, PII and toxicity scanning after. No second model, no egress.",
     blocks: [
       {
         kind: "p",
@@ -292,11 +292,11 @@ def answer(user_prompt: str) -> str:
       },
       {
         kind: "p",
-        text: "The verdicts are structured for action: CGUARD returns a verdict, a category, and the matched span; COUTCHECK returns a pass/fail with the PII entities and toxic spans it found. You decide the policy — block, redact, or regenerate — per failure mode.",
+        text: "The verdicts are structured for action: CGUARD returns a verdict, a category, and the matched span; COUTCHECK returns a pass/fail with the PII entities and toxic spans it found. You decide the policy, block, redact, or regenerate, per failure mode.",
       },
       {
         kind: "plain",
-        text: "Check what comes in before you trust it, and what goes out before you send it. Both checks run on your machine — no moderation API, no data leaving.",
+        text: "Check what comes in before you trust it, and what goes out before you send it. Both checks run on your machine, no moderation API, no data leaving.",
       },
     ],
   },
@@ -307,11 +307,11 @@ def answer(user_prompt: str) -> str:
     readMinutes: 5,
     tag: TAG,
     summary:
-      "Add documents, auto-chunk them, search with metadata filters and reranking — a working retrieval pipeline without a separate vector database.",
+      "Add documents, auto-chunk them, search with metadata filters and reranking, a working retrieval pipeline without a separate vector database.",
     blocks: [
       {
         kind: "p",
-        text: "If your corpus fits a cache, you don't need a separate vector database to do retrieval. CDOC gives you add, chunk, filter, and rerank inside Crowkis, sharing the bundled embedder — so a RAG pipeline is twenty lines, not a second service.",
+        text: "If your corpus fits a cache, you don't need a separate vector database to do retrieval. CDOC gives you add, chunk, filter, and rerank inside Crowkis, sharing the bundled embedder, so a RAG pipeline is twenty lines, not a second service.",
       },
       {
         kind: "code",
@@ -342,11 +342,11 @@ for r in results:
       },
       {
         kind: "p",
-        text: "Field-level filters narrow the search before it runs, and the optional rerank pass — the same cross-encoder that lifts the memory benchmarks — sharpens the ordering. Your documents are embedded and searched locally, which matters when the documents are contracts or tickets you can't ship to a hosted API.",
+        text: "Field-level filters narrow the search before it runs, and the optional rerank pass, the same cross-encoder that lifts the memory benchmarks, sharpens the ordering. Your documents are embedded and searched locally, which matters when the documents are contracts or tickets you can't ship to a hosted API.",
       },
       {
         kind: "plain",
-        text: "Add documents, search them by meaning with filters, get reranked results — all inside Crowkis, with nothing leaving your machine and no separate vector DB to run.",
+        text: "Add documents, search them by meaning with filters, get reranked results, all inside Crowkis, with nothing leaving your machine and no separate vector DB to run.",
       },
     ],
   },
@@ -357,7 +357,7 @@ for r in results:
     readMinutes: 5,
     tag: TAG,
     summary:
-      "Version a prompt, split traffic across versions with sticky per-user bucketing, render variables, and roll back — without a deploy or a feature-flag service.",
+      "Version a prompt, split traffic across versions with sticky per-user bucketing, render variables, and roll back, without a deploy or a feature-flag service.",
     blocks: [
       {
         kind: "p",
@@ -376,7 +376,7 @@ c.cprompt_set("support_reply", "You are warm and concise. Answer: {{q}}")  # v2
 # 50/50 weighted split across the two versions
 c.cprompt_abset("support_reply", [["1", 50], ["2", 50]])
 
-# sticky per user — same subject, same variant, every time
+# sticky per user, same subject, same variant, every time
 version = c.cprompt_ab("support_reply", subject=user_id)
 prompt = c.cprompt_render("support_reply", version=version, vars={"q": question})`,
       },
@@ -386,7 +386,7 @@ prompt = c.cprompt_render("support_reply", version=version, vars={"q": question}
       },
       {
         kind: "plain",
-        text: "Store prompts like versioned code, split traffic between versions per user, and roll back a bad one — without a deploy or a separate feature-flag tool.",
+        text: "Store prompts like versioned code, split traffic between versions per user, and roll back a bad one, without a deploy or a separate feature-flag tool.",
       },
     ],
   },
@@ -397,7 +397,7 @@ prompt = c.cprompt_render("support_reply", version=version, vars={"q": question}
     readMinutes: 4,
     tag: TAG,
     summary:
-      "One config block turns Crowkis into a tool an AI assistant can hold — check the cache, store the answer — over MCP, with the same trust pipeline as every other write.",
+      "One config block turns Crowkis into a tool an AI assistant can hold, check the cache, store the answer, over MCP, with the same trust pipeline as every other write.",
     blocks: [
       {
         kind: "p",
@@ -418,11 +418,11 @@ prompt = c.cprompt_render("support_reply", version=version, vars={"q": question}
       },
       {
         kind: "p",
-        text: "The mcp subcommand boots silently — the startup banner every other verb prints would corrupt a JSON-RPC stream, so it's the one quiet door. A hit returns the answer with its confidence; a miss returns a clean signal the assistant can act on rather than hallucinate around.",
+        text: "The mcp subcommand boots silently, the startup banner every other verb prints would corrupt a JSON-RPC stream, so it's the one quiet door. A hit returns the answer with its confidence; a miss returns a clean signal the assistant can act on rather than hallucinate around.",
       },
       {
         kind: "p",
-        text: "Crucially, MCP writes get no trust shortcut: an assistant's store request walks the same five-stage anti-poisoning pipeline as RESP and SDK writes, tracked in the ledger as its own source. An agent that stores garbage earns a higher bar automatically. The result is agents that remember as a behaviour — Claude Code checks before spending tokens, banks what it computes, and the whole team's assistants share the dividend.",
+        text: "Crucially, MCP writes get no trust shortcut: an assistant's store request walks the same five-stage anti-poisoning pipeline as RESP and SDK writes, tracked in the ledger as its own source. An agent that stores garbage earns a higher bar automatically. The result is agents that remember as a behaviour, Claude Code checks before spending tokens, banks what it computes, and the whole team's assistants share the dividend.",
       },
       {
         kind: "quote",

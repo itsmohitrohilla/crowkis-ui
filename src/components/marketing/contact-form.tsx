@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const TO = "contact@crowkis.com";
 
-/** Gmail web compose — opens a real compose window in the browser, no desktop
+/** Gmail web compose, opens a real compose window in the browser, no desktop
  *  mail app required (which is why a plain mailto: often appears to "do nothing"). */
 function gmailCompose(subject: string, body: string) {
   return `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
@@ -28,9 +28,9 @@ export function ContactForm() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
 
-  const buildSubject = () => `Crowkis — message from ${name || "a visitor"}`;
+  const buildSubject = () => `Crowkis, message from ${name || "a visitor"}`;
   const buildBody = () =>
-    [message, "", "—", name ? `From: ${name}` : null, email ? `Reply to: ${email}` : null]
+    [message, "", ", ", name ? `From: ${name}` : null, email ? `Reply to: ${email}` : null]
       .filter(Boolean)
       .join("\n");
 
@@ -93,7 +93,7 @@ export function ContactForm() {
 
       <p className="mt-3 text-center font-mono text-[11px] text-ink-faint">
         {sent ? (
-          <>Opened a compose window — hit send and it reaches us.</>
+          <>Opened a compose window, hit send and it reaches us.</>
         ) : (
           <>
             Opens a Gmail compose window. Prefer your own mail app?{" "}

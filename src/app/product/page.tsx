@@ -21,35 +21,35 @@ const SYSTEMS: {
     n: "01",
     name: "Semantic + structural matching",
     plain:
-      "It knows 'how do refunds work?' and 'what's your refund window?' are the same question — but 'cancel' and 'pause' are not.",
-    tech: "Every query gets an embedding in the HNSW vector index and a structural template — numbers, dates, and entities abstracted into slots. A hit requires both signals to agree, which kills the false-positive class that similarity-only caches are infamous for.",
+      "It knows 'how do refunds work?' and 'what's your refund window?' are the same question, but 'cancel' and 'pause' are not.",
+    tech: "Every query gets an embedding in the HNSW vector index and a structural template, numbers, dates, and entities abstracted into slots. A hit requires both signals to agree, which kills the false-positive class that similarity-only caches are infamous for.",
   },
   {
     n: "02",
     name: "Anti-poisoning pipeline",
     plain:
       "One bad answer in a smart cache spreads to everyone who asks anything similar. Crowkis checks every answer's trustworthiness before storing it.",
-    tech: "Five weighted stages — coherence 0.30, content 0.10, source trust 0.30, tenant isolation 0.15, neighbourhood agreement 0.15 — with a 0.75 composite floor. Every accept and refuse lands in an append-only trust ledger, so writers with bad history face a higher bar.",
+    tech: "Five weighted stages, coherence 0.30, content 0.10, source trust 0.30, tenant isolation 0.15, neighbourhood agreement 0.15, with a 0.75 composite floor. Every accept and refuse lands in an append-only trust ledger, so writers with bad history face a higher bar.",
   },
   {
     n: "03",
     name: "Adaptive thresholds",
     plain:
-      "The cache learns where it can afford to be generous and where it must be strict — by watching its own results.",
+      "The cache learns where it can afford to be generous and where it must be strict, by watching its own results.",
     tech: "Per-intent reuse thresholds adjust from live hit/miss feedback within bounded ranges, with complexity adjustment and EMA decay. Twelve intent classes, each with its own bar; any threshold can be pinned via the management API.",
   },
   {
     n: "04",
     name: "Reasoning reuse",
     plain:
-      "Beyond reusing answers, Crowkis reuses the way an answer was worked out — the expensive part of an LLM call.",
-    tech: "Chain-of-thought output is parsed into typed steps, specifics are abstracted into slots, and the step-sequence signature is stored. New inputs that match the signature get the recomposed skeleton — savings response-level caching can't reach.",
+      "Beyond reusing answers, Crowkis reuses the way an answer was worked out, the expensive part of an LLM call.",
+    tech: "Chain-of-thought output is parsed into typed steps, specifics are abstracted into slots, and the step-sequence signature is stored. New inputs that match the signature get the recomposed skeleton, savings response-level caching can't reach.",
   },
   {
     n: "05",
     name: "Smart eviction",
     plain:
-      "When space runs low, it doesn't throw out the most valuable answers — it knows what each one cost to make.",
+      "When space runs low, it doesn't throw out the most valuable answers, it knows what each one cost to make.",
     tech: "Eviction scores recency, frequency, isolation, and compute cost at 0.25 each. A $0.40 chain-of-thought answer and a $0.0004 one-liner are not equally disposable, and the evictor knows it.",
   },
   {
@@ -57,13 +57,13 @@ const SYSTEMS: {
     name: "Confidence scoring",
     plain:
       "Every served answer clears a quality bar first. Uncertain matches go to the model instead of guessing.",
-    tech: "A geometric mean of five signals — similarity, freshness, trust, hit history, intent threshold — gates every response. Factual content needs 0.88; creative gets 0.70. The geometric mean means one weak signal tanks the score, by design.",
+    tech: "A geometric mean of five signals, similarity, freshness, trust, hit history, intent threshold, gates every response. Factual content needs 0.88; creative gets 0.70. The geometric mean means one weak signal tanks the score, by design.",
   },
   {
     n: "07",
     name: "Freshness control",
     plain: "Yesterday's truth doesn't outlive its shelf life. Prices change; the cache keeps up.",
-    tech: "Five TTL policies plus version pinning and invalidation webhooks. Freshness also feeds confidence — an aging entry decays toward recompute before it ever serves something stale.",
+    tech: "Five TTL policies plus version pinning and invalidation webhooks. Freshness also feeds confidence, an aging entry decays toward recompute before it ever serves something stale.",
   },
 ];
 
@@ -76,7 +76,7 @@ const SURFACES: [string, string, string][] = [
 
 const CONTROL_PLANE: [string, string][] = [
   ["Live verdict feed", "Every hit, miss, and block streamed with its confidence score and the stage that decided it."],
-  ["Cost accounting", "Dollars and tokens saved, per tenant and per model — the number your CFO actually asks for."],
+  ["Cost accounting", "Dollars and tokens saved, per tenant and per model, the number your CFO actually asks for."],
   ["Canary & migration", "Upgrade models without torching the warm cache: canary a slice, compare, migrate with leasing."],
   ["Budgets & circuit breakers", "Per-tenant spending walls enforced locally, before the invoice surprises you."],
   ["PII & compliance", "Scrubbing, erasure workflows, and compliance report exports through the management API."],
@@ -95,7 +95,7 @@ export default function ProductPage() {
               Seven systems, four protocols, one binary.
             </h1>
             <p className="responsive-subtitle mt-4 max-w-2xl">
-              This page is the long answer to &quot;what exactly do I get?&quot; — each system
+              This page is the long answer to &quot;what exactly do I get?&quot;, each system
               explained twice: once in plain words for whoever pays the bill, once in specifics for
               whoever deploys the binary.
             </p>
@@ -129,14 +129,14 @@ export default function ProductPage() {
               A storage engine built for this exact job.
             </h2>
             <p className="mt-4 leading-relaxed text-stone-400">
-              CrowkisDB is a purpose-built Rust LSM tree — write-ahead log with CRC-checked
+              CrowkisDB is a purpose-built Rust LSM tree, write-ahead log with CRC-checked
               records, 64 MB memtable, LZ4-compressed SSTables with bloom filters, three-level
-              compaction — with the HNSW vector index persisting beside it. No RocksDB, no garbage
+              compaction, with the HNSW vector index persisting beside it. No RocksDB, no garbage
               collector in the read path, no external dependencies.
             </p>
             <p className="mt-4 rounded-lg border border-roost-line bg-roost-card p-4 text-sm leading-relaxed text-stone-400">
               <span className="font-semibold text-stone-200">In plain words:</span> the part that
-              holds your data was built for caching LLM answers specifically — which is why hits
+              holds your data was built for caching LLM answers specifically, which is why hits
               come back in under a millisecond and a power cut doesn&apos;t cost you your cache.
             </p>
           </Reveal>
@@ -146,7 +146,7 @@ export default function ProductPage() {
                 ["< 1ms", "cache hits, in-process"],
                 ["347", "integration tests on the suite"],
                 ["WAL", "crash-safe, CRC-checked records"],
-                ["0 GC", "Rust — no collector pauses"],
+                ["0 GC", "Rust, no collector pauses"],
               ].map(([big, small]) => (
                 <div key={big} className="rounded-xl border border-roost-line bg-roost-card p-5">
                   <p className="font-display text-2xl font-bold text-stone-50">{big}</p>

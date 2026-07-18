@@ -33,8 +33,8 @@ export default function CommandsPage() {
         head={["Command", "What it does"]}
         rows={[
           [<C key="1">CSET</C>, "Store an answer with model, tenant, and TTL. The write passes intent classification, template extraction, and the anti-poisoning pipeline before it is accepted."],
-          [<C key="2">CGET</C>, "Retrieve by meaning. Exact matches, paraphrases, and structural template matches all qualify — if the confidence score clears the intent's threshold."],
-          [<C key="3">CGETSTREAM</C>, "Like CGET, but streams the cached answer in chunks — so cached responses feel like live model output."],
+          [<C key="2">CGET</C>, "Retrieve by meaning. Exact matches, paraphrases, and structural template matches all qualify, if the confidence score clears the intent's threshold."],
+          [<C key="3">CGETSTREAM</C>, "Like CGET, but streams the cached answer in chunks, so cached responses feel like live model output."],
           [<C key="4">CIMGGET</C>, "Multimodal lookup for image + text queries."],
           [<C key="5">CSIM</C>, "Inspect the K nearest semantic neighbours of a query. Your debugging window into the vector index."],
           [<C key="6">CFLUSH</C>, "Flush semantic entries for a tenant."],
@@ -58,7 +58,7 @@ export default function CommandsPage() {
           [<C key="q">query</C>, "The question, stored both as an embedding and as an abstracted structural template."],
           [<C key="a">answer</C>, "The response to cache."],
           [<C key="ex">EX seconds</C>, "TTL. Freshness policies can shorten effective reuse further."],
-          [<C key="m">MODEL name</C>, "Which model produced this — used for migration and canary workflows."],
+          [<C key="m">MODEL name</C>, "Which model produced this, used for migration and canary workflows."],
           [<C key="t">TENANT id</C>, "Isolation boundary. Entries never cross tenants."],
         ]}
       />
@@ -89,7 +89,7 @@ export default function CommandsPage() {
       <DocH2 id="grpc">gRPC surface</DocH2>
       <DocP>
         The gRPC API (h2c, RESP port + 2) exposes <C>Get</C>, <C>Set</C>, <C>GetStream</C>,{" "}
-        <C>Stats</C>, and <C>Invalidate</C> — the same cache, for services that prefer protobuf
+        <C>Stats</C>, and <C>Invalidate</C>, the same cache, for services that prefer protobuf
         contracts. The schema lives at <C>proto/crowkis.proto</C> in the repository.
       </DocP>
 

@@ -19,11 +19,11 @@ const GROUPS: Group[] = [
     items: [
       [
         "What problem does Crowkis actually solve?",
-        "LLM apps pay to recompute answers they already produced. The same question arrives phrased a hundred ways, and every phrasing becomes a fresh model bill. Crowkis recognizes when a new question means the same thing as an old one and serves the stored answer — when it's safe to.",
+        "LLM apps pay to recompute answers they already produced. The same question arrives phrased a hundred ways, and every phrasing becomes a fresh model bill. Crowkis recognizes when a new question means the same thing as an old one and serves the stored answer, when it's safe to.",
       ],
       [
         "How much money is actually wasted without it?",
-        "In most production LLM workloads, a large share of queries are paraphrases or repeats of earlier ones — support bots, internal copilots, and doc assistants are the worst offenders. Every one of those is full-price compute for an answer you already own.",
+        "In most production LLM workloads, a large share of queries are paraphrases or repeats of earlier ones, support bots, internal copilots, and doc assistants are the worst offenders. Every one of those is full-price compute for an answer you already own.",
       ],
       [
         "Why can't I just use Redis for this?",
@@ -35,7 +35,7 @@ const GROUPS: Group[] = [
       ],
       [
         "What is cache poisoning and why should I care?",
-        "One bad entry — a hallucination, a prompt injection, a cross-tenant leak — gets served to every nearby query in a semantic cache. Poison radiates. Crowkis scores every write through a five-stage trust pipeline before it's ever served.",
+        "One bad entry, a hallucination, a prompt injection, a cross-tenant leak, gets served to every nearby query in a semantic cache. Poison radiates. Crowkis scores every write through a five-stage trust pipeline before it's ever served.",
       ],
       [
         "Does Crowkis make my app faster too, or just cheaper?",
@@ -62,15 +62,15 @@ const GROUPS: Group[] = [
       ],
       [
         "What are intent classes?",
-        "Every query is classified into one of 12 intents — factual, creative, personal, transactional, and so on. Factual questions tolerate aggressive reuse; creative and personal ones get strict thresholds. A poem request never serves a cached poem meant for someone else.",
+        "Every query is classified into one of 12 intents, factual, creative, personal, transactional, and so on. Factual questions tolerate aggressive reuse; creative and personal ones get strict thresholds. A poem request never serves a cached poem meant for someone else.",
       ],
       [
         "What is structural template matching?",
-        "Numbers, dates, and entities are lifted out of the query into slots — so 'invoice #4412 status' and 'invoice #9981 status' share one template. It catches paraphrases vectors miss and blocks false matches vectors invent.",
+        "Numbers, dates, and entities are lifted out of the query into slots, so 'invoice #4412 status' and 'invoice #9981 status' share one template. It catches paraphrases vectors miss and blocks false matches vectors invent.",
       ],
       [
         "How does confidence scoring work?",
-        "Five signals — semantic similarity, freshness, source trust, hit history, and intent threshold — combine into a geometric mean. Factual content needs 0.88 to serve. Below threshold, the query goes to the model, full stop.",
+        "Five signals, semantic similarity, freshness, source trust, hit history, and intent threshold, combine into a geometric mean. Factual content needs 0.88 to serve. Below threshold, the query goes to the model, full stop.",
       ],
       [
         "What exactly does the anti-poisoning pipeline check?",
@@ -78,7 +78,7 @@ const GROUPS: Group[] = [
       ],
       [
         "What is reasoning reuse?",
-        "Crowkis extracts the step structure from chain-of-thought answers, abstracts the specifics into slots, and recomposes the skeleton for new inputs that share the pattern. It saves on the expensive part — the reasoning — not just the final words.",
+        "Crowkis extracts the step structure from chain-of-thought answers, abstracts the specifics into slots, and recomposes the skeleton for new inputs that share the pattern. It saves on the expensive part, the reasoning, not just the final words.",
       ],
       [
         "What are adaptive thresholds?",
@@ -97,7 +97,7 @@ const GROUPS: Group[] = [
     items: [
       [
         "Which protocols does it speak?",
-        "RESP3 (the Redis wire protocol — redis-py, ioredis, and Lettuce connect unmodified), gRPC over h2c for protobuf shops, a REST management API, and MCP for AI apps and agents. Same cache behind all four.",
+        "RESP3 (the Redis wire protocol, redis-py, ioredis, and Lettuce connect unmodified), gRPC over h2c for protobuf shops, a REST management API, and MCP for AI apps and agents. Same cache behind all four.",
       ],
       [
         "What's in the storage engine?",
@@ -105,7 +105,7 @@ const GROUPS: Group[] = [
       ],
       [
         "Does it handle streaming responses?",
-        "Yes — CGETSTREAM and the SDKs' stream_get_or_compute serve cached answers chunk by chunk, so a hit feels like live model output to your UI.",
+        "Yes, CGETSTREAM and the SDKs' stream_get_or_compute serve cached answers chunk by chunk, so a hit feels like live model output to your UI.",
       ],
       [
         "Does it handle images?",
@@ -113,7 +113,7 @@ const GROUPS: Group[] = [
       ],
       [
         "What does the dashboard show?",
-        "A live verdict feed — every hit, miss, and block with its confidence score — plus hit-type breakdowns, cost saved per tenant and per model, top queries, top misses, safety blocks by stage, memory pressure, and license state.",
+        "A live verdict feed, every hit, miss, and block with its confidence score, plus hit-type breakdowns, cost saved per tenant and per model, top queries, top misses, safety blocks by stage, memory pressure, and license state.",
       ],
       [
         "Can I monitor it with my existing tools?",
@@ -137,11 +137,11 @@ const GROUPS: Group[] = [
       ],
       [
         "Can my AI coding assistant use it?",
-        "Yes — that's the MCP integration. Claude Code and other MCP-capable apps register 'crowkis mcp' as a server and check the cache before spending tokens. Repeated lookups become free.",
+        "Yes, that's the MCP integration. Claude Code and other MCP-capable apps register 'crowkis mcp' as a server and check the cache before spending tokens. Repeated lookups become free.",
       ],
       [
         "Does it work with LangChain or LlamaIndex?",
-        "Yes — the Python SDK ships adapters and worked examples for both. The integration point is the same get_or_compute wrap around your chain's LLM call.",
+        "Yes, the Python SDK ships adapters and worked examples for both. The integration point is the same get_or_compute wrap around your chain's LLM call.",
       ],
     ],
   },
@@ -168,11 +168,11 @@ const GROUPS: Group[] = [
       ],
       [
         "Can I read the source code?",
-        "No — Crowkis is closed-source by design. You receive a signed binary in a minimal image: one file to security-review, no dependency tree to audit, no supply chain to poison.",
+        "No, Crowkis is closed-source by design. You receive a signed binary in a minimal image: one file to security-review, no dependency tree to audit, no supply chain to poison.",
       ],
       [
         "Does it terminate TLS?",
-        "Not in-process — run it behind your proxy or service mesh like you would most data-plane infrastructure, and keep the ports off the public internet.",
+        "Not in-process, run it behind your proxy or service mesh like you would most data-plane infrastructure, and keep the ports off the public internet.",
       ],
     ],
   },
@@ -183,15 +183,15 @@ const GROUPS: Group[] = [
     items: [
       [
         "What are virtual API keys? (Enterprise)",
-        "Instead of one shared credential, you mint a key per app, team, or customer — each with its own budget and rate limits. When one app goes rogue, you throttle a key, not the whole cache.",
+        "Instead of one shared credential, you mint a key per app, team, or customer, each with its own budget and rate limits. When one app goes rogue, you throttle a key, not the whole cache.",
       ],
       [
         "What are per-key budgets and TPM/RPM limits? (Enterprise)",
-        "Hard spending and rate ceilings per key. A runaway agent loop hits its budget and stops costing you money — Crowkis enforces the wall locally instead of you discovering it on the invoice.",
+        "Hard spending and rate ceilings per key. A runaway agent loop hits its budget and stops costing you money, Crowkis enforces the wall locally instead of you discovering it on the invoice.",
       ],
       [
         "What is Crowkis Replay? (Enterprise)",
-        "The proof tool: replay a sample of your real production queries through the cache and get the exact hit rate and dollar savings you would have had. No projections, your own data. We run it for you on the demo call — before you spend anything.",
+        "The proof tool: replay a sample of your real production queries through the cache and get the exact hit rate and dollar savings you would have had. No projections, your own data. We run it for you on the demo call, before you spend anything.",
       ],
       [
         "What is prompt management? (Enterprise)",
@@ -199,7 +199,7 @@ const GROUPS: Group[] = [
       ],
       [
         "What are the agent conversation and tool-call caches? (Enterprise)",
-        "Purpose-built cache paths for agent workloads: multi-turn conversation state and deterministic tool-call results. Agent fleets are the most repetitive traffic that exists — these two features usually justify the license on their own.",
+        "Purpose-built cache paths for agent workloads: multi-turn conversation state and deterministic tool-call results. Agent fleets are the most repetitive traffic that exists, these two features usually justify the license on their own.",
       ],
       [
         "What is the reasoning patterns library? (Enterprise)",
@@ -207,7 +207,7 @@ const GROUPS: Group[] = [
       ],
       [
         "What is the Provider Arbitrage Router? (Enterprise)",
-        "Routing that sends each query to the cheapest model that clears your quality bar for that intent — easy questions to cheap models, hard ones to frontier models, automatically.",
+        "Routing that sends each query to the cheapest model that clears your quality bar for that intent, easy questions to cheap models, hard ones to frontier models, automatically.",
       ],
       [
         "What is the Cross-Provider Cache Bridge? (Enterprise)",
@@ -219,7 +219,7 @@ const GROUPS: Group[] = [
       ],
       [
         "What does the audit log cover? (Enterprise)",
-        "Every administrative action and trust decision, persisted and exportable — the artifact your auditor actually asks for.",
+        "Every administrative action and trust decision, persisted and exportable, the artifact your auditor actually asks for.",
       ],
       [
         "What is SSO/SAML/OIDC support? (Enterprise)",
@@ -227,11 +227,11 @@ const GROUPS: Group[] = [
       ],
       [
         "What are the Auto-Tuner, Privacy Vault, and Live Edit? (Enterprise)",
-        "Auto-Tuner continuously optimizes thresholds and eviction weights against your live traffic. Privacy Vault isolates sensitive entries with stricter handling. Live Edit lets operators correct or redact a cached answer in place — with the change audited.",
+        "Auto-Tuner continuously optimizes thresholds and eviction weights against your live traffic. Privacy Vault isolates sensitive entries with stricter handling. Live Edit lets operators correct or redact a cached answer in place, with the change audited.",
       ],
       [
         "What support comes with each tier?",
-        "Community: community channels. Enterprise: priority support with a fast human response — and we'll get on a call.",
+        "Community: community channels. Enterprise: priority support with a fast human response, and we'll get on a call.",
       ],
     ],
   },
@@ -250,7 +250,7 @@ const GROUPS: Group[] = [
       ],
       [
         "How do upgrades work?",
-        "Binary swap: docker pull the new tag and restart. The on-disk format is stable — no schema migrations, no export/import dance.",
+        "Binary swap: docker pull the new tag and restart. The on-disk format is stable, no schema migrations, no export/import dance.",
       ],
       [
         "What are the hardware requirements?",
@@ -258,7 +258,7 @@ const GROUPS: Group[] = [
       ],
       [
         "Is the Docker image hardened?",
-        "Yes, by default: non-root user, read-only filesystem, all Linux capabilities dropped, no-new-privileges, pids limit, localhost-only published ports, health checks, and log rotation — in the stock compose file.",
+        "Yes, by default: non-root user, read-only filesystem, all Linux capabilities dropped, no-new-privileges, pids limit, localhost-only published ports, health checks, and log rotation, in the stock compose file.",
       ],
       [
         "What's actually inside the image?",
@@ -266,15 +266,15 @@ const GROUPS: Group[] = [
       ],
       [
         "Does it survive restarts?",
-        "Yes — durability is WAL-based with CRC-checked records, and the vector index persists with the store. Restart recovery is part of the 347-test suite.",
+        "Yes, durability is WAL-based with CRC-checked records, and the vector index persists with the store. Restart recovery is part of the 347-test suite.",
       ],
       [
         "Can I run it in Kubernetes?",
-        "Yes — it's a single container with a /health endpoint, so a Deployment with a PVC works today, and a Helm chart ships with the Kubernetes packaging milestone.",
+        "Yes, it's a single container with a /health endpoint, so a Deployment with a PVC works today, and a Helm chart ships with the Kubernetes packaging milestone.",
       ],
       [
         "How do I watch what it's doing?",
-        "Three ways: the built-in dashboard (live verdict feed), Prometheus /metrics for your existing Grafana, and structured JSON logs — one line per significant event, no log spam.",
+        "Three ways: the built-in dashboard (live verdict feed), Prometheus /metrics for your existing Grafana, and structured JSON logs, one line per significant event, no log spam.",
       ],
     ],
   },
@@ -285,7 +285,7 @@ const GROUPS: Group[] = [
     items: [
       [
         "What does Crowkis cost?",
-        "Community is free forever — full engine, no license, no sign-up. Enterprise is flat per cluster per year, priced in one conversation: email contact@crowkis.com and we'll get on a call. No usage metering, no per-seat math.",
+        "Community is free forever, full engine, no license, no sign-up. Enterprise is flat per cluster per year, priced in one conversation: email contact@crowkis.com and we'll get on a call. No usage metering, no per-seat math.",
       ],
       [
         "What counts as a cluster?",
@@ -293,7 +293,7 @@ const GROUPS: Group[] = [
       ],
       [
         "Is Community a trial?",
-        "No. It's the full engine — all seven differentiators — capped at 3 tenants and 100K entries. Solo developers and small teams can run it in production for free, indefinitely.",
+        "No. It's the full engine, all seven differentiators, capped at 3 tenants and 100K entries. Solo developers and small teams can run it in production for free, indefinitely.",
       ],
       [
         "How is the license enforced?",
@@ -316,7 +316,7 @@ const GROUPS: Group[] = [
     items: [
       [
         "Why does closed-source make it safer here?",
-        "The deliverable is one signed Rust binary — there is no dependency tree inside the runtime image for an attacker to poison. The 2026 supply-chain compromise of a major Python LLM gateway is exactly the attack class this architecture removes by construction.",
+        "The deliverable is one signed Rust binary, there is no dependency tree inside the runtime image for an attacker to poison. The 2026 supply-chain compromise of a major Python LLM gateway is exactly the attack class this architecture removes by construction.",
       ],
       [
         "How is multi-tenant data kept separate?",
@@ -324,15 +324,15 @@ const GROUPS: Group[] = [
       ],
       [
         "How does Crowkis handle PII?",
-        "A PII index supports scrubbing and erasure workflows with reports through the management API. Prompt previews stay out of logs by default — privacy is the default setting, not an option you enable.",
+        "A PII index supports scrubbing and erasure workflows with reports through the management API. Prompt previews stay out of logs by default, privacy is the default setting, not an option you enable.",
       ],
       [
         "What auth protects each surface?",
-        "RESP and gRPC take a bearer token compared in constant time; the management API takes an admin key, RBAC API keys, or sessions with role-gated endpoints. Bind beyond localhost and management auth becomes mandatory automatically — misconfiguration fails closed.",
+        "RESP and gRPC take a bearer token compared in constant time; the management API takes an admin key, RBAC API keys, or sessions with role-gated endpoints. Bind beyond localhost and management auth becomes mandatory automatically, misconfiguration fails closed.",
       ],
       [
         "Can a malicious user poison the cache through normal use?",
-        "Every write — human, SDK, or agent — passes the same five-stage pipeline, and the source trust ledger means writers with a bad history face a higher bar. A blocked write is logged with the stage that vetoed it.",
+        "Every write, human, SDK, or agent, passes the same five-stage pipeline, and the source trust ledger means writers with a bad history face a higher bar. A blocked write is logged with the stage that vetoed it.",
       ],
       [
         "Can it run air-gapped?",
@@ -354,7 +354,7 @@ export default function FaqPage() {
             <h1 className="responsive-title mt-3">Frequently asked questions</h1>
             <p className="responsive-subtitle mt-4 max-w-2xl">
               Everything Crowkis solves, everything it can do, everything it deliberately
-              won&apos;t — in language for both the person paying the LLM bill and the person
+              won&apos;t, in language for both the person paying the LLM bill and the person
               deploying the binary.
             </p>
             <div className="mt-6 flex flex-wrap gap-2">
@@ -404,7 +404,7 @@ export default function FaqPage() {
             <div>
               <p className="font-display text-lg font-bold">Question not here?</p>
               <p className="mt-1 text-sm text-ink-soft">
-                Email us — questions asked twice become documentation.
+                Email us, questions asked twice become documentation.
               </p>
             </div>
             <a

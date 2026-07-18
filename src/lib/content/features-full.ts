@@ -18,12 +18,12 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Role-based access control",
         what: "Admin, Reader, and Auditor roles, enforced on every management route.",
-        why: "The person who can flush the cache and the person who can only read reports are different people — and the server knows it.",
+        why: "The person who can flush the cache and the person who can only read reports are different people, and the server knows it.",
         status: "shipped",
       },
       {
         name: "API keys, argon2id-hashed",
-        what: "crwk_-prefixed keys with per-user create / rotate / revoke, stored only as argon2id hashes — never plaintext.",
+        what: "crwk_-prefixed keys with per-user create / rotate / revoke, stored only as argon2id hashes, never plaintext.",
         why: "A leaked database never leaks a usable key.",
         status: "shipped",
       },
@@ -42,7 +42,7 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "SAML / SSO",
         what: "SAML config, metadata, and ACS endpoints are in place; assertion-hardening is underway before regulated production.",
-        why: "Your identity provider will own login — the plumbing is already there.",
+        why: "Your identity provider will own login, the plumbing is already there.",
         status: "hardening",
         tier: "enterprise",
       },
@@ -53,7 +53,7 @@ export const featureGroups: FeatureGroup[] = [
     items: [
       {
         name: "Hard tenant isolation",
-        what: "Every cache key is tenant-tagged and the read path enforces the tag — no cross-tenant read exists under any code path (invariant-tested).",
+        what: "Every cache key is tenant-tagged and the read path enforces the tag, no cross-tenant read exists under any code path (invariant-tested).",
         why: "Customer A's answer can never surface in customer B's session. It's physics, not a WHERE clause.",
         status: "shipped",
       },
@@ -78,7 +78,7 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Tamper-evident audit chain",
         what: "Each audit event is sha256(prev ‖ event); verify_audit_chain() detects any tamper, reorder, or deletion.",
-        why: "Your audit log can prove it wasn't edited — the artifact auditors actually want.",
+        why: "Your audit log can prove it wasn't edited, the artifact auditors actually want.",
         status: "shipped",
       },
       {
@@ -91,7 +91,7 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Compliance mode packs",
         what: "CROWKIS_COMPLIANCE_MODE = hipaa / soc2 / gdpr-eu / fedramp, with an honest control table (always-on / active / operator-managed / planned).",
-        why: "The regime maps to a config flag — and the table never lies about what's automated.",
+        why: "The regime maps to a config flag, and the table never lies about what's automated.",
         status: "shipped",
       },
       {
@@ -127,7 +127,7 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Source trust scoring + ledger",
         what: "A composite trust gate, recorded in a trust ledger and re-evaluated at read time.",
-        why: "Trust has memory — a source that wrote garbage earns a higher bar.",
+        why: "Trust has memory, a source that wrote garbage earns a higher bar.",
         status: "shipped",
       },
       {
@@ -164,7 +164,7 @@ export const featureGroups: FeatureGroup[] = [
     items: [
       {
         name: "Per-tenant chargeback / showback",
-        what: "Cost-attribution report, dashboard panel, and CSV export per tenant — returns an honest 402 on lower tiers.",
+        what: "Cost-attribution report, dashboard panel, and CSV export per tenant, returns an honest 402 on lower tiers.",
         why: "Bill your own teams or customers for exactly what they used.",
         status: "shipped",
         tier: "enterprise",
@@ -246,8 +246,8 @@ export const featureGroups: FeatureGroup[] = [
       },
       {
         name: "Live operations dashboard",
-        what: "Savings, trends, security, DB internals, tenants, budgets, and a live log — customizable per browser, edition-aware.",
-        why: "The first question about any cache — 'what's it doing?' — has a visual answer.",
+        what: "Savings, trends, security, DB internals, tenants, budgets, and a live log, customizable per browser, edition-aware.",
+        why: "The first question about any cache, 'what's it doing?', has a visual answer.",
         status: "shipped",
       },
       {
@@ -266,7 +266,7 @@ export const featureGroups: FeatureGroup[] = [
     ],
   },
   {
-    group: "Cache intelligence — the moat",
+    group: "Cache intelligence, the moat",
     items: [
       {
         name: "Semantic + structural cache",
@@ -289,7 +289,7 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Smart eviction + CWHYEVICT",
         what: "Cost-aware eviction with CWHYEVICT explainability for any decision.",
-        why: "Expensive answers aren't discarded like cheap ones — and you can ask why.",
+        why: "Expensive answers aren't discarded like cheap ones, and you can ask why.",
         status: "shipped",
       },
       {
@@ -318,13 +318,13 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Drop-in Redis",
         what: "RESP2 / RESP3 with ~40 Redis commands plus 19 Crowkis commands.",
-        why: "Point your existing Redis client at one new port — no rewrite.",
+        why: "Point your existing Redis client at one new port, no rewrite.",
         status: "shipped",
       },
       {
         name: "MCP server",
         what: "crowkis mcp lets any AI agent use the cache as a tool; stats and dashboard are exposed as MCP resources.",
-        why: "Claude Code and agents check the cache before spending tokens — and it's free.",
+        why: "Claude Code and agents check the cache before spending tokens, and it's free.",
         status: "shipped",
         tier: "free",
       },
@@ -337,7 +337,7 @@ export const featureGroups: FeatureGroup[] = [
       {
         name: "Two images, three tiers",
         what: "A free image (paid code compiled out, verified) and a paid image whose license selects Community / Pro / Enterprise, plus a Helm chart and hardened compose.",
-        why: "Adopt free, upgrade by license — no migration.",
+        why: "Adopt free, upgrade by license, no migration.",
         status: "shipped",
       },
     ],

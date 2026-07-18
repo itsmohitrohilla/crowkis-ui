@@ -10,9 +10,13 @@ import { featuresSpecs } from "./features-deep";
 import { benchmarkPosts } from "./benchmarks-posts";
 import { codePosts } from "./code-posts";
 import { commandGuidePosts } from "./command-guides";
+import { proofPosts } from "./proof-posts";
+import { proofPosts2 } from "./proof-posts-2";
 
 export const allRoostPosts: RoostPost[] = [
   ...roostPosts,
+  ...proofPosts,
+  ...proofPosts2,
   ...benchmarkPosts,
   ...codePosts,
   ...commandGuidePosts,

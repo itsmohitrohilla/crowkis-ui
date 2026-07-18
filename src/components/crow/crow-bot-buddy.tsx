@@ -5,8 +5,7 @@ import { CrowBot } from "@/components/crow/crow-bot";
 
 /**
  * The CrowBot buddy: a small, ever-present mascot pinned to the corner of
- * every page. Click it (or get your cursor too close) and it talks back —
- * jokes, sarcasm, and cache propaganda. Dismissable, remembers nothing,
+ * every page. Click it (or get your cursor too close) and it talks back, * jokes, sarcasm, and cache propaganda. Dismissable, remembers nothing,
  * forgives nothing.
  */
 
@@ -82,7 +81,7 @@ export function CrowBotBuddy() {
           bounce ? "scale-110" : ""
         }`}
         style={{ lineHeight: 0 }}
-        aria-label="the crowkis bot — click for wisdom"
+        aria-label="the crowkis bot, click for wisdom"
         title="click me"
       >
         <CrowBot size={92} />

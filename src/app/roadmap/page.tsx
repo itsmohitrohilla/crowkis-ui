@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const roadmapBlocks = [
   {
     title: "Kubernetes, first-class",
-    body: "A Helm chart with sane values — replicas, persistence size, license secret, probes wired to /health — so the path Enterprise teams already take becomes a one-line install.",
+    body: "A Helm chart with sane values, replicas, persistence size, license secret, probes wired to /health, so the path Enterprise teams already take becomes a one-line install.",
   },
   {
     title: "Deeper observability",
@@ -22,7 +22,7 @@ const roadmapBlocks = [
   },
   {
     title: "New cacheable workloads",
-    body: "Audio caching, agent checkpointing, request coalescence, and RAG-specialized paths — extending the same five-veto reuse discipline to more of the LLM stack.",
+    body: "Audio caching, agent checkpointing, request coalescence, and RAG-specialized paths, extending the same five-veto reuse discipline to more of the LLM stack.",
   },
   {
     title: "What we won't do",
@@ -35,7 +35,7 @@ export default function RoadmapPage() {
     <ContentPage
       eyebrow="Roadmap"
       title="Where Crowkis goes next"
-      intro="The direction of travel — and the lines we've committed never to cross."
+      intro="The direction of travel, and the lines we've committed never to cross."
       sections={roadmapBlocks}
     />
   );

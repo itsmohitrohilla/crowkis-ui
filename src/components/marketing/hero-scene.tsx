@@ -6,7 +6,7 @@ import { CrowBot } from "@/components/crow/crow-bot";
 
 /**
  * The hero diorama: a paper-craft 3D scene. The whole stage tilts toward the
- * pointer and every layer parallaxes at its own depth — terminal slab,
+ * pointer and every layer parallaxes at its own depth, terminal slab,
  * floating Crowkis cubes, drifting verdict chips, the CrowBot, and a giant
  * outlined CAW in the back. Theme-pure: ink, paper, crow red.
  */

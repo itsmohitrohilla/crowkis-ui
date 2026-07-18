@@ -10,7 +10,7 @@ export default function NotFound() {
           (nil)
         </h1>
         <p className="mt-5 max-w-md text-ink-soft">
-          Cache miss. We checked meaning, structure, and all five trust stages — this page
+          Cache miss. We checked meaning, structure, and all five trust stages, this page
           genuinely doesn&apos;t exist. Even the crow looked.
         </p>
         <p className="mt-2 font-mono text-xs text-ink-faint">

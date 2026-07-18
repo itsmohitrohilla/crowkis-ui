@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 const changelogBlocks = [
   {
     title: "The full engine, shipped",
-    body: "CrowkisDB LSM store with WAL durability, HNSW vector index, and all seven intelligence systems — semantic + structural matching, anti-poisoning, adaptive thresholds, reasoning reuse, smart eviction, confidence scoring, freshness control — live in every edition.",
+    body: "CrowkisDB LSM store with WAL durability, HNSW vector index, and all seven intelligence systems, semantic + structural matching, anti-poisoning, adaptive thresholds, reasoning reuse, smart eviction, confidence scoring, freshness control, live in every edition.",
   },
   {
     title: "Four protocol surfaces",
@@ -22,7 +22,7 @@ const changelogBlocks = [
   },
   {
     title: "The control plane",
-    body: "Dashboard with live verdict feed, per-tenant budgets, canary and migration workflows, PII and compliance reporting, RBAC and API keys — auditable through the same REST API it runs on.",
+    body: "Dashboard with live verdict feed, per-tenant budgets, canary and migration workflows, PII and compliance reporting, RBAC and API keys, auditable through the same REST API it runs on.",
   },
   {
     title: "Release discipline",
@@ -30,7 +30,7 @@ const changelogBlocks = [
   },
   {
     title: "Enterprise unlocks",
-    body: "Virtual API keys with budgets and rate limits, Crowkis Replay, prompt management, agent and tool-call caches, Provider Arbitrage Router, cross-provider cache bridge, compliance modes, SSO, and audit export — all license-gated in the same image.",
+    body: "Virtual API keys with budgets and rate limits, Crowkis Replay, prompt management, agent and tool-call caches, Provider Arbitrage Router, cross-provider cache bridge, compliance modes, SSO, and audit export, all license-gated in the same image.",
   },
 ];
 
@@ -39,7 +39,7 @@ export default function ChangelogPage() {
     <ContentPage
       eyebrow="Changelog"
       title="What's shipped"
-      intro="The short version of what's inside the image you pull today — and the discipline behind how it got there."
+      intro="The short version of what's inside the image you pull today, and the discipline behind how it got there."
       sections={changelogBlocks}
     />
   );

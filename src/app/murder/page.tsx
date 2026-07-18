@@ -5,7 +5,7 @@ import { CrowGarden } from "@/components/crow/crow-garden";
 import { CrowGameLauncher } from "@/components/crow/crow-game-launcher";
 
 export const metadata: Metadata = {
-  title: "The Murder — brain-rot crow game",
+  title: "The Murder, brain-rot crow game",
   description:
     "A group of crows is called a murder. This is ours: a full-screen brain-rot game where you shoot crows out of the sky for score, plus a pixel garden and the Crowkis monument.",
 };
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function MurderPage() {
   return (
     <SiteShell>
-      {/* hero — lead with the game */}
+      {/* hero, lead with the game */}
       <section className="border-b-2 border-ink bg-roost text-stone-50">
         <div className="section grid items-center gap-8 py-12 md:grid-cols-[1.3fr_1fr] md:py-16">
           <div>
@@ -24,8 +24,7 @@ export default function MurderPage() {
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-stone-400 sm:text-lg">
               Certified brain rot. Crows fly across the screen, you click them out of the sky,
-              combos stack, the clock runs. One minute. One high score. No crows are harmed —
-              they respawn out of spite.
+              combos stack, the clock runs. One minute. One high score. No crows are harmed, they respawn out of spite.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <CrowGameLauncher
@@ -74,7 +73,7 @@ export default function MurderPage() {
         </div>
         <div className="card-quiet mt-8 grid gap-4 p-6 sm:grid-cols-3">
           {[
-            ["Crows remember faces", "Corvids recognize individual humans for years — hold a grudge, too. Our cache remembers answers the same way: with receipts."],
+            ["Crows remember faces", "Corvids recognize individual humans for years, hold a grudge, too. Our cache remembers answers the same way: with receipts."],
             ["Crows use tools", "They bend wire into hooks and drop nuts on crosswalks for cars to crack. Ours uses an LSM tree and an HNSW index."],
             ["Crows share knowledge", "A murder teaches its young which faces to trust. That's a distributed trust ledger, if you squint."],
           ].map(([title, body]) => (

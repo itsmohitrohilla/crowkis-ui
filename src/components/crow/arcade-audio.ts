@@ -1,5 +1,5 @@
 /**
- * Sound for the arcade — synthesised live with the Web Audio API, no audio
+ * Sound for the arcade, synthesised live with the Web Audio API, no audio
  * files to download or license. It works offline and stays in the Crowkis
  * spirit: one self-contained thing that never phones home. Crow caws, a punchy
  * kill blip, a rain bed, and a light energetic loop, all behind one mute switch.
@@ -10,7 +10,7 @@
 
 type Win = typeof window & { webkitAudioContext?: typeof AudioContext };
 
-// A minor pentatonic — bass + a little lead arpeggio for the loop.
+// A minor pentatonic, bass + a little lead arpeggio for the loop.
 const BASS = [110, 110, 146.83, 110, 130.81, 110, 164.81, 110]; // A2 / D3 / C3 / E3
 const LEAD = [440, 523.25, 659.25, 783.99, 659.25, 523.25]; // A4 C5 E5 G5 …
 
@@ -31,7 +31,7 @@ export class ArcadeAudio {
     this.muted = muted;
   }
 
-  /** Build (lazily) and unsuspend the context — must run inside a user gesture. */
+  /** Build (lazily) and unsuspend the context, must run inside a user gesture. */
   resume() {
     if (!this.ctx) this.build();
     if (this.ctx && this.ctx.state === "suspended") void this.ctx.resume();
@@ -66,7 +66,7 @@ export class ArcadeAudio {
     }
   }
 
-  /** A harsh, descending crow caw — one or two syllables. */
+  /** A harsh, descending crow caw, one or two syllables. */
   caw(golden = false) {
     const ctx = this.ctx;
     if (!ctx || !this.master) return;

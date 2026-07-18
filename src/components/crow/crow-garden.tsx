@@ -5,7 +5,7 @@ import { Logo3D } from "@/components/crow/logo-3d";
 
 /**
  * The Murder: part garden, part brain-rot game. Crows fly between perches,
- * hop, blink — and you BONK them. Each bonk scores, bonked crows poof into
+ * hop, blink, and you BONK them. Each bonk scores, bonked crows poof into
  * feathers and respawn, the flock gets faster as your score climbs, and at
  * higher scores perched crows start fleeing your cursor. High score sticks
  * in localStorage. No crows are harmed; they respawn out of spite.
@@ -367,7 +367,7 @@ export function CrowGarden() {
           bonk within 2s for combo ×2 · past 15 bonks they dodge your cursor
         </p>
         <p className="font-mono text-[10px] text-ink-faint">
-          no crows were harmed — they respawn out of spite
+          no crows were harmed, they respawn out of spite
         </p>
       </div>
     </div>

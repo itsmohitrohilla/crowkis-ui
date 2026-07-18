@@ -21,7 +21,7 @@ export default function QuickstartPage() {
       <DocTitle
         eyebrow="Getting started"
         title="Quickstart"
-        lead="From zero to a semantic cache hit in about five minutes. You need Docker — everything else, including the CLI, ships inside the image. Community edition is free and needs no license."
+        lead="From zero to a semantic cache hit in about five minutes. You need Docker, everything else, including the CLI, ships inside the image. Community edition is free and needs no license."
       />
 
       <DocH2 id="run">1. Pull and run</DocH2>
@@ -44,7 +44,7 @@ docker run -d --name crowkis \\
         ]}
       />
       <DocNote>
-        No environment variables are required to boot — defaults are sensible and the data volume
+        No environment variables are required to boot, defaults are sensible and the data volume
         persists your cache across restarts. Hardening and every knob:{" "}
         <a href="/docker" className="font-semibold text-crow underline underline-offset-2">
           the Docker guide
@@ -54,7 +54,7 @@ docker run -d --name crowkis \\
 
       <DocH2 id="first-commands">2. Talk to it</DocH2>
       <DocP>
-        The image ships the interactive REPL — <code className="inline">crowkis cli</code> — which
+        The image ships the interactive REPL, <code className="inline">crowkis cli</code>, which
         connects like redis-cli does. Standard Redis commands work, and the{" "}
         <code className="inline">C*</code> family adds the semantic layer:
       </DocP>
@@ -69,13 +69,13 @@ CVECCOUNT`}
       />
       <DocP>
         The fourth line is the point: a <em>paraphrase</em> of the stored question still hits,
-        because Crowkis matches meaning and structure — not bytes. Already a Redis shop? Your
+        because Crowkis matches meaning and structure, not bytes. Already a Redis shop? Your
         existing client connects to port 6379 unmodified.
       </DocP>
 
       <DocH2 id="dashboard">3. Watch it decide</DocH2>
       <DocP>
-        Open the dashboard and you&apos;ll see every verdict streaming live — hits by type, misses,
+        Open the dashboard and you&apos;ll see every verdict streaming live, hits by type, misses,
         safety blocks, latency, and an estimate of what the cache saved you:
       </DocP>
       <DocCode code={`open http://127.0.0.1:6380`} />
@@ -99,7 +99,7 @@ answer = cache.get_or_compute(
       />
       <DocNote>
         Node shop? <code className="inline">npm install crowkis</code> and{" "}
-        <code className="inline">getOrCompute</code> — same pattern. Using Claude Code or agents?
+        <code className="inline">getOrCompute</code>, same pattern. Using Claude Code or agents?
         See{" "}
         <a href="/docs/mcp" className="font-semibold text-crow underline underline-offset-2">
           MCP for AI apps

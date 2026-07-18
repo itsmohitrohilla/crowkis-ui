@@ -26,7 +26,7 @@ export type PostSpec = {
   paras: string[];
   /** optional "In plain words" callout, placed after the first paragraph */
   plain?: string;
-  /** venn comparison — left circle label (right is always Crowkis) */
+  /** venn comparison, left circle label (right is always Crowkis) */
   venn?: { left: string; overlap: string; leftItems?: string[]; rightItems?: string[]; caption?: string };
   /** or a shared mermaid chart */
   chart?: ChartKey;
@@ -45,10 +45,10 @@ const CHARTS: Record<ChartKey, { title: string; chart: string; caption: string }
   L2 --> A
   L3 --> A
   style A fill:#fbe9e8,stroke:#d62221,stroke-width:2.5px`,
-    caption: "Every paraphrase is a fresh bill — unless the cache understands meaning.",
+    caption: "Every paraphrase is a fresh bill, unless the cache understands meaning.",
   },
   "read-path": {
-    title: "the crowkis read path — five gates, every one can veto",
+    title: "the crowkis read path, five gates, every one can veto",
     chart: `flowchart TD
   Q["incoming query"] --> I["intent classifier"]
   I --> T["template match"]
@@ -87,7 +87,7 @@ const CHARTS: Record<ChartKey, { title: string; chart: string; caption: string }
   CAN --> CMP{"quality holds?"}
   CMP -- yes --> MIG["migrate entries with leasing"]
   MIG --> NEW["new model · cache still warm"]
-  CMP -- no --> STAY["stay — nothing lost"]
+  CMP -- no --> STAY["stay, nothing lost"]
   style NEW fill:#fbe9e8,stroke:#d62221,stroke-width:2.5px`,
     caption: "The upgrade is a workflow, not a leap of faith.",
   },

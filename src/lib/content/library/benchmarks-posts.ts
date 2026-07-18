@@ -1,7 +1,7 @@
 import { RoostPost } from "@/lib/content/roost";
 
 /**
- * Benchmark write-ups — authored as full posts (not builder specs) because each
+ * Benchmark write-ups, authored as full posts (not builder specs) because each
  * one needs its own bar charts. Numbers come from the independent harness in the
  * crowkis-testing-scripts repo, run on a CPU-only laptop against the published
  * Docker image. Ratios matter more than absolutes; every claim here is reproducible.
@@ -17,7 +17,7 @@ export const benchmarkPosts: RoostPost[] = [
     readMinutes: 9,
     tag: TAG,
     summary:
-      "We ran Crowkis memory against two public, hostile retrieval benchmarks — SNAP's LoCoMo and LongMemEval — on a laptop with no cloud calls. Here are the recall numbers, by question type, with the reranker on and off.",
+      "We ran Crowkis memory against two public, hostile retrieval benchmarks, SNAP's LoCoMo and LongMemEval, on a laptop with no cloud calls. Here are the recall numbers, by question type, with the reranker on and off.",
     blocks: [
       {
         kind: "p",
@@ -33,7 +33,7 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "bars",
-        title: "LoCoMo recall@10 — with cross-encoder rerank",
+        title: "LoCoMo recall@10, with cross-encoder rerank",
         unit: "% recall@10",
         series: [
           { label: "Overall", value: 70.4, accent: true },
@@ -43,11 +43,11 @@ export const benchmarkPosts: RoostPost[] = [
           { label: "Open-domain", value: 47.8 },
         ],
         caption:
-          "Reranking lifts overall recall from ~25% (bi-encoder only) to 70.4% — roughly a 3× gain.",
+          "Reranking lifts overall recall from ~25% (bi-encoder only) to 70.4%, roughly a 3× gain.",
       },
       {
         kind: "p",
-        text: "That reranker delta is the whole story of why Crowkis memory ships a second model. A bi-encoder embeds the query and the facts independently and compares them — fast, but blunt. The cross-encoder reads the query and each candidate together, which is slower but far sharper; Crowkis runs it only over the top candidates so the cost stays bounded. The result is the difference between a memory that mostly works and one you can build on.",
+        text: "That reranker delta is the whole story of why Crowkis memory ships a second model. A bi-encoder embeds the query and the facts independently and compares them, fast, but blunt. The cross-encoder reads the query and each candidate together, which is slower but far sharper; Crowkis runs it only over the top candidates so the cost stays bounded. The result is the difference between a memory that mostly works and one you can build on.",
       },
       {
         kind: "h2",
@@ -55,7 +55,7 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "p",
-        text: "LongMemEval stretches the context to breaking: its hard split averages ~49 sessions and ~500 turns per question. We measured recall@5 by question type — the kinds of recall an actual assistant needs.",
+        text: "LongMemEval stretches the context to breaking: its hard split averages ~49 sessions and ~500 turns per question. We measured recall@5 by question type, the kinds of recall an actual assistant needs.",
       },
       {
         kind: "bars",
@@ -73,7 +73,7 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "p",
-        text: "The shape of these numbers is honest and useful. Temporal reasoning and knowledge-update score highest because consolidation is doing its job — when a fact changes, Crowkis retires the old version, so 'what's true now' is a clean lookup. Preference questions score lowest because preferences are subtle and rarely restated; that's the frontier we're working on, and we'd rather show you the 60% than hide it.",
+        text: "The shape of these numbers is honest and useful. Temporal reasoning and knowledge-update score highest because consolidation is doing its job, when a fact changes, Crowkis retires the old version, so 'what's true now' is a clean lookup. Preference questions score lowest because preferences are subtle and rarely restated; that's the frontier we're working on, and we'd rather show you the 60% than hide it.",
       },
       {
         kind: "quote",
@@ -81,7 +81,7 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "p",
-        text: "That last point is the part that matters for adoption. Hosted memory services post comparable recall — but they read your users' conversations to do it. Crowkis hits these numbers with a self-hosted binary and two small bundled models, which means agent memory is now something you can run in an air-gapped environment, under a compliance regime, or just without wiring your private conversations through someone else's servers.",
+        text: "That last point is the part that matters for adoption. Hosted memory services post comparable recall, but they read your users' conversations to do it. Crowkis hits these numbers with a self-hosted binary and two small bundled models, which means agent memory is now something you can run in an air-gapped environment, under a compliance regime, or just without wiring your private conversations through someone else's servers.",
       },
     ],
   },
@@ -92,11 +92,11 @@ export const benchmarkPosts: RoostPost[] = [
     readMinutes: 7,
     tag: TAG,
     summary:
-      "A semantic cache hit isn't free — it has to embed your query first. We measured every operation's percentiles so you know exactly what you're paying for, and where the cache engine itself is microsecond-fast.",
+      "A semantic cache hit isn't free, it has to embed your query first. We measured every operation's percentiles so you know exactly what you're paying for, and where the cache engine itself is microsecond-fast.",
     blocks: [
       {
         kind: "p",
-        text: "Marketing says 'sub-millisecond cache.' The truth has an asterisk worth understanding, because it tells you exactly when Crowkis is fast and when it isn't. A plain key-value GET — no embedding, no semantics — returns in about a quarter of a millisecond, a true Redis-class drop-in. A semantic CGET is a different animal: before it can search, it has to turn your query into a vector.",
+        text: "Marketing says 'sub-millisecond cache.' The truth has an asterisk worth understanding, because it tells you exactly when Crowkis is fast and when it isn't. A plain key-value GET, no embedding, no semantics, returns in about a quarter of a millisecond, a true Redis-class drop-in. A semantic CGET is a different animal: before it can search, it has to turn your query into a vector.",
       },
       {
         kind: "bars",
@@ -109,19 +109,19 @@ export const benchmarkPosts: RoostPost[] = [
           { label: "CSET (store)", value: 118.8 },
         ],
         caption:
-          "The ~115 ms on every semantic op is the ONNX embedding cost — not the cache engine, which resolves in microseconds.",
+          "The ~115 ms on every semantic op is the ONNX embedding cost, not the cache engine, which resolves in microseconds.",
       },
       {
         kind: "plain",
-        text: "p50 is the median — half of requests are faster. The embedding step dominates every semantic operation, so a hit and a miss cost almost the same: the work is in understanding the query, not in the lookup.",
+        text: "p50 is the median, half of requests are faster. The embedding step dominates every semantic operation, so a hit and a miss cost almost the same: the work is in understanding the query, not in the lookup.",
       },
       {
         kind: "p",
-        text: "Once you see that the embedding is the cost, the optimization writes itself: don't embed what you've already embedded. Crowkis added a micro-cache that remembers recent embeddings, and for exact-repeat queries — which dominate real agent and chatbot traffic — the embedding step disappears entirely.",
+        text: "Once you see that the embedding is the cost, the optimization writes itself: don't embed what you've already embedded. Crowkis added a micro-cache that remembers recent embeddings, and for exact-repeat queries, which dominate real agent and chatbot traffic, the embedding step disappears entirely.",
       },
       {
         kind: "bars",
-        title: "Exact-repeat CGET — before and after the embedding micro-cache",
+        title: "Exact-repeat CGET, before and after the embedding micro-cache",
         unit: "ms",
         series: [
           { label: "Before (re-embed every time)", value: 19.5 },
@@ -131,7 +131,7 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "p",
-        text: "The tail tells the same story honestly. CGET-hit p99 sits at 136 ms — tight, because hits do predictable work. CGET-miss p99 stretches to 347 ms, because a miss occasionally does more work confirming there's nothing to serve. Neither number is a mystery pause; both are the embedding model under load, which is why the micro-cache and, on faster hardware, a GPU embedder move them so dramatically.",
+        text: "The tail tells the same story honestly. CGET-hit p99 sits at 136 ms, tight, because hits do predictable work. CGET-miss p99 stretches to 347 ms, because a miss occasionally does more work confirming there's nothing to serve. Neither number is a mystery pause; both are the embedding model under load, which is why the micro-cache and, on faster hardware, a GPU embedder move them so dramatically.",
       },
       {
         kind: "quote",
@@ -139,13 +139,13 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "p",
-        text: "The practical takeaway: Crowkis is microsecond-fast at being a cache and millisecond-fast at being a semantic one, with the embedding as the dial you can turn — micro-cache for repeats, a stronger embedder host for throughput, or plain KV when you don't need meaning at all. Know which operation you're calling and the latency stops being a surprise.",
+        text: "The practical takeaway: Crowkis is microsecond-fast at being a cache and millisecond-fast at being a semantic one, with the embedding as the dial you can turn, micro-cache for repeats, a stronger embedder host for throughput, or plain KV when you don't need meaning at all. Know which operation you're calling and the latency stops being a surprise.",
       },
     ],
   },
   {
     slug: "the-throughput-ceiling-we-wont-hide",
-    title: "The throughput ceiling we won't hide — and the fix",
+    title: "The throughput ceiling we won't hide, and the fix",
     date: "2026-06-12",
     readMinutes: 6,
     tag: TAG,
@@ -168,15 +168,15 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "plain",
-        text: "Throughput is how many requests per second the server handles. Scaling means more threads should mean more throughput. A flat line means something is serializing the work — only one thing happens at a time.",
+        text: "Throughput is how many requests per second the server handles. Scaling means more threads should mean more throughput. A flat line means something is serializing the work, only one thing happens at a time.",
       },
       {
         kind: "p",
-        text: "Two things stacked up. First, Crowkis funnels cache decisions through a single-writer actor — a deliberate design that makes correctness and crash-recovery provable, but means writes don't run in parallel. Second, and dominant here, every semantic op ran the ONNX embedding inline, so each thread spent ~115 ms in the same synchronous model call. Sixteen threads waiting on the same serial embed is sixteen threads in a line.",
+        text: "Two things stacked up. First, Crowkis funnels cache decisions through a single-writer actor, a deliberate design that makes correctness and crash-recovery provable, but means writes don't run in parallel. Second, and dominant here, every semantic op ran the ONNX embedding inline, so each thread spent ~115 ms in the same synchronous model call. Sixteen threads waiting on the same serial embed is sixteen threads in a line.",
       },
       {
         kind: "p",
-        text: "The fix is to get embedding off the hot path: cache embeddings for repeats and defer the rest so the actor isn't blocked on the model. With that work, exact-repeat throughput jumps from ~51 ops/sec to ~3,550 ops/sec single-threaded — a 70× improvement — and the multi-thread number finally moves above the floor.",
+        text: "The fix is to get embedding off the hot path: cache embeddings for repeats and defer the rest so the actor isn't blocked on the model. With that work, exact-repeat throughput jumps from ~51 ops/sec to ~3,550 ops/sec single-threaded, a 70× improvement, and the multi-thread number finally moves above the floor.",
       },
       {
         kind: "bars",
@@ -190,11 +190,11 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "quote",
-        text: "A benchmark you only run to win isn't a benchmark, it's an ad. We run ours to find the ceiling — then we go raise it.",
+        text: "A benchmark you only run to win isn't a benchmark, it's an ad. We run ours to find the ceiling, then we go raise it.",
       },
       {
         kind: "p",
-        text: "Concurrent reads against the single-writer actor are the next infrastructure step, and we're honest that distributed throughput is not where Crowkis competes today. For the workload it's built for — agent fan-out and chatbot traffic, where the same handful of questions repeat constantly — the repeat path is the one that matters, and that's the one the deferral work transforms.",
+        text: "Concurrent reads against the single-writer actor are the next infrastructure step, and we're honest that distributed throughput is not where Crowkis competes today. For the workload it's built for, agent fan-out and chatbot traffic, where the same handful of questions repeat constantly, the repeat path is the one that matters, and that's the one the deferral work transforms.",
       },
     ],
   },
@@ -209,7 +209,7 @@ export const benchmarkPosts: RoostPost[] = [
     blocks: [
       {
         kind: "p",
-        text: "Speed is negotiable; correctness is not. A cache that occasionally serves tenant A's answer to tenant B isn't a fast cache, it's a data breach with good latency. So the harshest part of our harness isn't about performance at all — it's 84 correctness and robustness checks designed to make Crowkis misbehave.",
+        text: "Speed is negotiable; correctness is not. A cache that occasionally serves tenant A's answer to tenant B isn't a fast cache, it's a data breach with good latency. So the harshest part of our harness isn't about performance at all, it's 84 correctness and robustness checks designed to make Crowkis misbehave.",
       },
       {
         kind: "bars",
@@ -220,7 +220,7 @@ export const benchmarkPosts: RoostPost[] = [
           { label: "Checks failed", value: 0 },
           { label: "Cross-tenant leaks (16 threads)", value: 0 },
         ],
-        caption: "Robustness, correctness, concurrency, and benchmark sections — all green.",
+        caption: "Robustness, correctness, concurrency, and benchmark sections, all green.",
       },
       {
         kind: "p",
@@ -228,11 +228,11 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "plain",
-        text: "A cross-tenant leak is when one customer's cached answer is served to another. For a semantic cache it's the cardinal sin, because entries match by meaning — a leak doesn't stay in one cell, it spreads to every similar question.",
+        text: "A cross-tenant leak is when one customer's cached answer is served to another. For a semantic cache it's the cardinal sin, because entries match by meaning, a leak doesn't stay in one cell, it spreads to every similar question.",
       },
       {
         kind: "p",
-        text: "The concurrency check is the one we lose sleep over: 16 threads running 60 operations each, deliberately interleaving reads and writes across tenant boundaries, then auditing whether anything crossed. Zero leaks. That result isn't an accident of timing — it's the single-writer actor making races structurally impossible, validated under exactly the load that would expose them.",
+        text: "The concurrency check is the one we lose sleep over: 16 threads running 60 operations each, deliberately interleaving reads and writes across tenant boundaries, then auditing whether anything crossed. Zero leaks. That result isn't an accident of timing, it's the single-writer actor making races structurally impossible, validated under exactly the load that would expose them.",
       },
       {
         kind: "quote",
@@ -251,15 +251,15 @@ export const benchmarkPosts: RoostPost[] = [
     readMinutes: 5,
     tag: TAG,
     summary:
-      "CDEDUP works — and at 1,340 vectors it froze the whole server for 150 seconds in our harness. Here's the honest finding, why it happens, and what it means for how you should run dedup.",
+      "CDEDUP works, and at 1,340 vectors it froze the whole server for 150 seconds in our harness. Here's the honest finding, why it happens, and what it means for how you should run dedup.",
     blocks: [
       {
         kind: "p",
-        text: "Most of this blog is Crowkis winning. This post is Crowkis losing a benchmark, on purpose, in public — because the harness found a real ceiling and burying it would make every other number less trustworthy.",
+        text: "Most of this blog is Crowkis winning. This post is Crowkis losing a benchmark, on purpose, in public, because the harness found a real ceiling and burying it would make every other number less trustworthy.",
       },
       {
         kind: "p",
-        text: "CDEDUP runs semantic deduplication: it finds cache entries that mean the same thing and collapses them, reclaiming memory. It works correctly. But on a loaded instance — about 1,340 vectors — it took roughly 150 seconds to complete, and because it runs on the single-writer actor, the entire server was blocked for that whole time. Every other command waited in line behind it.",
+        text: "CDEDUP runs semantic deduplication: it finds cache entries that mean the same thing and collapses them, reclaiming memory. It works correctly. But on a loaded instance, about 1,340 vectors, it took roughly 150 seconds to complete, and because it runs on the single-writer actor, the entire server was blocked for that whole time. Every other command waited in line behind it.",
       },
       {
         kind: "bars",
@@ -274,11 +274,11 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "plain",
-        text: "The single-writer actor processes one command at a time. That makes correctness easy to prove — but a slow command holds the line, and everything behind it waits.",
+        text: "The single-writer actor processes one command at a time. That makes correctness easy to prove, but a slow command holds the line, and everything behind it waits.",
       },
       {
         kind: "p",
-        text: "The root cause is the same actor design that makes isolation bulletproof: a long-running maintenance command shouldn't share the lane with live traffic. The bounded, batched dedup path improves this — capping how much one pass does — but the honest operational guidance today is simple: treat CDEDUP as scheduled maintenance, run it off-peak, and don't wire it into a hot loop.",
+        text: "The root cause is the same actor design that makes isolation bulletproof: a long-running maintenance command shouldn't share the lane with live traffic. The bounded, batched dedup path improves this, capping how much one pass does, but the honest operational guidance today is simple: treat CDEDUP as scheduled maintenance, run it off-peak, and don't wire it into a hot loop.",
       },
       {
         kind: "quote",
@@ -297,19 +297,19 @@ export const benchmarkPosts: RoostPost[] = [
     readMinutes: 5,
     tag: TAG,
     summary:
-      "A v0.2.1 bug let the HNSW index go cold under heavy write-and-flush churn — semantic search silently stopped finding neighbours. Here's the soak test that reproduces it and proves v0.2.2 fixed it.",
+      "A v0.2.1 bug let the HNSW index go cold under heavy write-and-flush churn, semantic search silently stopped finding neighbours. Here's the soak test that reproduces it and proves v0.2.2 fixed it.",
     blocks: [
       {
         kind: "p",
-        text: "The worst bugs are the silent ones. A crash pages you; a cache that quietly stops finding semantic neighbours just slowly stops saving you money, and nobody notices until the bill arrives. That was the shape of a P0 we hit in v0.2.1: under heavy churn, the HNSW vector index could go 'cold' — still up, still answering, but no longer returning the neighbours it should.",
+        text: "The worst bugs are the silent ones. A crash pages you; a cache that quietly stops finding semantic neighbours just slowly stops saving you money, and nobody notices until the bill arrives. That was the shape of a P0 we hit in v0.2.1: under heavy churn, the HNSW vector index could go 'cold', still up, still answering, but no longer returning the neighbours it should.",
       },
       {
         kind: "p",
-        text: "So we wrote a soak test designed to trigger exactly that condition: 24 tenants, 120 operations each, three rounds — roughly 1,200 stores interleaved with flushes, driving the live vector count up past 2,200. Before each round and after the churn, it asks the same similarity question and counts the neighbours found.",
+        text: "So we wrote a soak test designed to trigger exactly that condition: 24 tenants, 120 operations each, three rounds, roughly 1,200 stores interleaved with flushes, driving the live vector count up past 2,200. Before each round and after the churn, it asks the same similarity question and counts the neighbours found.",
       },
       {
         kind: "bars",
-        title: "CSIM neighbours found — through heavy churn (v0.2.2)",
+        title: "CSIM neighbours found, through heavy churn (v0.2.2)",
         unit: "neighbours",
         series: [
           { label: "Baseline (before churn)", value: 1 },
@@ -319,11 +319,11 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "plain",
-        text: "A 'cold' index is one that has lost track of its vectors — it's running, but semantic search comes back empty. The danger is that nothing errors; you just stop getting hits.",
+        text: "A 'cold' index is one that has lost track of its vectors, it's running, but semantic search comes back empty. The danger is that nothing errors; you just stop getting hits.",
       },
       {
         kind: "p",
-        text: "The fix tied the HNSW index's lifecycle to the store's flush-and-compaction cycle properly, so vectors survive the churn that previously orphaned them. The soak test is now a permanent part of the harness — the bug that hid in silence has a loud, automated witness that runs on every image.",
+        text: "The fix tied the HNSW index's lifecycle to the store's flush-and-compaction cycle properly, so vectors survive the churn that previously orphaned them. The soak test is now a permanent part of the harness, the bug that hid in silence has a loud, automated witness that runs on every image.",
       },
       {
         kind: "quote",
@@ -338,11 +338,11 @@ export const benchmarkPosts: RoostPost[] = [
     readMinutes: 6,
     tag: TAG,
     summary:
-      "Crowkis is a cache with a vector index, not a vector database — but it should still hold up at scale. We indexed 100K and 1M vectors and measured build time, search latency, and recall. Including where dedicated vector DBs still win.",
+      "Crowkis is a cache with a vector index, not a vector database, but it should still hold up at scale. We indexed 100K and 1M vectors and measured build time, search latency, and recall. Including where dedicated vector DBs still win.",
     blocks: [
       {
         kind: "p",
-        text: "Crowkis embeds an HNSW vector index in-process, which raises a fair question: how far does that scale before you'd want a real vector database? We measured it honestly at two sizes — 100,000 and 1,000,000 vectors — on the same CPU-only laptop everything else here ran on.",
+        text: "Crowkis embeds an HNSW vector index in-process, which raises a fair question: how far does that scale before you'd want a real vector database? We measured it honestly at two sizes, 100,000 and 1,000,000 vectors, on the same CPU-only laptop everything else here ran on.",
       },
       {
         kind: "bars",
@@ -352,11 +352,11 @@ export const benchmarkPosts: RoostPost[] = [
           { label: "100K vectors", value: 9.2, accent: true },
           { label: "1M vectors", value: 94.0 },
         ],
-        caption: "Recall@10 was 100% at both sizes — the neighbours it should find, it finds.",
+        caption: "Recall@10 was 100% at both sizes, the neighbours it should find, it finds.",
       },
       {
         kind: "p",
-        text: "At 100K vectors — comfortably larger than most caches' working sets — search averages 9.2 ms with perfect recall in our test. At 1M, latency rises to 94 ms, still with full recall. Index build throughput holds around 3,000–3,800 vectors per second, so a million vectors indexes in a few minutes.",
+        text: "At 100K vectors, comfortably larger than most caches' working sets, search averages 9.2 ms with perfect recall in our test. At 1M, latency rises to 94 ms, still with full recall. Index build throughput holds around 3,000-3,800 vectors per second, so a million vectors indexes in a few minutes.",
       },
       {
         kind: "plain",
@@ -364,11 +364,11 @@ export const benchmarkPosts: RoostPost[] = [
       },
       {
         kind: "p",
-        text: "Now the honest part. These are beta-quality proof points, not a challenge to Qdrant, Pinecone, or Weaviate. Dedicated vector databases lead decisively on raw scale, on operational maturity, and on the billion-vector workloads they're built for. Crowkis's in-process index earns its place by removing a network hop for cache-sized working sets — millions, not billions — where keeping vectors beside the cache engine buys the sub-millisecond read path.",
+        text: "Now the honest part. These are beta-quality proof points, not a challenge to Qdrant, Pinecone, or Weaviate. Dedicated vector databases lead decisively on raw scale, on operational maturity, and on the billion-vector workloads they're built for. Crowkis's in-process index earns its place by removing a network hop for cache-sized working sets, millions, not billions, where keeping vectors beside the cache engine buys the sub-millisecond read path.",
       },
       {
         kind: "quote",
-        text: "Use the right tool. Crowkis is a semantic cache that happens to search vectors well at cache scale — not a vector DB pretending to be a cache.",
+        text: "Use the right tool. Crowkis is a semantic cache that happens to search vectors well at cache scale, not a vector DB pretending to be a cache.",
       },
       {
         kind: "p",
