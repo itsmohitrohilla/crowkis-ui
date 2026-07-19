@@ -345,8 +345,25 @@ const GROUPS: Group[] = [
 export default function FaqPage() {
   const total = GROUPS.reduce((n, g) => n + g.items.length, 0);
 
+  // FAQPage schema → eligible for FAQ rich results in Google.
+  const faqLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: GROUPS.flatMap((g) =>
+      g.items.map(([q, a]) => ({
+        "@type": "Question",
+        name: q,
+        acceptedAnswer: { "@type": "Answer", text: a },
+      })),
+    ),
+  };
+
   return (
     <SiteShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+      />
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
         <div className="section py-12 md:py-16">
           <Reveal>

@@ -23,8 +23,29 @@ function formatDate(iso: string) {
 export default function RoostIndexPage() {
   const [latest] = allRoostPosts;
 
+  // Blog + ItemList schema so the whole post catalog is discoverable.
+  const blogLd = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": "https://crowkis.com/roost",
+    name: "The Roost",
+    description: "Engineering notes from the people building Crowkis.",
+    url: "https://crowkis.com/roost",
+    publisher: { "@id": "https://crowkis.com/#org" },
+    blogPost: allRoostPosts.slice(0, 100).map((p) => ({
+      "@type": "BlogPosting",
+      headline: p.title,
+      url: `https://crowkis.com/roost/${p.slug}`,
+      datePublished: `${p.date}T00:00:00Z`,
+    })),
+  };
+
   return (
     <SiteShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogLd) }}
+      />
       <section className="border-b-2 border-ink bg-paper-deep paper-grid">
         <div className="section flex items-end justify-between gap-6 py-12 md:py-16">
           <div>

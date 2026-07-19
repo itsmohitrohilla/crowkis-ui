@@ -189,7 +189,25 @@ export default async function RoostPostPage({
   const post = allRoostPosts.find((p) => p.slug === slug);
   if (!post) notFound();
 
-  const others = allRoostPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  // Prefer same-tag posts for "keep reading" — relevance + tighter internal linking.
+  const sameTag = allRoostPosts.filter((p) => p.slug !== post.slug && p.tag === post.tag);
+  const rest = allRoostPosts.filter((p) => p.slug !== post.slug && p.tag !== post.tag);
+  const others = [...sameTag, ...rest].slice(0, 2);
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://crowkis.com" },
+      { "@type": "ListItem", position: 2, name: "The Roost", item: "https://crowkis.com/roost" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: post.title,
+        item: `https://crowkis.com/roost/${post.slug}`,
+      },
+    ],
+  };
 
   // Article structured data — rich results in Google + citability for AI search.
   const articleLd = {
@@ -214,6 +232,10 @@ export default async function RoostPostPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
       />
       <article className="section max-w-3xl py-12 md:py-16">
         <Link href="/roost" className="font-mono text-xs text-ink-faint transition hover:text-crow">
