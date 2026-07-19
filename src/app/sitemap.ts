@@ -27,7 +27,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/mcp",
     "/features",
     "/agent-memory",
-    ...allRoostPosts.map((post) => `/roost/${post.slug}`),
     "/integrations",
     "/changelog",
     "/roadmap",
@@ -35,10 +34,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/app/dashboard",
   ];
 
-  return routes.map((route) => ({
+  const now = new Date();
+  const staticEntries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${base}${route}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: "weekly",
     priority: route === "" ? 1 : 0.7,
   }));
+
+  // Blog posts carry their real publish date, so crawlers see accurate freshness.
+  const postEntries: MetadataRoute.Sitemap = allRoostPosts.map((post) => ({
+    url: `${base}/roost/${post.slug}`,
+    lastModified: new Date(`${post.date}T00:00:00Z`),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...postEntries];
 }

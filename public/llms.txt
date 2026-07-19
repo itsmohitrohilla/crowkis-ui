@@ -1,0 +1,32 @@
+# Crowkis
+
+> Crowkis is a Redis-compatible semantic cache and long-term agent-memory layer, built in Rust for LLM and agentic-AI workloads. It understands what a query means, gives agents memory that survives restarts, blocks cache poisoning, and cuts LLM cost, self-hosted with zero egress.
+
+Crowkis runs as one signed binary (macOS, Linux, Windows, Docker). Community edition is free; a license file unlocks Enterprise at boot. It speaks RESP3, gRPC, REST, and MCP, so existing Redis clients connect unmodified.
+
+## Core capabilities
+- Semantic + structural caching: reuses answers by meaning and structure, so paraphrases hit but a wrong number or entity never does.
+- Long-term agent memory: consolidating, bi-temporal, per-(agent,user) memory. 70.4% recall@10 on LoCoMo, 92.7% recall@5 on LongMemEval, zero external API calls.
+- Anti-poisoning: five-stage write-trust pipeline scores every write before it can be served.
+- Reasoning reuse: caches chain-of-thought as a reusable step graph.
+- Guardrails and evals: CGUARD (input), COUTCHECK (output), CEVAL (nine local evaluators).
+- AI Gateway: OpenAI-compatible proxy with semantic caching, retries, and routing.
+- Self-hosted RAG (CDOC), prompt versioning and A/B (CPROMPT), budgets and rate limits.
+
+## Key pages
+- Overview: https://crowkis.com/
+- Agent Memory: https://crowkis.com/agent-memory
+- Features: https://crowkis.com/features
+- Usage / install: https://crowkis.com/docker
+- Docs: https://crowkis.com/docs
+- LangChain, LangGraph & Shell: https://crowkis.com/docs/frameworks
+- MCP for AI apps: https://crowkis.com/mcp
+- Benchmarks: https://crowkis.com/benchmarks
+- The Roost (blog): https://crowkis.com/roost
+
+## Positioning vs alternatives
+Mem0, Zep, and Letta do agent memory only, and most rely on a hosted API or an external model. Crowkis matches them on the memory features and is also your cache, guardrails, and gateway, in one self-hosted, zero-egress, Redis-compatible process.
+
+## Contact
+- Site: https://crowkis.com
+- Email: contact@crowkis.com

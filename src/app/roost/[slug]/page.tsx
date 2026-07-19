@@ -191,8 +191,30 @@ export default async function RoostPostPage({
 
   const others = allRoostPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
 
+  // Article structured data — rich results in Google + citability for AI search.
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary,
+    datePublished: `${post.date}T00:00:00Z`,
+    dateModified: `${post.date}T00:00:00Z`,
+    author: { "@type": "Organization", name: "Crowkis", url: "https://crowkis.com" },
+    publisher: {
+      "@type": "Organization",
+      name: "Crowkis",
+      logo: { "@type": "ImageObject", url: "https://crowkis.com/logo.png" },
+    },
+    mainEntityOfPage: `https://crowkis.com/roost/${post.slug}`,
+    keywords: post.tag,
+  };
+
   return (
     <SiteShell>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
+      />
       <article className="section max-w-3xl py-12 md:py-16">
         <Link href="/roost" className="font-mono text-xs text-ink-faint transition hover:text-crow">
           ← back to the Roost
