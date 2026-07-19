@@ -29,3 +29,4 @@ yarn-error.log*
 # typescript build info
 *.tsbuildinfo
 scripts/posts-seed.json
+.mcp.json
