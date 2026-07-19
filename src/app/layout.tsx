@@ -79,20 +79,43 @@ export const metadata: Metadata = {
   },
 };
 
-// Structured data so search engines understand Crowkis as a software product.
+// Structured data so search engines understand Crowkis as a product, an
+// organization, and a website — strengthens the brand entity + sitelinks.
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  name: "Crowkis",
-  applicationCategory: "DeveloperApplication",
-  applicationSubCategory: "LLM cache & agent memory",
-  operatingSystem: "macOS, Linux, Windows, Docker",
-  description:
-    "Redis-compatible semantic cache and long-term agent memory layer built in Rust for LLM and agentic AI workloads.",
-  url: "https://crowkis.com",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  keywords:
-    "LLM cache, semantic cache, agent memory, agentic AI, MCP server, RAG cache, prompt caching, LLM cost reduction, Rust",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://crowkis.com/#software",
+      name: "Crowkis",
+      applicationCategory: "DeveloperApplication",
+      applicationSubCategory: "LLM cache & agent memory",
+      operatingSystem: "macOS, Linux, Windows, Docker",
+      description:
+        "Redis-compatible semantic cache and long-term agent memory layer built in Rust for LLM and agentic AI workloads.",
+      url: "https://crowkis.com",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      keywords:
+        "LLM cache, semantic cache, agent memory, agentic AI, MCP server, RAG cache, prompt caching, LLM cost reduction, Rust",
+      publisher: { "@id": "https://crowkis.com/#org" },
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://crowkis.com/#org",
+      name: "Crowkis",
+      url: "https://crowkis.com",
+      logo: "https://crowkis.com/logo.png",
+      description:
+        "Crowkis builds a Redis-compatible semantic cache and long-term agent memory layer in Rust for LLM and agentic AI workloads.",
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://crowkis.com/#website",
+      name: "Crowkis",
+      url: "https://crowkis.com",
+      publisher: { "@id": "https://crowkis.com/#org" },
+    },
+  ],
 };
 
 export default function RootLayout({
