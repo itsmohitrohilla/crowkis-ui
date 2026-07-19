@@ -20,16 +20,31 @@ export async function generateMetadata({
   const post = allRoostPosts.find((p) => p.slug === slug);
   if (!post) return { title: "The Roost" };
   const url = `/roost/${post.slug}`;
+  // Derive keywords from the title (minus stopwords) for real per-post relevance.
+  const stop = new Set([
+    "the","a","an","and","or","of","to","in","on","for","with","without","we","our","your",
+    "is","are","it","its","that","this","how","why","when","what","not","as","at","by","from",
+    "into","than","then","just","only","one","two","every","all","you","i","vs",
+  ]);
+  const titleWords = Array.from(
+    new Set(
+      post.title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, " ")
+        .split(/\s+/)
+        .filter((w) => w.length > 3 && !stop.has(w)),
+    ),
+  ).slice(0, 8);
   return {
     title: post.title,
     description: post.summary,
     keywords: [
+      ...titleWords,
       post.tag,
       "Crowkis",
       "LLM cache",
       "semantic cache",
       "agent memory",
-      "agentic AI",
     ],
     alternates: { canonical: url },
     openGraph: {

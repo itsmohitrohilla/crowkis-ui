@@ -3,7 +3,7 @@ import Link from "next/link";
 import { HeroArt } from "@/components/marketing/hero-art";
 import { SiteShell } from "@/components/layout/site-shell";
 import { RoostBrowser } from "@/components/marketing/roost-browser";
-import { allRoostPosts } from "@/lib/content/library";
+import { allRoostPosts, roostTags } from "@/lib/content/library";
 
 export const metadata: Metadata = {
   title: "The Roost",
@@ -86,7 +86,25 @@ export default function RoostIndexPage() {
           </article>
         </Link>
 
+        {/* browse by topic — crawlable hub links */}
         <div className="mt-10">
+          <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+            Browse by topic
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {roostTags.map((t) => (
+              <Link
+                key={t}
+                href={`/roost/tag/${t}`}
+                className="rounded-lg border border-ink-line bg-paper-card px-3 py-1.5 font-mono text-xs text-ink-soft transition hover:border-ink hover:text-ink"
+              >
+                {t}
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-8">
           <RoostBrowser posts={allRoostPosts} />
         </div>
       </section>

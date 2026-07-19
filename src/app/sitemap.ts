@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { allRoostPosts } from "@/lib/content/library";
+import { allRoostPosts, roostTags } from "@/lib/content/library";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://crowkis.com";
@@ -50,5 +50,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...postEntries];
+  const tagEntries: MetadataRoute.Sitemap = roostTags.map((tag) => ({
+    url: `${base}/roost/tag/${tag}`,
+    lastModified: now,
+    changeFrequency: "weekly",
+    priority: 0.6,
+  }));
+
+  return [...staticEntries, ...tagEntries, ...postEntries];
 }
