@@ -3,7 +3,9 @@ import Link from "next/link";
 import { HeroArt } from "@/components/marketing/hero-art";
 import { SiteShell } from "@/components/layout/site-shell";
 import { RoostBrowser } from "@/components/marketing/roost-browser";
-import { allRoostPosts, roostTags } from "@/lib/content/library";
+import { getAllPosts, getTags } from "@/lib/posts";
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "The Roost",
@@ -20,7 +22,9 @@ function formatDate(iso: string) {
   });
 }
 
-export default function RoostIndexPage() {
+export default async function RoostIndexPage() {
+  const allRoostPosts = await getAllPosts();
+  const roostTags = await getTags();
   const [latest] = allRoostPosts;
 
   // Blog + ItemList schema so the whole post catalog is discoverable.

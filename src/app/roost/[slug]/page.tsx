@@ -5,10 +5,16 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { CopyButton } from "@/components/ui/code-tabs";
 import { Mermaid, Venn } from "@/components/ui/mermaid";
 import { RoostBlock } from "@/lib/content/roost";
-import { allRoostPosts } from "@/lib/content/library";
+import { getAllPosts, getPost } from "@/lib/posts";
 
-export function generateStaticParams() {
-  return allRoostPosts.map((post) => ({ slug: post.slug }));
+// Fetch from Supabase (with static fallback); regenerate hourly; render new
+// posts on demand so DB additions appear without a rebuild.
+export const revalidate = 3600;
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -17,7 +23,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = allRoostPosts.find((p) => p.slug === slug);
+  const post = await getPost(slug);
   if (!post) return { title: "The Roost" };
   const url = `/roost/${post.slug}`;
   // Derive keywords from the title (minus stopwords) for real per-post relevance.
@@ -201,12 +207,13 @@ export default async function RoostPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = allRoostPosts.find((p) => p.slug === slug);
+  const post = await getPost(slug);
   if (!post) notFound();
 
   // Prefer same-tag posts for "keep reading" — relevance + tighter internal linking.
-  const sameTag = allRoostPosts.filter((p) => p.slug !== post.slug && p.tag === post.tag);
-  const rest = allRoostPosts.filter((p) => p.slug !== post.slug && p.tag !== post.tag);
+  const all = await getAllPosts();
+  const sameTag = all.filter((p) => p.slug !== post.slug && p.tag === post.tag);
+  const rest = all.filter((p) => p.slug !== post.slug && p.tag !== post.tag);
   const others = [...sameTag, ...rest].slice(0, 2);
 
   const breadcrumbLd = {

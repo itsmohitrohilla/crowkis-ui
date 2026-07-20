@@ -1,8 +1,12 @@
 import { MetadataRoute } from "next";
-import { allRoostPosts, roostTags } from "@/lib/content/library";
+import { getAllPosts, getTags } from "@/lib/posts";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const revalidate = 3600;
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://crowkis.com";
+  const allRoostPosts = await getAllPosts();
+  const roostTags = await getTags();
   const routes = [
     "",
     "/why",

@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/layout/site-shell";
-import { allRoostPosts, roostTags } from "@/lib/content/library";
+import { getAllPosts, getTags } from "@/lib/posts";
+
+export const revalidate = 3600;
+export const dynamicParams = true;
 
 // Keyword-rich copy per topic hub (SEO landing pages). Falls back for any new tag.
 const TAG_INFO: Record<string, { title: string; blurb: string }> = {
@@ -58,7 +61,8 @@ function formatDate(iso: string) {
   });
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const roostTags = await getTags();
   return roostTags.map((tag) => ({ tag }));
 }
 
@@ -83,8 +87,10 @@ export async function generateMetadata({
 
 export default async function RoostTagPage({ params }: { params: Promise<{ tag: string }> }) {
   const { tag } = await params;
+  const roostTags = await getTags();
   if (!roostTags.includes(tag)) notFound();
 
+  const allRoostPosts = await getAllPosts();
   const posts = allRoostPosts.filter((p) => p.tag === tag);
   const info = TAG_INFO[tag];
   const name = info?.title ?? titleCase(tag);

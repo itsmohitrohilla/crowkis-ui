@@ -1,18 +1,20 @@
 import { ImageResponse } from "next/og";
-import { allRoostPosts } from "@/lib/content/library";
+import { getAllPosts, getPost } from "@/lib/posts";
 
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const alt = "Crowkis — The Roost";
+export const dynamicParams = true;
 
-export function generateStaticParams() {
-  return allRoostPosts.map((post) => ({ slug: post.slug }));
+export async function generateStaticParams() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 // Per-post branded OG card so every blog link previews with its own title.
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const post = allRoostPosts.find((p) => p.slug === slug);
+  const post = await getPost(slug);
   const title = post?.title ?? "The Roost";
   const tag = post?.tag ?? "engineering";
 
