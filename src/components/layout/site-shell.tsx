@@ -9,6 +9,7 @@ import { PixelCrow } from "@/components/crow/pixel-crow";
 import { FooterGarden } from "@/components/crow/footer-garden";
 import { CrowShooter } from "@/components/crow/crow-shooter";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { RatingWidget } from "@/components/marketing/rating-widget";
 
 function Wordmark({ className = "h-4" }: { className?: string }) {
   return (
@@ -31,6 +32,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
   return (
     <div className="relative">
       <PixelCrow />
+      <RatingWidget />
       {gameOpen ? <CrowShooter onClose={() => setGameOpen(false)} /> : null}
       <div className="border-b-2 border-ink bg-crow px-4 py-2 text-center font-mono text-[11px] font-medium tracking-wide text-stone-50 sm:text-xs">
         One signed binary. Every feature compiled in. Free to run.{" "}
@@ -186,6 +188,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 ["The Murder ▸ game", "/murder"],
                 ["Changelog", "/changelog"],
                 ["FAQ", "/faq"],
+                ["Feedback", "/feedback"],
                 ["Contact", "/about#contact"],
               ],
             },
