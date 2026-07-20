@@ -59,3 +59,35 @@ export async function getPost(slug: string): Promise<RoostPost | undefined> {
 export async function getTags(): Promise<string[]> {
   return Array.from(new Set((await getAllPosts()).map((p) => p.tag)));
 }
+
+export type PostsPage = {
+  posts: RoostPost[];
+  total: number;
+  page: number;
+  perPage: number;
+  totalPages: number;
+};
+
+// Server-side pagination (+ optional tag / search filter) so the list page stays
+// light no matter how many posts exist — only `perPage` are ever rendered.
+export async function getPostsPage(opts: {
+  page?: number;
+  perPage?: number;
+  tag?: string;
+  q?: string;
+} = {}): Promise<PostsPage> {
+  const perPage = opts.perPage ?? 20;
+  const page = Math.max(1, opts.page ?? 1);
+  let list = await getAllPosts();
+  if (opts.tag) list = list.filter((p) => p.tag === opts.tag);
+  if (opts.q) {
+    const s = opts.q.toLowerCase().trim();
+    list = list.filter(
+      (p) => p.title.toLowerCase().includes(s) || p.summary.toLowerCase().includes(s),
+    );
+  }
+  const total = list.length;
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  const start = (page - 1) * perPage;
+  return { posts: list.slice(start, start + perPage), total, page, perPage, totalPages };
+}
