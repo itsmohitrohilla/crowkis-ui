@@ -7,8 +7,9 @@ export const alt = "Crowkis — The Roost";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
+  // OG images are heavy to render; pre-build recent ones, rest render on-demand.
   const posts = await getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts.slice(0, 120).map((post) => ({ slug: post.slug }));
 }
 
 // Per-post branded OG card so every blog link previews with its own title.

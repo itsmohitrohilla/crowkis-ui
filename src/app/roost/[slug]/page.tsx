@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteShell } from "@/components/layout/site-shell";
 import { CopyButton } from "@/components/ui/code-tabs";
-import { Mermaid, Venn } from "@/components/ui/mermaid";
+import { Venn } from "@/components/ui/mermaid";
+import { FlowDiagram } from "@/components/ui/flow-diagram";
 import { RoostBlock } from "@/lib/content/roost";
 import { getAllPosts, getPost } from "@/lib/posts";
 
@@ -13,8 +14,10 @@ export const revalidate = 3600;
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
+  // Pre-build only the most recent posts; the rest render on-demand (dynamicParams)
+  // and cache — keeps builds fast as the catalog grows to thousands.
   const posts = await getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return posts.slice(0, 200).map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
@@ -134,7 +137,7 @@ function Block({ block }: { block: RoostBlock }) {
           <figcaption className="border-b-2 border-ink bg-paper-deep px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
             {block.title}
           </figcaption>
-          <Mermaid chart={block.chart} />
+          <FlowDiagram chart={block.chart} />
           {block.caption ? (
             <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
               {block.caption}

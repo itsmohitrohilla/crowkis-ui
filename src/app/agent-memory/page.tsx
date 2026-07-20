@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
-import { Mermaid } from "@/components/ui/mermaid";
+import { FlowDiagram } from "@/components/ui/flow-diagram";
 import Cubes from "@/components/ui/cubes";
 
 const BRAIN_DIAGRAM = `flowchart LR
@@ -426,7 +426,7 @@ export default function AgentMemoryPage() {
             <figcaption className="border-b-2 border-ink bg-paper-card px-4 py-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-soft">
               the memory brain, how a fact gets in, and back out
             </figcaption>
-            <Mermaid chart={BRAIN_DIAGRAM} />
+            <FlowDiagram chart={BRAIN_DIAGRAM} />
             <p className="border-t border-ink-line px-4 py-2.5 text-xs italic text-ink-faint">
               Facts flow left-to-right into the store; a question pulls them back through recall and
               reranking. Consolidation keeps the picture current; the graph keeps it connected.
