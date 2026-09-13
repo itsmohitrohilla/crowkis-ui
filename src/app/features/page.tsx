@@ -1,45 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { SiteShell } from "@/components/layout/site-shell";
 import Cubes from "@/components/ui/cubes";
-
-/* The Crowkis pixel crow, same house mark used on the About page. */
-const INK = "#16130e";
-const WING = "#37322a";
-const EYE = "#d62221";
-const CROW_PX: [number, number, number, number, string?][] = [
-  [10, 0, 1, 1, EYE], // crest
-  [12, 0, 1, 1, INK],
-  [9, 1, 4, 4], // head
-  [10, 2, 1, 1, "eye"],
-  [13, 2, 3, 1], // beak
-  [13, 3, 2, 1],
-  [8, 3, 2, 1], // neck
-  [3, 4, 9, 5], // body
-  [0, 4, 3, 2], // tail
-  [0, 6, 2, 1],
-  [5, 5, 5, 3, WING], // wing
-  [6, 9, 1, 2], // legs
-  [9, 9, 1, 2],
-  [5, 11, 2, 1], // feet
-  [9, 11, 2, 1],
-];
-
-function PixelCrow() {
-  return (
-    <svg
-      viewBox="0 0 16 12"
-      className="h-auto w-full max-w-[260px]"
-      shapeRendering="crispEdges"
-      role="img"
-      aria-label="Crowkis pixel crow"
-    >
-      {CROW_PX.map(([x, y, w, h, fill], i) => (
-        <rect key={i} x={x} y={y} width={w} height={h} fill={fill === "eye" ? EYE : (fill ?? INK)} />
-      ))}
-    </svg>
-  );
-}
 
 export const metadata: Metadata = {
   title: "Features, everything Crowkis does",
@@ -302,8 +265,8 @@ export default function FeaturesPage() {
           {/* the pixel crow */}
           <div className="mx-auto w-full max-w-[340px]">
             <div className="card-block faded-grid relative overflow-hidden p-8">
-              <div className="chip-float-a flex justify-center">
-                <PixelCrow />
+              <div className="flex justify-center">
+                <Image src="/logo.svg" alt="Crowkis" width={220} height={156} className="h-auto w-full max-w-[220px]" />
               </div>
               <p className="mt-5 text-center font-mono text-[11px] uppercase tracking-[0.18em] text-ink-faint">
                 one engine · every feature

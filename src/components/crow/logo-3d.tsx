@@ -32,11 +32,11 @@ export function Logo3D({ size = 120 }: { size?: number }) {
         }}
       >
         <div
-          className="rounded-2xl border-2 border-ink bg-white shadow-block"
+          className="overflow-hidden rounded-2xl bg-[#D50000] shadow-block"
           style={{ width: size, height: size, transform: "translateZ(24px)" }}
         >
           <Image
-            src="/logo.png"
+            src="/fav.png"
             alt="Crowkis"
             width={size}
             height={size}

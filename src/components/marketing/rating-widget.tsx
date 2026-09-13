@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { submitRating } from "@/lib/feedback";
 
 const SEEN_KEY = "crowkis-rating-seen";
@@ -113,7 +114,7 @@ export function RatingWidget() {
           className="flex items-center gap-2 rounded-full border-2 border-ink bg-paper-card px-4 py-2 text-sm font-bold shadow-block-sm transition hover:-translate-y-0.5"
           title="Rate Crowkis"
         >
-          <span aria-hidden>🐦‍⬛</span> Rate the crow
+          <Image src="/logo-black.svg" alt="" width={27} height={20} /> Rate the crow
         </button>
       )}
     </div>

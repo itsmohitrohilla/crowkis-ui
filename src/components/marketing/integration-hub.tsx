@@ -88,10 +88,6 @@ export function IntegrationHub() {
           <stop offset="45%" stopColor="#8b5cf6" stopOpacity="0.20" />
           <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
         </radialGradient>
-        <linearGradient id="plateFill" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.55" />
-          <stop offset="100%" stopColor="#ffffff" stopOpacity="0.12" />
-        </linearGradient>
         <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
           <feGaussianBlur stdDeviation="26" />
         </filter>
@@ -129,11 +125,11 @@ export function IntegrationHub() {
             width={236}
             height={156}
             rx={24}
-            fill="url(#plateFill)"
+            fill="#D50000"
             stroke="var(--hub-ink)"
             strokeWidth={2.5}
           />
-          <image href="/logo.png" x={-54} y={-62} width={108} height={108} opacity={0.92} />
+          <image href="/logo-white.svg" x={-60} y={-50} width={120} height={85} />
         </g>
       </g>
 

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { SiteShell } from "@/components/layout/site-shell";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { CountUp } from "@/components/ui/count-up";
@@ -20,51 +21,6 @@ export const metadata: Metadata = {
   description:
     "Why Crowkis exists: an LLM cache that understands meaning and knows when to refuse. Built in Rust, closed-source, offline, free where it should be, by Mohit Rohilla.",
 };
-
-const INK = "#16130e";
-const WING = "#37322a";
-const EYE = "#d62221";
-
-/* a big pixel crow mark, drawn in the Crowkis house style */
-function PixelCrowLogo() {
-  const R: [number, number, number, number, string?][] = [
-    // crest
-    [10, 0, 1, 1, EYE],
-    [12, 0, 1, 1, INK],
-    // head
-    [9, 1, 4, 4],
-    [10, 2, 1, 1, "eye"],
-    // beak
-    [13, 2, 3, 1],
-    [13, 3, 2, 1],
-    // neck
-    [8, 3, 2, 1],
-    // body
-    [3, 4, 9, 5],
-    // tail (fanned)
-    [0, 4, 3, 2],
-    [0, 6, 2, 1],
-    // wing
-    [5, 5, 5, 3, WING],
-    // legs
-    [6, 9, 1, 2],
-    [9, 9, 1, 2],
-    // feet
-    [5, 11, 2, 1],
-    [9, 11, 2, 1],
-  ];
-  return (
-    <svg viewBox="0 0 16 12" className="h-auto w-full" shapeRendering="crispEdges" aria-label="Crowkis">
-      {R.map(([x, y, w, h, fill], i) =>
-        fill === "eye" ? (
-          <rect key={i} x={x} y={y} width={w} height={h} fill={EYE} />
-        ) : (
-          <rect key={i} x={x} y={y} width={w} height={h} fill={fill ?? INK} />
-        ),
-      )}
-    </svg>
-  );
-}
 
 const PRINCIPLES = [
   {
@@ -130,7 +86,7 @@ export default function AboutPage() {
               aria-hidden
             />
             <div className="card-block bg-paper-card p-8">
-              <PixelCrowLogo />
+              <Image src="/logo.svg" alt="Crowkis" width={236} height={168} className="h-auto w-full" />
             </div>
           </div>
         </div>

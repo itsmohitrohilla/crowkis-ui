@@ -14,9 +14,9 @@ import { RatingWidget } from "@/components/marketing/rating-widget";
 function Wordmark({ className = "h-4" }: { className?: string }) {
   return (
     <Image
-      src="/text-logo.png"
-      alt="CROWKIS"
-      width={210}
+      src="/text-logo.svg"
+      alt="Crowkis"
+      width={152}
       height={30}
       priority
       className={`site-wordmark w-auto ${className}`}
@@ -44,14 +44,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <nav className="section flex h-16 items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5" aria-label="Crowkis home">
             <Image
-              src="/logo.png"
+              src="/logo.svg"
               alt=""
-              width={34}
-              height={34}
+              width={38}
+              height={28}
               priority
               className=" transition-transform duration-300 hover:rotate-[-8deg] hover:scale-110"
             />
-            <Wordmark className="h-3 sm:h-3.5" />
+            <Wordmark className="h-4 sm:h-5" />
           </Link>
 
           <div className="hidden items-center gap-0.5 rounded-xl border-2 border-ink bg-paper-card px-1 py-1 shadow-block-sm lg:flex">
@@ -142,13 +142,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
         <div className="section grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <Image src="/logo.png" alt="" width={36} height={36} className="" />
+              <Image src="/logo.svg" alt="" width={49} height={36} className="" />
               <Image
-                src="/text-logo.png"
-                alt="CROWKIS"
-                width={180}
+                src="/text-logo.svg"
+                alt="Crowkis"
+                width={132}
                 height={26}
-                className="site-wordmark h-4 w-auto"
+                className="site-wordmark h-6 w-auto"
               />
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-soft">
@@ -219,17 +219,24 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </div>
         <FooterGarden>
           <span>
-            © {new Date().getFullYear()} Crowkis. Built in Rust by{" "}
+            © {new Date().getFullYear()} Crowkis, a product of{" "}
             <a
-              href="https://www.linkedin.com/in/itsmohitrohilla/"
+              href="https://www.linkedin.com/company/tarkova-dev/posts/?feedView=all"
               target="_blank"
               rel="noreferrer"
               className="font-semibold underline underline-offset-2 transition hover:text-crow"
               style={{ color: "#f0ead9" }}
             >
-              Mohit Rohilla
+              Tarkova
+              <Image
+                src="/tarkova.svg"
+                alt=""
+                width={14}
+                height={14}
+                className="ml-1 inline-block h-[1em] w-auto align-[-0.125em]"
+              />
             </a>
-            . Caw responsibly.
+            . Built in Rust. Caw responsibly.
           </span>
           <span className="hidden sm:inline">a group of crows is a murder · this one&apos;s ours</span>
         </FooterGarden>
