@@ -49,32 +49,32 @@ const GROUPS: Group[] = [
       {
         name: "Semantic + structural matching",
         desc: "Vector similarity and intent/template matching together, paraphrases hit, but a wrong number or entity never does.",
-        href: "/roost/template-matching-deep-dive",
+        href: "/docs/commands",
       },
       {
         name: "Confidence scoring",
         desc: "Every hit returns a 5-signal geometric-mean score so you gate reuse on a number, not faith.",
-        href: "/roost/confidence-scoring-per-hit",
+        href: "/docs/commands",
       },
       {
         name: "Adaptive thresholds",
         desc: "Per-intent base bars + complexity adjustment + an EMA feedback loop that learns and persists.",
-        href: "/roost/adaptive-thresholds-that-learn",
+        href: "/docs/commands",
       },
       {
         name: "Anti-poisoning pipeline",
         desc: "Five stages score every write before it can be served, coherence, content, trust, isolation, neighbourhood.",
-        href: "/roost/cache-poisoning-is-the-whole-problem",
+        href: "/docs/commands",
       },
       {
         name: "Smart eviction",
         desc: "Composite retention by recency, frequency, isolation, and compute cost, keeps the answers that are expensive to rebuild.",
-        href: "/roost/smart-eviction-design",
+        href: "/docs/commands",
       },
       {
         name: "Freshness control",
         desc: "Per-intent TTL policies, version pinning, and webhook invalidation, with freshness decay inside confidence.",
-        href: "/roost/freshness-policies",
+        href: "/docs/commands",
       },
     ],
   },
@@ -91,17 +91,17 @@ const GROUPS: Group[] = [
       {
         name: "Reasoning reuse",
         desc: "Cache the chain-of-thought as a step graph and replay it for the next query at ~15% of the token cost.",
-        href: "/roost/cthink-creuse-reasoning-store",
+        href: "/docs/commands",
       },
       {
         name: "Sessions",
         desc: "Multi-turn conversation buffers with both recent-window reads and semantic search across the whole chat.",
-        href: "/roost/how-to-use-csession",
+        href: "/docs/commands",
       },
       {
         name: "Tool-result cache",
         desc: "Cache a deterministic tool call keyed by tool + exact args, so a swarm's duplicate lookups become one.",
-        href: "/roost/how-to-use-ctoolset-ctoolget",
+        href: "/docs/commands",
       },
       {
         name: "MCP for AI apps",
@@ -111,7 +111,7 @@ const GROUPS: Group[] = [
       {
         name: "Multimodal cache",
         desc: "Cache image-plus-text lookups, so a repeated vision question is a hit instead of an expensive re-run.",
-        href: "/roost/multimodal-image-text-cache",
+        href: "/docs/commands",
       },
     ],
   },
@@ -123,32 +123,32 @@ const GROUPS: Group[] = [
       {
         name: "Input guardrails (CGUARD)",
         desc: "Prompt-injection and jailbreak scanning that normalizes leetspeak and zero-width evasion first.",
-        href: "/roost/how-to-use-cguard",
+        href: "/docs/commands",
       },
       {
         name: "Output guardrails (COUTCHECK)",
         desc: "PII-leak, toxicity, and JSON-validity scanning on the response before it ships.",
-        href: "/roost/how-to-use-coutcheck",
+        href: "/docs/commands",
       },
       {
         name: "Online evals (CEVAL)",
         desc: "Nine deterministic evaluators that grade output without a second model, tracked over time on /metrics.",
-        href: "/roost/how-to-use-ceval",
+        href: "/docs/commands",
       },
       {
         name: "Pinned answers",
         desc: "Serve a human-approved answer verbatim for the questions where 'close enough' is unacceptable.",
-        href: "/roost/how-to-use-cpin",
+        href: "/docs/commands",
       },
       {
         name: "Negative cache",
         desc: "Flag a wrong answer once; every paraphrase of the question that would reproduce it is caught.",
-        href: "/roost/how-to-use-cflag-ccheckbad",
+        href: "/docs/commands",
       },
       {
         name: "PII scrub & erasure",
         desc: "Report what personal data is cached and execute right-to-erasure on request.",
-        href: "/roost/cpii-scrub-and-erase",
+        href: "/docs/commands",
       },
     ],
   },
@@ -160,32 +160,32 @@ const GROUPS: Group[] = [
       {
         name: "AI Gateway",
         desc: "An OpenAI-compatible proxy, point your client at Crowkis and get semantic caching, retries, and routing.",
-        href: "/roost/ai-gateway-openai-compatible",
+        href: "/docs/commands",
       },
       {
         name: "Self-hosted RAG (CDOC)",
         desc: "Auto-chunking, metadata filtering, and reranking inside the cache, no separate vector database.",
-        href: "/roost/how-to-use-cdoc",
+        href: "/docs/commands",
       },
       {
         name: "Prompt versioning & A/B",
         desc: "Named templates with versioning, variable rendering, sticky per-user splits, and rollback.",
-        href: "/roost/how-to-use-cprompt",
+        href: "/docs/commands",
       },
       {
         name: "Budgets & rate limits",
         desc: "Per-tenant spend visibility and requests/tokens-per-minute ceilings, enforced before the invoice.",
-        href: "/roost/how-to-use-cbudget",
+        href: "/docs/commands",
       },
       {
         name: "Local embeddings (CEMBED)",
         desc: "Free, cached, no-API-key embeddings from the bundled ONNX model, the foundation everything else stands on.",
-        href: "/roost/cembed-free-local-embeddings",
+        href: "/docs/commands",
       },
       {
         name: "Observability",
         desc: "Live dashboard, CINFO, and Prometheus /metrics, hit rate, saved spend, safety blocks, all in the box.",
-        href: "/roost/how-to-use-cinfo",
+        href: "/docs/commands",
       },
     ],
   },
@@ -197,12 +197,12 @@ const GROUPS: Group[] = [
       {
         name: "Redis-compatible (RESP3)",
         desc: "Existing Redis clients connect unmodified, adoption is a port change, not a rewrite.",
-        href: "/roost/resp3-protocol-choice",
+        href: "/docs/commands",
       },
       {
         name: "Built in Rust",
         desc: "A custom LSM engine and in-process vector index, no GC in the read path, sub-millisecond hits by design.",
-        href: "/roost/why-rust",
+        href: "/docs/commands",
       },
       {
         name: "One signed image",

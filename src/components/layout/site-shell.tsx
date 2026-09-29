@@ -184,7 +184,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
               title: "Company",
               links: [
                                 ["About", "/about"],
-["The Roost", "/roost"],
                 ["The Murder ▸ game", "/murder"],
                 ["Changelog", "/changelog"],
                 ["FAQ", "/faq"],

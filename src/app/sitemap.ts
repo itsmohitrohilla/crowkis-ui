@@ -1,12 +1,7 @@
 import { MetadataRoute } from "next";
-import { getAllPosts, getTags } from "@/lib/posts";
 
-export const revalidate = 3600;
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://crowkis.com";
-  const allRoostPosts = await getAllPosts();
-  const roostTags = await getTags();
   const routes = [
     "",
     "/why",
@@ -27,7 +22,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/docs/sdk-node",
     "/docs/frameworks",
     "/docs/mcp",
-    "/roost",
     "/mcp",
     "/features",
     "/agent-memory",
@@ -47,20 +41,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: route === "" ? 1 : 0.7,
   }));
 
-  // Blog posts carry their real publish date, so crawlers see accurate freshness.
-  const postEntries: MetadataRoute.Sitemap = allRoostPosts.map((post) => ({
-    url: `${base}/roost/${post.slug}`,
-    lastModified: new Date(`${post.date}T00:00:00Z`),
-    changeFrequency: "monthly",
-    priority: 0.6,
-  }));
-
-  const tagEntries: MetadataRoute.Sitemap = roostTags.map((tag) => ({
-    url: `${base}/roost/tag/${tag}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.6,
-  }));
-
-  return [...staticEntries, ...tagEntries, ...postEntries];
+  return staticEntries;
 }

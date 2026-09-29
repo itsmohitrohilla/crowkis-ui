@@ -300,9 +300,6 @@ export default function AgentMemoryPage() {
               <a href="#install" className="btn-primary">
                 Install Crowkis
               </a>
-              <Link href="/roost/agent-memory-benchmarks" className="btn-secondary">
-                Read the benchmark write-up →
-              </Link>
             </div>
             <div className="mt-10 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
               <Stat value="70.4%" label="LoCoMo recall@10" />
@@ -480,14 +477,7 @@ export default function AgentMemoryPage() {
         </h2>
         <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
           Every number here comes from an independent harness on public datasets, run on a CPU-only
-          laptop with the bundled models. The full method is in the{" "}
-          <Link
-            href="/roost/agent-memory-benchmarks"
-            className="font-semibold text-crow underline underline-offset-2"
-          >
-            benchmark write-up
-          </Link>
-          .
+          laptop with the bundled models.
         </p>
         <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {achievements.map((a) => (
@@ -669,9 +659,6 @@ export default function AgentMemoryPage() {
             <div className="flex flex-wrap gap-3">
               <Link href="/docker" className="btn-primary">
                 Install Crowkis
-              </Link>
-              <Link href="/roost/csession-multi-turn-memory" className="btn-secondary">
-                Memory &amp; sessions →
               </Link>
             </div>
           </div>

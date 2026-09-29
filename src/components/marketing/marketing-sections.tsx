@@ -165,42 +165,36 @@ const USE_CASES = [
     who: "SaaS · e-commerce · fintech support desks",
     body: "Refunds, resets, shipping windows, the same fifty intents in thousands of phrasings. The repeats become instant, free answers; only new questions reach the model.",
     stat: "the highest hit rates of any workload",
-    href: "/roost/support-bots-cache-goldmine",
   },
   {
     title: "Internal copilots",
     who: "HR, IT, and engineering assistants",
     body: "Your whole company asks the same policy and how-to questions. One shared memory across Slack bots, portals, and IDE plugins, the first answer serves everyone.",
     stat: "one answer, four hundred askers",
-    href: "/roost/internal-copilots-shared-memory",
   },
   {
     title: "RAG applications",
     who: "docs assistants · knowledge products",
     body: "Retrieval is cheap; the synthesis step is the bill. Crowkis caches the finished answer, version-pinned to your docs, so popular questions skip the whole pipeline.",
     stat: "cache the synthesis, not just the chunks",
-    href: "/roost/rag-apps-cache-the-synthesis",
   },
   {
     title: "Agent fleets",
     who: "automation · multi-agent platforms",
     body: "Agents re-ask, re-plan, and re-fetch relentlessly. Semantic hits, reasoning reuse, and tool-call caching deflate the 10-50× call multiplier that breaks agent economics.",
     stat: "five agents, one model call",
-    href: "/roost/agent-fleets-token-furnaces",
   },
   {
     title: "AI coding assistants",
     who: "engineering teams on Claude Code & friends",
     body: "Ten developers, one codebase, the same questions. Behind MCP, the team shares a local memory, doc lookups and code explanations stop billing per person.",
     stat: "one config block via MCP",
-    href: "/roost/coding-assistants-mcp",
   },
   {
     title: "High-traffic chat & voice",
     who: "consumer apps · voice assistants",
     body: "At scale, traffic converges on shared intents while every millisecond counts. Sub-millisecond streamed hits keep the experience instant and the unit economics sane.",
     stat: "<1ms hits inside a 1s voice budget",
-    href: "/roost/voice-assistants-latency",
   },
 ];
 
@@ -218,8 +212,7 @@ export function UseCasesSection() {
         </p>
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {USE_CASES.map((uc) => (
-            <Link key={uc.title} href={uc.href} className="group block h-full">
-              <article className="card-block flex h-full flex-col p-6 transition-transform group-hover:-translate-y-1">
+            <article key={uc.title} className="card-block flex h-full flex-col p-6">
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
                   {uc.who}
                 </p>
@@ -229,15 +222,8 @@ export function UseCasesSection() {
                   → {uc.stat}
                 </p>
               </article>
-            </Link>
           ))}
         </div>
-        <p className="mt-8 text-center text-sm text-ink-faint">
-          Don&apos;t see yours? The Roost covers twenty more, {" "}
-          <Link href="/roost" className="font-semibold text-crow underline underline-offset-2">
-            browse by use case →
-          </Link>
-        </p>
       </div>
     </section>
   );
@@ -867,32 +853,6 @@ export function McpSection() {
           />
         </Reveal>
       </div>
-    </section>
-  );
-}
-
-/* ------------------------------- roost teaser ------------------------------ */
-
-export function RoostTeaser() {
-  return (
-    <section className="section pb-16 md:pb-24">
-      <Reveal>
-        <div className="card-block flex flex-col items-start justify-between gap-5 p-6 sm:p-8 md:flex-row md:items-center">
-          <div>
-            <p className="eyebrow">From the Roost</p>
-            <h3 className="mt-2 font-display text-2xl font-bold">
-              Engineering notes, written by the people building it.
-            </h3>
-            <p className="mt-2 max-w-xl text-sm text-ink-soft">
-              Why we wrote our own LSM tree, what cache poisoning actually looks like, and how the
-              engine earned its production stripes, no growth-hack content, ever.
-            </p>
-          </div>
-          <Link href="/roost" className="btn-secondary shrink-0">
-            Visit the Roost
-          </Link>
-        </div>
-      </Reveal>
     </section>
   );
 }

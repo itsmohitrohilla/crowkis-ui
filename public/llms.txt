@@ -22,7 +22,6 @@ Crowkis runs as one signed binary (macOS, Linux, Windows, Docker). Community edi
 - LangChain, LangGraph & Shell: https://crowkis.com/docs/frameworks
 - MCP for AI apps: https://crowkis.com/mcp
 - Benchmarks: https://crowkis.com/benchmarks
-- The Roost (blog): https://crowkis.com/roost
 
 ## Positioning vs alternatives
 Mem0, Zep, and Letta do agent memory only, and most rely on a hosted API or an external model. Crowkis matches them on the memory features and is also your cache, guardrails, and gateway, in one self-hosted, zero-egress, Redis-compatible process.

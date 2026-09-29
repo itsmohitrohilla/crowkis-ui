@@ -5,7 +5,6 @@ export const navLinks = [
   { label: "Usage", href: "/docker" },
   { label: "Docs", href: "/docs" },
   { label: "Enterprise", href: "/enterprise" },
-  { label: "The Roost", href: "/roost" },
   { label: "About", href: "/about" },
 ];
 
