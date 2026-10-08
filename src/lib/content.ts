@@ -1,11 +1,10 @@
 export const navLinks = [
+  { label: "About", href: "/about" },
   { label: "Why", href: "/why" },
   { label: "Product", href: "/product" },
   { label: "Features", href: "/features" },
   { label: "Usage", href: "/docker" },
   { label: "Docs", href: "/docs" },
-  { label: "Enterprise", href: "/enterprise" },
-  { label: "About", href: "/about" },
 ];
 
 export const heroStats = [
