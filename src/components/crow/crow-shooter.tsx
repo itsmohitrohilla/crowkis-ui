@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArcadeAudio } from "./arcade-audio";
+import { track } from "@/lib/track";
 
 const MUTE_KEY = "crowkis-arcade-muted";
 
@@ -35,7 +36,7 @@ const FLY: R[] = [
 const WING_UP: R[] = [[4, 0, 5, 2, WING], [5, 2, 4, 2, WING]];
 const WING_DOWN: R[] = [[5, 8, 4, 2, WING], [4, 6, 5, 2, WING]];
 
-function FlyingSprite({ frame, facing, golden }: { frame: 0 | 1; facing: 1 | -1; golden?: boolean }) {
+export function FlyingSprite({ frame, facing, golden }: { frame: 0 | 1; facing: 1 | -1; golden?: boolean }) {
   const rects = [...FLY, ...(frame === 0 ? WING_UP : WING_DOWN)];
   const body = golden ? "#d62221" : INK;
   return (
@@ -491,6 +492,7 @@ export function CrowShooter({ onClose }: { onClose: () => void }) {
   }, []);
 
   const start = () => {
+    track("arcade_play");
     scoreRef.current = 0;
     comboRef.current = 0;
     setScore(0);

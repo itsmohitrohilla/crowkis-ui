@@ -1,12 +1,11 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://crowkis.com";
+  const base = "https://www.crowkis.com";
   const routes = [
     "",
     "/why",
     "/murder",
-    "/product",
     "/enterprise",
     "/about",
     "/docker",
@@ -14,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/security",
     "/benchmarks",
     "/docs",
+    "/docs/quickstart",
     "/docs/docker",
     "/docs/commands",
     "/docs/configuration",
@@ -21,8 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/docs/sdk-python",
     "/docs/sdk-node",
     "/docs/frameworks",
-    "/docs/mcp",
-    "/mcp",
     "/features",
     "/agent-memory",
     "/integrations",
@@ -30,7 +28,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/roadmap",
     "/faq",
     "/feedback",
-    "/app/dashboard",
   ];
 
   const now = new Date();

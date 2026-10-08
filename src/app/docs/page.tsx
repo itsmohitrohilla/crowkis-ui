@@ -5,7 +5,7 @@ import { CommandCard } from "@/components/ui/code-tabs";
 export const metadata: Metadata = {
   title: "Docs",
   description:
-    "Crowkis documentation, quickstart, the command reference, configuration, security, the SDKs, and MCP. Everything you need to run and build on the cache.",
+    "Crowkis documentation, quickstart, the command reference, configuration, security, and the SDKs. Everything you need to run and build on the cache.",
 };
 
 const PATHS = [
@@ -26,7 +26,7 @@ const PATHS = [
   {
     badge: "build",
     title: "I'm wiring it into my app",
-    body: "Drop-in SDKs for Python and Node, or let an AI agent use the cache over MCP.",
+    body: "Drop-in SDKs for Python and Node.",
     href: "/docs/sdk-python",
     cta: "Browse the SDKs",
   },
@@ -56,7 +56,6 @@ const SECTIONS = [
     items: [
       ["Python SDK", "Sync + async, get_or_compute, streaming, multimodal.", "/docs/sdk-python"],
       ["Node.js / TypeScript", "Typed client, retry/backoff, CachedOpenAI wrapper.", "/docs/sdk-node"],
-      ["MCP for AI apps", "Let Claude Code and agents use the cache as a tool.", "/docs/mcp"],
     ],
   },
 ];
@@ -139,7 +138,7 @@ export default function DocsHome() {
             Read the FAQ
           </Link>
           <a
-            href="mailto:contact@crowkis.com?subject=Crowkis%20docs%20question"
+            href="mailto:mohit.r@tarkova.com,subhraneel@tarkova.com?subject=Crowkis%20docs%20question"
             className="btn-ghost !py-2 text-sm"
           >
             Email us →

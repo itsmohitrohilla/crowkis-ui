@@ -1,7 +1,7 @@
 /**
  * Integration hub, every client/protocol orbits one cache. A frosted central
  * plate holds the Crowkis mark, a soft gradient halo sits behind it, and dashed
- * arcs connect six surface nodes. Pure SVG, theme-aware via CSS variables,
+ * arcs connect five surface nodes. Pure SVG, theme-aware via CSS variables,
  * scales cleanly with the container.
  */
 
@@ -16,12 +16,11 @@ type Node = {
 const HUB = { x: 450, y: 250 };
 
 const NODES: Node[] = [
-  { label: "Python SDK", cx: 150, cy: 92, color: "#3b82f6", glyph: "py" },
-  { label: "Node SDK", cx: 758, cy: 84, color: "#22c55e", glyph: "JS" },
-  { label: "crowkis cli · RESP3", cx: 108, cy: 250, color: "#8b5cf6", glyph: "›_" },
-  { label: "MCP · agents", cx: 800, cy: 250, color: "#d62221", glyph: "AI" },
-  { label: "gRPC", cx: 172, cy: 408, color: "#f59e0b", glyph: "gR" },
-  { label: "REST API", cx: 732, cy: 408, color: "#14b8a6", glyph: "{}" },
+  { label: "crowkis cli · RESP3", cx: 450, cy: 44, color: "#8b5cf6", glyph: "›_" },
+  { label: "Python SDK", cx: 130, cy: 170, color: "#3b82f6", glyph: "py" },
+  { label: "Node SDK", cx: 770, cy: 170, color: "#22c55e", glyph: "JS" },
+  { label: "gRPC", cx: 190, cy: 408, color: "#f59e0b", glyph: "gR" },
+  { label: "REST API", cx: 710, cy: 408, color: "#14b8a6", glyph: "{}" },
 ];
 
 function NodeChip({ node }: { node: Node }) {

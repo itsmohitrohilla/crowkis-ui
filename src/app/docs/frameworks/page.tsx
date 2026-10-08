@@ -185,7 +185,6 @@ crowkis doctor                                  # config, ports, model, data dir
 
       <DocPager
         prev={["Node.js / TypeScript SDK", "/docs/sdk-node"]}
-        next={["MCP for AI apps", "/docs/mcp"]}
       />
     </article>
   );

@@ -99,12 +99,7 @@ answer = cache.get_or_compute(
       />
       <DocNote>
         Node shop? <code className="inline">npm install crowkis</code> and{" "}
-        <code className="inline">getOrCompute</code>, same pattern. Using Claude Code or agents?
-        See{" "}
-        <a href="/docs/mcp" className="font-semibold text-crow underline underline-offset-2">
-          MCP for AI apps
-        </a>
-        .
+        <code className="inline">getOrCompute</code>, same pattern.
       </DocNote>
 
       <DocPager next={["Docker deployment", "/docs/docker"]} />

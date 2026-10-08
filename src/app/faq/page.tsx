@@ -97,7 +97,7 @@ const GROUPS: Group[] = [
     items: [
       [
         "Which protocols does it speak?",
-        "RESP3 (the Redis wire protocol, redis-py, ioredis, and Lettuce connect unmodified), gRPC over h2c for protobuf shops, a REST management API, and MCP for AI apps and agents. Same cache behind all four.",
+        "RESP3 (the Redis wire protocol, redis-py, ioredis, and Lettuce connect unmodified), gRPC over h2c for protobuf shops, and a REST management API. Same cache behind all three.",
       ],
       [
         "What's in the storage engine?",
@@ -129,15 +129,11 @@ const GROUPS: Group[] = [
       ],
       [
         "What SDKs exist?",
-        "Python (sync + async) and Node/TypeScript, both with get_or_compute, explicit semantic commands, and streaming. Plus the built-in crowkis cli REPL and the MCP server for AI-native tools.",
+        "Python (sync + async) and Node/TypeScript, both with get_or_compute, explicit semantic commands, and streaming. Plus the built-in crowkis cli REPL.",
       ],
       [
         "What is get_or_compute?",
         "The one-liner pattern: give Crowkis the query and a function that calls your model. If a safe cached answer exists, your function never runs. If not, it runs once and the result is banked. Cache logic disappears from your codebase.",
-      ],
-      [
-        "Can my AI coding assistant use it?",
-        "Yes, that's the MCP integration. Claude Code and other MCP-capable apps register 'crowkis mcp' as a server and check the cache before spending tokens. Repeated lookups become free.",
       ],
       [
         "Does it work with LangChain or LlamaIndex?",
@@ -285,7 +281,7 @@ const GROUPS: Group[] = [
     items: [
       [
         "What does Crowkis cost?",
-        "Community is free forever, full engine, no license, no sign-up. Enterprise is flat per cluster per year, priced in one conversation: email contact@crowkis.com and we'll get on a call. No usage metering, no per-seat math.",
+        "Community is free forever, full engine, no license, no sign-up. Enterprise is flat per cluster per year, priced in one conversation: email mohit.r@tarkova.com or subhraneel@tarkova.com and we'll get on a call. No usage metering, no per-seat math.",
       ],
       [
         "What counts as a cluster?",
@@ -305,7 +301,7 @@ const GROUPS: Group[] = [
       ],
       [
         "How do I buy or see a demo?",
-        "Email contact@crowkis.com. For Enterprise we'll run Crowkis Replay on a sample of your own traffic during the call, so you see your real savings before spending anything.",
+        "Email mohit.r@tarkova.com or subhraneel@tarkova.com. For Enterprise we'll run Crowkis Replay on a sample of your own traffic during the call, so you see your real savings before spending anything.",
       ],
     ],
   },
@@ -425,7 +421,7 @@ export default function FaqPage() {
               </p>
             </div>
             <a
-              href="mailto:contact@crowkis.com?subject=Crowkis%20question"
+              href="mailto:mohit.r@tarkova.com,subhraneel@tarkova.com?subject=Crowkis%20question"
               className="btn-primary shrink-0"
             >
               Ask us directly

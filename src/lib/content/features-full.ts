@@ -322,13 +322,6 @@ export const featureGroups: FeatureGroup[] = [
         status: "shipped",
       },
       {
-        name: "MCP server",
-        what: "crowkis mcp lets any AI agent use the cache as a tool; stats and dashboard are exposed as MCP resources.",
-        why: "Claude Code and agents check the cache before spending tokens, and it's free.",
-        status: "shipped",
-        tier: "free",
-      },
-      {
         name: "Python + Node SDKs",
         what: "Retry / backoff, typed helpers, and a CachedOpenAI drop-in wrapper.",
         why: "Caching disappears into one function call.",

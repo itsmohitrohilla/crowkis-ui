@@ -8,6 +8,12 @@ import { Logo3D } from "@/components/crow/logo-3d";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { IntegrationHub } from "@/components/marketing/integration-hub";
 
+// Language marks for the SDK buttons (Simple Icons, single path each).
+const PYTHON_LOGO =
+  "M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z";
+const NODE_LOGO =
+  "M11.998,24c-0.321,0-0.641-0.084-0.922-0.247l-2.936-1.737c-0.438-0.245-0.224-0.332-0.08-0.383 c0.585-0.203,0.703-0.25,1.328-0.604c0.065-0.037,0.151-0.023,0.218,0.017l2.256,1.339c0.082,0.045,0.197,0.045,0.272,0l8.795-5.076 c0.082-0.047,0.134-0.141,0.134-0.238V6.921c0-0.099-0.053-0.192-0.137-0.242l-8.791-5.072c-0.081-0.047-0.189-0.047-0.271,0 L3.075,6.68C2.99,6.729,2.936,6.825,2.936,6.921v10.15c0,0.097,0.054,0.189,0.139,0.235l2.409,1.392 c1.307,0.654,2.108-0.116,2.108-0.89V7.787c0-0.142,0.114-0.253,0.256-0.253h1.115c0.139,0,0.255,0.112,0.255,0.253v10.021 c0,1.745-0.95,2.745-2.604,2.745c-0.508,0-0.909,0-2.026-0.551L2.28,18.675c-0.57-0.329-0.922-0.945-0.922-1.604V6.921 c0-0.659,0.353-1.275,0.922-1.603l8.795-5.082c0.557-0.315,1.296-0.315,1.848,0l8.794,5.082c0.57,0.329,0.924,0.944,0.924,1.603 v10.15c0,0.659-0.354,1.273-0.924,1.604l-8.794,5.078C12.643,23.916,12.324,24,11.998,24z M19.099,13.993 c0-1.9-1.284-2.406-3.987-2.763c-2.731-0.361-3.009-0.548-3.009-1.187c0-0.528,0.235-1.233,2.258-1.233 c1.807,0,2.473,0.389,2.747,1.607c0.024,0.115,0.129,0.199,0.247,0.199h1.141c0.071,0,0.138-0.031,0.186-0.081 c0.048-0.054,0.074-0.123,0.067-0.196c-0.177-2.098-1.571-3.076-4.388-3.076c-2.508,0-4.004,1.058-4.004,2.833 c0,1.925,1.488,2.457,3.895,2.695c2.88,0.282,3.103,0.703,3.103,1.269c0,0.983-0.789,1.402-2.642,1.402 c-2.327,0-2.839-0.584-3.011-1.742c-0.02-0.124-0.126-0.215-0.253-0.215h-1.137c-0.141,0-0.254,0.112-0.254,0.253 c0,1.482,0.806,3.248,4.655,3.248C17.501,17.007,19.099,15.91,19.099,13.993z";
+
 /* ---------------------------------- hero --------------------------------- */
 
 export function HeroSection() {
@@ -64,7 +70,7 @@ const USPS = [
   },
   {
     title: "It drops into your stack",
-    body: "Speaks Redis, gRPC, REST, and MCP. One Docker image, one port change, zero rewrites.",
+    body: "Speaks Redis, gRPC, and REST. One Docker image, one port change, zero rewrites.",
     mark: "03",
   },
 ];
@@ -145,7 +151,7 @@ export function ConnectHub() {
           <p className="eyebrow">One cache · every door in</p>
           <h2 className="responsive-title mt-4">Whatever you already use, it already speaks.</h2>
           <p className="responsive-subtitle mt-4">
-            Python, Node, the Redis CLI, gRPC, REST, and MCP all plug into the same engine. Point a
+            Python, Node, the Redis CLI, gRPC, and REST all plug into the same engine. Point a
             client at one port and you have a semantic cache, no rewrite, no new mental model.
           </p>
         </div>
@@ -185,12 +191,6 @@ const USE_CASES = [
     stat: "five agents, one model call",
   },
   {
-    title: "AI coding assistants",
-    who: "engineering teams on Claude Code & friends",
-    body: "Ten developers, one codebase, the same questions. Behind MCP, the team shares a local memory, doc lookups and code explanations stop billing per person.",
-    stat: "one config block via MCP",
-  },
-  {
     title: "High-traffic chat & voice",
     who: "consumer apps · voice assistants",
     body: "At scale, traffic converges on shared intents while every millisecond counts. Sub-millisecond streamed hits keep the experience instant and the unit economics sane.",
@@ -207,12 +207,12 @@ export function UseCasesSection() {
           If your app answers questions, Crowkis pays for itself.
         </h2>
         <p className="responsive-subtitle mt-4 max-w-2xl">
-          Six production workloads where teams deploy Crowkis today, each one a repetition engine
+          Five production workloads where teams deploy Crowkis today, each one a repetition engine
           wearing a product&apos;s clothes.
         </p>
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {USE_CASES.map((uc) => (
-            <article key={uc.title} className="card-block flex h-full flex-col p-6">
+            <article key={uc.title} className="card-block flex h-full flex-col p-6 md:last:col-span-2">
                 <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
                   {uc.who}
                 </p>
@@ -229,11 +229,11 @@ export function UseCasesSection() {
   );
 }
 
-/* --------------------------- docker + mcp strip --------------------------- */
+/* ------------------------------ docker strip ------------------------------ */
 
-export function DockerMcpStrip() {
+export function DockerStrip() {
   return (
-    <section className="section grid gap-5 pb-16 md:grid-cols-2 md:pb-24">
+    <section className="section pb-16 md:pb-24">
       <TiltCard className="flex h-full flex-col p-7">
         <p className="eyebrow">Official Docker image</p>
         <h2 className="mt-3 font-display text-2xl font-bold">Free. Hardened. One pull away.</h2>
@@ -246,22 +246,6 @@ export function DockerMcpStrip() {
         </div>
         <Link href="/docker" className="btn-secondary mt-5 self-start">
           The Docker guide
-        </Link>
-      </TiltCard>
-      <TiltCard className="flex h-full flex-col p-7">
-        <p className="eyebrow">Crowkis MCP · for AI apps</p>
-        <h2 className="mt-3 font-display text-2xl font-bold">
-          Claude Code asks. The cache answers.
-        </h2>
-        <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-soft">
-          The binary ships an MCP server, so AI assistants and agents check the cache before
-          burning tokens, repeated lookups become free, locally.
-        </p>
-        <div className="mt-5">
-          <CommandCard command="claude mcp add crowkis -- crowkis mcp" note="two minutes in any MCP-capable app" />
-        </div>
-        <Link href="/docs/mcp" className="btn-secondary mt-5 self-start">
-          Set up MCP
         </Link>
       </TiltCard>
     </section>
@@ -288,7 +272,7 @@ export function FactStrip() {
             <p className="font-display text-3xl font-bold tracking-tight text-stone-50 sm:text-4xl">
               <CountUp to={fact.to} prefix={fact.prefix} suffix={fact.suffix} />
             </p>
-            <p className="mx-auto mt-2 max-w-[160px] font-mono text-[11px] leading-relaxed text-stone-500">
+            <p className="mx-auto mt-2 max-w-[160px] font-mono text-[11px] leading-relaxed text-stone-400">
               {fact.label}
             </p>
           </div>
@@ -413,7 +397,7 @@ export function HowItWorks() {
           ))}
         </div>
         <Reveal delay={0.2}>
-          <div className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-stone-500">
+          <div className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-stone-400">
             <span>your app</span>
             <span className="text-crow">→</span>
             <span className="text-stone-300">crowkis</span>
@@ -643,9 +627,15 @@ export function DropInSection() {
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link href="/docs/sdk-python" className="btn-secondary">
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#3776AB" aria-hidden>
+              <path d={PYTHON_LOGO} />
+            </svg>
             Python SDK
           </Link>
           <Link href="/docs/sdk-node" className="btn-secondary">
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="#5FA04E" aria-hidden>
+              <path d={NODE_LOGO} />
+            </svg>
             Node SDK
           </Link>
         </div>
@@ -772,91 +762,6 @@ export function TrustSection() {
 }
 
 
-/* -------------------------------- MCP section ------------------------------ */
-
-const MCP_SNIPPET = `{
-  "mcpServers": {
-    "crowkis": {
-      "command": "crowkis",
-      "args": ["mcp"]
-    }
-  }
-}`;
-
-export function McpSection() {
-  return (
-    <section className="py-16 md:py-24">
-      <div className="section grid items-center gap-10 md:grid-cols-2">
-        <Reveal>
-          <p className="eyebrow">Crowkis MCP · for AI apps & agents</p>
-          <h2 className="responsive-title mt-4">
-            Your AI tools ask the same questions all day. Stop billing yourself for it.
-          </h2>
-          <p className="responsive-subtitle mt-4">
-            The Crowkis binary ships an MCP server, {" "}
-            <code className="inline">crowkis mcp</code>, so Claude Code, agent frameworks, and any
-            MCP-capable app can check the cache before burning tokens, and bank every answer they
-            compute.
-          </p>
-          <p className="mt-4 rounded-lg border border-ink-line bg-paper-card p-4 text-sm leading-relaxed text-ink-soft">
-            <span className="font-semibold text-ink">In plain words:</span> AI assistants repeat
-            themselves constantly, same lookups, same explanations, same boilerplate reasoning.
-            Crowkis remembers those answers locally, so the expensive model is only called for
-            genuinely new questions. Your token bill drops; nothing leaves your machine.
-          </p>
-          <div className="mt-7">
-            <Link href="/docs/mcp" className="btn-primary">
-              Set up MCP in two minutes
-            </Link>
-          </div>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <CodeTabs
-            tabs={[
-              {
-                label: "claude code / mcp.json",
-                copyText: MCP_SNIPPET,
-                content: (
-                  <code>
-                    <span className="tok-cmd">{`{`}</span>
-                    {"\n  "}
-                    <span className="tok-str">&quot;mcpServers&quot;</span>
-                    <span className="tok-cmd">: {`{`}</span>
-                    {"\n    "}
-                    <span className="tok-str">&quot;crowkis&quot;</span>
-                    <span className="tok-cmd">: {`{`}</span>
-                    {"\n      "}
-                    <span className="tok-str">&quot;command&quot;</span>
-                    <span className="tok-cmd">: </span>
-                    <span className="tok-str">&quot;crowkis&quot;</span>
-                    <span className="tok-cmd">,</span>
-                    {"\n      "}
-                    <span className="tok-str">&quot;args&quot;</span>
-                    <span className="tok-cmd">: [</span>
-                    <span className="tok-str">&quot;mcp&quot;</span>
-                    <span className="tok-cmd">]</span>
-                    {"\n    "}
-                    <span className="tok-cmd">{`}`}</span>
-                    {"\n  "}
-                    <span className="tok-cmd">{`}`}</span>
-                    {"\n"}
-                    <span className="tok-cmd">{`}`}</span>
-                    {"\n\n"}
-                    <span className="tok-dim">
-                      # crowkis mcp speaks JSON-RPC on stdout, {"\n"}# cache lookups become a tool
-                      your agent calls first
-                    </span>
-                  </code>
-                ),
-              },
-            ]}
-          />
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 /* ------------------------------ founder section ----------------------------- */
 
 export function FounderSection() {
@@ -915,7 +820,7 @@ export function FounderSection() {
               Connect on LinkedIn
             </a>
             <a
-              href="mailto:contact@crowkis.com?subject=Hi%20Mohit"
+              href="mailto:mohit.r@tarkova.com,subhraneel@tarkova.com?subject=Hi%20Mohit"
               className="btn-ghost !py-2 text-sm"
             >
               Or just email →

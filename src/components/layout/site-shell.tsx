@@ -3,13 +3,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { navLinks } from "@/lib/content";
+import { track } from "@/lib/track";
 import { PixelCrow } from "@/components/crow/pixel-crow";
 import { FooterGarden } from "@/components/crow/footer-garden";
 import { CrowShooter } from "@/components/crow/crow-shooter";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { RatingWidget } from "@/components/marketing/rating-widget";
+import { DemoLink } from "@/components/marketing/demo-link";
+import { VisitNudge } from "@/components/marketing/visit-nudge";
 
 function Wordmark({ className = "h-4" }: { className?: string }) {
   return (
@@ -29,11 +32,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [gameOpen, setGameOpen] = useState(false);
 
+  useEffect(() => track("page_view"), [pathname]);
+
   return (
     <div className="relative">
       <PixelCrow />
       <RatingWidget />
-      {gameOpen ? <CrowShooter onClose={() => setGameOpen(false)} /> : null}
+      {gameOpen ? <CrowShooter onClose={() => setGameOpen(false)} /> : <VisitNudge onPlay={() => setGameOpen(true)} />}
       <div className="border-b-2 border-ink bg-crow px-4 py-2 text-center font-mono text-[11px] font-medium tracking-wide text-stone-50 sm:text-xs">
         One signed binary. Every feature compiled in. Free to run.{" "}
         <Link href="/docker" className="underline underline-offset-2 hover:no-underline">
@@ -41,7 +46,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
         </Link>
       </div>
       <header className="sticky top-0 z-40 border-b-2 border-ink bg-paper/90 backdrop-blur-md">
-        <nav className="section flex h-16 items-center justify-between">
+        <nav className="section flex h-16 items-center justify-between gap-3">
           <Link href="/" className="flex items-center gap-2.5" aria-label="Crowkis home">
             <Image
               src="/logo.svg"
@@ -73,7 +78,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
             <button
               type="button"
               onClick={() => setGameOpen(true)}
-              className="ml-0.5 flex items-center gap-1 rounded-lg border-2 border-crow px-2.5 py-1 text-[13px] font-bold text-crow transition hover:bg-crow hover:text-stone-50"
+              className="arcade-border ml-1.5 flex items-center gap-1 rounded-lg border-2 px-2.5 py-1 text-[13px] font-bold text-stone-50"
               title="brain-rot crow game, opens full-screen"
             >
               <span aria-hidden>▸</span> Arcade
@@ -82,7 +87,12 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
           <div className="hidden items-center gap-3 lg:flex">
             <ThemeToggle />
-            <Link href="/docs" className="btn-primary !px-4 !py-2">
+            <DemoLink where="nav" className="btn-secondary whitespace-nowrap !px-4 !py-2">
+              {/* short label until there is room for the full one */}
+              <span className="xl:hidden">Demo</span>
+              <span className="hidden xl:inline">Book a demo</span>
+            </DemoLink>
+            <Link href="/docs" className="btn-primary whitespace-nowrap !px-4 !py-2">
               Get started
             </Link>
           </div>
@@ -124,6 +134,13 @@ export function SiteShell({ children }: { children: ReactNode }) {
               >
                 ▸ Arcade, brain-rot crow game
               </button>
+              <DemoLink
+                where="nav-mobile"
+                onClick={() => setMenuOpen(false)}
+                className="touch-target rounded-lg border-2 border-ink bg-paper-card px-3 py-2.5 text-center font-semibold"
+              >
+                Book a demo
+              </DemoLink>
               <Link
                 href="/docs"
                 onClick={() => setMenuOpen(false)}
@@ -139,7 +156,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <main className="relative">{children}</main>
 
       <footer className="border-t-2 border-ink bg-paper-deep paper-grid text-ink">
-        <div className="section grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="section grid gap-10 py-14 md:grid-cols-[1fr_auto_auto_auto] md:gap-x-14 lg:gap-x-20">
           <div>
             <div className="flex items-center gap-3">
               <Image src="/logo.svg" alt="" width={49} height={36} className="" />
@@ -156,14 +173,14 @@ export function SiteShell({ children }: { children: ReactNode }) {
               query means, checks whether reuse is safe, and only then answers from cache.
             </p>
             <p className="mt-4 font-mono text-xs text-ink-faint">
-              RESP3 · gRPC · REST · MCP, one binary, one Docker image.
+              RESP3 · gRPC · REST, one binary, one Docker image.
             </p>
           </div>
           {[
             {
               title: "Product",
               links: [
-                ["Overview", "/product"],
+                ["Overview", "/features"],
                 ["Enterprise", "/enterprise"],
                 ["Docker image", "/docker"],
                 ["Benchmarks", "/benchmarks"],
@@ -177,7 +194,6 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 ["Commands", "/docs/commands"],
                 ["Python SDK", "/docs/sdk-python"],
                 ["Node SDK", "/docs/sdk-node"],
-                ["MCP for AI apps", "/docs/mcp"],
               ],
             },
             {

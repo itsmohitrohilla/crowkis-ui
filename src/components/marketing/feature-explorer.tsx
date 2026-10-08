@@ -93,7 +93,7 @@ export function FeatureExplorer() {
                       />
                       {item.name}
                       {item.tier ? (
-                        <span className={`text-[9px] font-bold ${isActive ? "text-paper/70" : "opacity-70"}`}>
+                        <span className={`text-[9px] font-bold ${isActive ? "text-paper/70" : ""}`}>
                           {TIER_META[item.tier].label}
                         </span>
                       ) : null}

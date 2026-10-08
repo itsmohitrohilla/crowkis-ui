@@ -176,7 +176,6 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
         ["--fg-top" as string]: "#bfe0ef",
         ["--fg-bottom" as string]: "#eef3e6",
       }}
-      aria-hidden
     >
       {/* sun */}
       <div className="absolute" style={{ left: "var(--fg-sun-x,82%)", top: "var(--fg-sun-y,18%)", opacity: "var(--fg-sun-op,1)" }}>
@@ -222,7 +221,7 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
       </div>
 
       {/* drifting flyer */}
-      <svg viewBox="0 0 16 12" className="footer-flyer absolute top-5 h-[24px] w-auto">
+      <svg viewBox="0 0 16 12" className="footer-flyer absolute top-5 h-[24px] w-auto" aria-hidden>
         <rect x="10" y="0" width="4" height="4" fill={INK} />
         <rect x="14" y="1" width="2" height="1" fill={INK} />
         <rect x="9" y="3" width="2" height="2" fill={INK} />
@@ -262,7 +261,7 @@ export function FooterGarden({ children }: { children?: React.ReactNode }) {
       <PerchedCrow x="47%" bottom={34} delay="3.1s" />
 
       {/* the lawn, copyright lives on the grass */}
-      <div className="absolute bottom-0 left-0 right-0 h-[34px] border-t-2 border-ink" style={{ background: LEAF_DARK }}>
+      <div className="absolute bottom-0 left-0 right-0 h-[34px] border-t-2 border-ink" style={{ background: "#456d39" }}>
         <div className="section flex h-full items-center justify-between gap-2 font-mono text-[11px]" style={{ color: "#f0ead9" }}>
           {children}
         </div>

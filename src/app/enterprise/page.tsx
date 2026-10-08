@@ -3,14 +3,13 @@ import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
 import { TiltCard } from "@/components/ui/tilt-card";
 import { HeroArt } from "@/components/marketing/hero-art";
+import { DemoLink } from "@/components/marketing/demo-link";
 
 export const metadata: Metadata = {
   title: "Enterprise",
   description:
     "Crowkis is free to run. Enterprise is the layer that turns the cache into leverage, unlimited scale, compliance you can pass an audit with, smart provider routing, and a human on call. No checkout, a conversation.",
 };
-
-const DEMO_MAILTO = "mailto:contact@crowkis.com?subject=Crowkis%20Enterprise%20%E2%80%94%20let%27s%20talk";
 
 const VALUE = [
   {
@@ -114,9 +113,9 @@ export default function EnterprisePage() {
               and a human on call. It&apos;s not a checkout, it&apos;s a conversation.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href={DEMO_MAILTO} className="btn-primary">
+              <DemoLink where="enterprise-hero" className="btn-primary">
                 Book a call
-              </a>
+              </DemoLink>
               <Link href="/docker" className="btn-secondary">
                 Run it free first
               </Link>
@@ -233,14 +232,14 @@ export default function EnterprisePage() {
             the savings before you spend anything.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a href={DEMO_MAILTO} className="btn-primary">
+            <DemoLink where="enterprise-footer" className="btn-primary">
               Book the call
-            </a>
+            </DemoLink>
             <Link href="/docker" className="btn-secondary">
               Or run it free now
             </Link>
           </div>
-          <p className="mt-2 font-mono text-xs text-ink-faint">contact@crowkis.com</p>
+          <p className="mt-2 font-mono text-xs text-ink-faint">mohit.r@tarkova.com · subhraneel@tarkova.com</p>
         </div>
       </section>
     </SiteShell>

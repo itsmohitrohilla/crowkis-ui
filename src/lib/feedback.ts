@@ -1,38 +1,12 @@
 "use server";
 
-import { headers } from "next/headers";
+import { withDb } from "@/lib/db";
+import { rateLimited as limited } from "@/lib/rate-limit";
 
-// Simple in-memory per-IP rate limit (per server instance). Enough to stop
-// casual spam; resets on redeploy. Bump to a durable store if abuse appears.
-const hits = new Map<string, number[]>();
-const WINDOW_MS = 10 * 60 * 1000; // 10 min
-const MAX = 5; // max submissions per window per IP
-
-async function rateLimited(): Promise<boolean> {
-  const h = await headers();
-  const ip = (h.get("x-forwarded-for") ?? "local").split(",")[0].trim();
-  const now = Date.now();
-  const arr = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
-  if (arr.length >= MAX) return true;
-  arr.push(now);
-  hits.set(ip, arr);
-  return false;
-}
+const rateLimited = () => limited("form", 5); // max submissions per 10 min per IP
 
 async function insert(text: string, values: unknown[]): Promise<void> {
-  const raw = process.env.SUPABASE_DB_URL;
-  if (!raw) throw new Error("database not configured");
-  const { default: pg } = await import("pg");
-  const client = new pg.Client({
-    connectionString: raw.split("?")[0],
-    ssl: { rejectUnauthorized: false },
-  });
-  await client.connect();
-  try {
-    await client.query(text, values);
-  } finally {
-    await client.end();
-  }
+  await withDb((q) => q(text, values));
 }
 
 export type ActionResult = { ok: boolean; error?: string };
@@ -41,6 +15,7 @@ export async function submitFeedback(input: {
   name?: string;
   email?: string;
   message: string;
+  source?: "feedback" | "contact";
 }): Promise<ActionResult> {
   const message = (input.message ?? "").trim();
   if (message.length < 3) return { ok: false, error: "Please write a little more." };
@@ -49,10 +24,11 @@ export async function submitFeedback(input: {
   const email = (input.email ?? "").trim().slice(0, 200) || null;
   if (await rateLimited()) return { ok: false, error: "Too many submissions, try again later." };
   try {
-    await insert("insert into feedback (name, email, message) values ($1, $2, $3)", [
+    await insert("insert into feedback (name, email, message, source) values ($1, $2, $3, $4)", [
       name,
       email,
       message,
+      input.source === "contact" ? "contact" : "feedback",
     ]);
     return { ok: true };
   } catch {

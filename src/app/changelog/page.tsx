@@ -4,7 +4,7 @@ import { ContentPage } from "@/components/marketing/content-page";
 export const metadata: Metadata = {
   title: "Changelog",
   description:
-    "What shipped in Crowkis: the engine, the protocol surface, the control plane, MCP, and the hardening that backs them.",
+    "What shipped in Crowkis: the engine, the protocol surface, the control plane, and the hardening that backs them.",
 };
 
 const changelogBlocks = [
@@ -13,8 +13,8 @@ const changelogBlocks = [
     body: "CrowkisDB LSM store with WAL durability, HNSW vector index, and all seven intelligence systems, semantic + structural matching, anti-poisoning, adaptive thresholds, reasoning reuse, smart eviction, confidence scoring, freshness control, live in every edition.",
   },
   {
-    title: "Four protocol surfaces",
-    body: "RESP3 for drop-in Redis clients, gRPC h2c for protobuf shops, the REST management API, and the MCP server for Claude Code and agent frameworks. One cache behind all four.",
+    title: "Three protocol surfaces",
+    body: "RESP3 for drop-in Redis clients, gRPC h2c for protobuf shops, and the REST management API. One cache behind all three.",
   },
   {
     title: "Hardened Docker distribution",

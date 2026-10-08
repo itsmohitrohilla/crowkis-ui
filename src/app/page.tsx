@@ -7,7 +7,7 @@ import {
   ProblemTeaser,
   UseCasesSection,
   DropInSection,
-  DockerMcpStrip,
+  DockerStrip,
   FinalCta,
 } from "@/components/marketing/marketing-sections";
 
@@ -21,7 +21,7 @@ export default function Home() {
       <ProblemTeaser />
       <UseCasesSection />
       <DropInSection />
-      <DockerMcpStrip />
+      <DockerStrip />
       <FinalCta />
     </SiteShell>
   );

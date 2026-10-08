@@ -38,7 +38,7 @@ export default function MurderPage() {
                 Back to work
               </Link>
             </div>
-            <p className="mt-5 font-mono text-xs text-stone-500">
+            <p className="mt-5 font-mono text-xs text-stone-400">
               red crows = 5× · chain kills for a combo multiplier · esc to leave
             </p>
           </div>

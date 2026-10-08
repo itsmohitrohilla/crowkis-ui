@@ -4,7 +4,6 @@
 // Component inspired from Can Tastemel's original work for the lambda.ai landing page.
 // ponytail: upstream logic verbatim; added "use client" + TS prop types only.
 import { useCallback, useEffect, useRef } from "react";
-import gsap from "gsap";
 
 export type CubesProps = {
   gridSize?: number;
@@ -40,6 +39,13 @@ const Cubes = ({
   rippleSpeed = 2,
 }: CubesProps) => {
   const sceneRef = useRef<HTMLDivElement>(null);
+  // gsap is only needed once the pointer moves, so keep it out of the first-load bundle
+  const gsapRef = useRef<typeof import("gsap").gsap | null>(null);
+  useEffect(() => {
+    import("gsap").then((m) => {
+      gsapRef.current = m.gsap;
+    });
+  }, []);
   const rafRef = useRef<number | null>(null);
   const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const userActiveRef = useRef(false);
@@ -73,7 +79,7 @@ const Cubes = ({
         if (dist <= radius) {
           const pct = 1 - dist / radius;
           const angle = pct * maxAngle;
-          gsap.to(cube, {
+          gsapRef.current?.to(cube, {
             duration: enterDur,
             ease: easing,
             overwrite: true,
@@ -81,7 +87,7 @@ const Cubes = ({
             rotateY: angle,
           });
         } else {
-          gsap.to(cube, {
+          gsapRef.current?.to(cube, {
             duration: leaveDur,
             ease: "power3.out",
             overwrite: true,
@@ -119,7 +125,7 @@ const Cubes = ({
   const resetAll = useCallback(() => {
     if (!sceneRef.current) return;
     sceneRef.current.querySelectorAll<HTMLElement>(".cube").forEach((cube) =>
-      gsap.to(cube, {
+      gsapRef.current?.to(cube, {
         duration: leaveDur,
         rotateX: 0,
         rotateY: 0,
@@ -165,13 +171,13 @@ const Cubes = ({
             Array.from(cube.querySelectorAll<HTMLElement>(".cube-face")),
           );
 
-          gsap.to(faces, {
+          gsapRef.current?.to(faces, {
             backgroundColor: rippleColor,
             duration: animDuration,
             delay,
             ease: "power3.out",
           });
-          gsap.to(faces, {
+          gsapRef.current?.to(faces, {
             backgroundColor: faceColor,
             duration: animDuration,
             delay: delay + animDuration + holdTime,

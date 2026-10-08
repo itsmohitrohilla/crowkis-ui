@@ -1,7 +1,8 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { SiteShell } from "@/components/layout/site-shell";
-import { Mermaid, Venn } from "@/components/ui/mermaid";
+import { DemoLink } from "@/components/marketing/demo-link";
+import { CacheGap, QueryRows } from "@/components/marketing/why-diagrams";
 import { Tilt3D } from "@/components/ui/tilt-3d";
 import { CountUp } from "@/components/ui/count-up";
 
@@ -132,15 +133,14 @@ export default function WhyPage() {
             title="what actually happens to repeated traffic"
             caption="Without semantic caching, the second and third ask are pure waste."
           >
-            <Mermaid
-              chart={`flowchart TD
-  Q1["'how do refunds work?'"] --> LLM1["model call · $$ · 2s"]
-  Q2["'what's the refund window?'"] --> LLM2["model call · $$ · 2s"]
-  Q3["'refund timeline?'"] --> LLM3["model call · $$ · 2s"]
-  LLM1 --> A1["the same answer"]
-  LLM2 --> A1
-  LLM3 --> A1
-  style A1 fill:#fbe9e8,stroke:#d62221,stroke-width:2.5px`}
+            <QueryRows
+              label="Three phrasings of one question (how do refunds work, what's the refund window, refund timeline) each trigger a separate model call costing money and about two seconds, and all three calls return the same answer. The second and third calls are repeats."
+              rows={[
+                { q: "how do refunds work?", via: "ask 1", l1: "model call", l2: "$$ · 2s" },
+                { q: "what’s the refund window?", via: "ask 2 · repeat", l1: "model call", l2: "$$ · 2s · waste", bad: true },
+                { q: "refund timeline?", via: "ask 3 · repeat", l1: "model call", l2: "$$ · 2s · waste", bad: true },
+              ]}
+              merge={{ l1: "the same answer", l2: "full price, every time" }}
             />
           </Figure>
         </div>
@@ -161,26 +161,25 @@ export default function WhyPage() {
               title="fix #1, exact-match caching (redis-style)"
               caption="Byte-for-byte matching means paraphrases never hit. Hit rate ≈ 0 on LLM traffic."
             >
-              <Mermaid
-                chart={`flowchart LR
-  A["'how do refunds work?'"] -->|cached| HIT["HIT ✓"]
-  B["'how do refunds work'"] -->|missing '?'| MISS1["MISS → pay"]
-  C["'what's the refund window?'"] -->|different bytes| MISS2["MISS → pay"]
-  style HIT fill:#fbe9e8,stroke:#d62221,stroke-width:2px
-  style MISS1 fill:#f3eee5
-  style MISS2 fill:#f3eee5`}
+              <QueryRows
+                label="Exact-match cache: the cached question 'how do refunds work?' hits. The same question without the question mark misses and is paid for. 'What's the refund window?' is different bytes, so it misses and is paid for."
+                rows={[
+                  { q: "how do refunds work?", via: "cached", l1: "HIT ✓" },
+                  { q: "how do refunds work", via: "missing ‘?’", l1: "MISS → pay ✗", bad: true },
+                  { q: "what’s the refund window?", via: "different bytes", l1: "MISS → pay ✗", bad: true },
+                ]}
               />
             </Figure>
             <Figure
               title="fix #2, similarity-only caching (vector-style)"
               caption="Everything near in embedding space gets served, including the things that must not be."
             >
-              <Mermaid
-                chart={`flowchart LR
-  D["'cancel my subscription'"] -->|0.91 similar| W["serves the cached<br/>'pause' answer ✗"]
-  E["'pause my subscription'"] -->|cached| W2["HIT, correct"]
-  style W fill:#fbe9e8,stroke:#d62221,stroke-width:2.5px
-  style W2 fill:#f3eee5`}
+              <QueryRows
+                label="Similarity-only cache: 'pause my subscription' is cached and hits correctly. 'Cancel my subscription' scores 0.91 similar, so the cache serves it the cached 'pause' answer, which is wrong."
+                rows={[
+                  { q: "pause my subscription", via: "cached", l1: "HIT ✓", l2: "correct" },
+                  { q: "cancel my subscription", via: "0.91 similar", l1: "wrong answer ✗", l2: "serves the ‘pause’ answer", bad: true },
+                ]}
               />
             </Figure>
           </div>
@@ -189,13 +188,7 @@ export default function WhyPage() {
               title="the gap crowkis occupies"
               caption="Reuse aggressively where meaning and structure agree. Refuse where they don't."
             >
-              <Venn
-                left="exact-match"
-                right="similarity-only"
-                overlap={"crowkis:\nmeaning + structure\n+ confidence + trust"}
-                leftItems={["never wrong", "never hits"]}
-                rightItems={["always hits", "sometimes lies"]}
-              />
+              <CacheGap />
             </Figure>
           </div>
         </div>
@@ -241,12 +234,9 @@ export default function WhyPage() {
             <Link href="/docker" className="btn-primary">
               Run it free
             </Link>
-            <a
-              href="mailto:contact@crowkis.com?subject=Crowkis%20demo%20request"
-              className="btn-secondary"
-            >
+            <DemoLink where="why" className="btn-secondary">
               Book the replay call
-            </a>
+            </DemoLink>
           </div>
         </div>
       </section>

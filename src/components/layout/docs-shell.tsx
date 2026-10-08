@@ -28,7 +28,6 @@ const DOC_NAV: { group: string; items: [string, string][] }[] = [
       ["Python", "/docs/sdk-python"],
       ["Node.js / TypeScript", "/docs/sdk-node"],
       ["LangChain, LangGraph & Shell", "/docs/frameworks"],
-      ["MCP for AI apps", "/docs/mcp"],
     ],
   },
 ];

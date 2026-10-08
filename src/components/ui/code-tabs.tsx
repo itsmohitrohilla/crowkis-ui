@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode, useState } from "react";
+import { track } from "@/lib/track";
 
 export function CopyButton({ text, className = "" }: { text: string; className?: string }) {
   const [copied, setCopied] = useState(false);
@@ -8,6 +9,7 @@ export function CopyButton({ text, className = "" }: { text: string; className?:
     <button
       type="button"
       onClick={() => {
+        track("code_copy", text);
         navigator.clipboard.writeText(text).then(() => {
           setCopied(true);
           setTimeout(() => setCopied(false), 1600);
@@ -41,7 +43,7 @@ export function CodeTabs({
               className={`border-b-2 px-3 py-2.5 font-mono text-xs transition ${
                 i === active
                   ? "border-crow text-stone-100"
-                  : "border-transparent text-stone-500 hover:text-stone-300"
+                  : "border-transparent text-stone-400 hover:text-stone-300"
               }`}
             >
               {t.label}
@@ -66,7 +68,7 @@ export function CommandCard({ command, note }: { command: string; note?: string 
         <CopyButton text={command} className="shrink-0" />
       </div>
       {note ? (
-        <div className="border-t border-roost-line px-4 py-2.5 font-mono text-[11px] text-stone-500 sm:px-5">
+        <div className="border-t border-roost-line px-4 py-2.5 font-mono text-[11px] text-stone-400 sm:px-5">
           {note}
         </div>
       ) : null}

@@ -17,9 +17,9 @@
   --c-paper-card: 255 253 249;
   --c-ink: 22 19 14;
   --c-ink-soft: 74 68 58;
-  --c-ink-faint: 138 130 117;
+  --c-ink-faint: 107 100 89;
   --c-ink-line: 226 220 207;
-  --c-crow: 214 34 33;
+  --c-crow: 207 31 30;
   --c-crow-deep: 169 23 22;
   --c-crow-tint: 251 233 232;
   --c-roost: 23 20 16;
@@ -125,6 +125,10 @@ a {
 .eyebrow {
   @apply font-mono text-[11px] font-medium uppercase tracking-[0.22em] text-crow sm:text-xs;
 }
+/* brand red is too dim for small text on the dark bands */
+.bg-roost .eyebrow {
+  color: #ff8a87;
+}
 
 .btn-primary {
   @apply inline-flex items-center justify-center gap-2 rounded-lg border-2 border-ink bg-crow px-5 py-2.5 text-sm font-semibold text-stone-50 shadow-block-sm transition-all duration-150 hover:-translate-y-0.5 hover:shadow-block active:translate-y-0 active:shadow-none;
@@ -190,7 +194,7 @@ code.inline {
 .tok-key { color: #ff8a87; }
 .tok-str { color: #d8c97f; }
 .tok-ok { color: #8fd6a4; }
-.tok-dim { color: #847c6e; }
+.tok-dim { color: #948c7f; }
 .tok-fn { color: #9fc6e8; }
 
 /* ── crow rage mode ─────────────────────────────────────────────────────────
@@ -218,6 +222,38 @@ html:not(.crow-rage) :is(header, main, footer, .rage-banner) {
   to { opacity: 1; transform: none; }
 }
 .install-fade { animation: install-fade 0.28s ease-out; }
+
+/* header Arcade button: an ink line travelling around the border */
+@property --arcade-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes arcade-border {
+  to { --arcade-angle: 360deg; }
+}
+.arcade-border {
+  --arcade-fill: rgb(var(--c-crow));
+  border-color: transparent;
+  background:
+    linear-gradient(var(--arcade-fill) 0 0) padding-box,
+    conic-gradient(from var(--arcade-angle), rgb(var(--c-crow)) 0 70%, rgb(var(--c-ink)) 85% 95%, rgb(var(--c-crow)) 100%) border-box;
+  animation: arcade-border 2.4s linear infinite;
+}
+.arcade-border:hover { --arcade-fill: rgb(var(--c-crow-deep)); }
+
+/* admin dashboard: chart columns rise from the baseline (staggered by --i), bars grow from the axis */
+@keyframes admin-rise { from { transform: scaleY(0); } }
+.admin-rise {
+  transform-origin: bottom;
+  animation: admin-rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 16ms);
+}
+@keyframes admin-grow { from { transform: scaleX(0); } }
+.admin-grow {
+  transform-origin: left;
+  animation: admin-grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
 
 @keyframes rage-shake {
   0%, 100% { transform: translate(0, 0); }

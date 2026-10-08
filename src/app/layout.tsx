@@ -19,7 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://crowkis.com"),
+  metadataBase: new URL("https://www.crowkis.com"),
   title: {
     default: "Crowkis, the semantic LLM cache & agent memory layer, in Rust",
     template: "%s | Crowkis",
@@ -35,8 +35,6 @@ export const metadata: Metadata = {
     "long-term memory for LLM agents",
     "agentic AI",
     "AI agents",
-    "MCP server",
-    "Model Context Protocol",
     "RAG cache",
     "prompt caching",
     "vector cache",
@@ -52,7 +50,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Crowkis" }],
   creator: "Crowkis",
   category: "technology",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "./" },
   robots: {
     index: true,
     follow: true,
@@ -61,21 +59,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Crowkis",
-    url: "https://crowkis.com",
-    title: "Crowkis, the semantic LLM cache & agent memory layer, in Rust",
-    description:
-      "Redis-compatible semantic cache and long-term agent memory for LLM and agentic AI workloads. Self-hosted, zero-egress, built in Rust.",
-    images: [{ url: "/logo.png", width: 512, height: 512, alt: "Crowkis" }],
+    url: "./",
   },
+  // title, description and image are left to each page (and opengraph-image.tsx)
   twitter: {
     card: "summary_large_image",
-    title: "Crowkis, semantic LLM cache & agent memory",
-    description:
-      "Redis-compatible semantic cache and long-term agent memory for LLM & agentic AI. Self-hosted, zero-egress, in Rust.",
-    images: ["/logo.png"],
   },
   icons: {
-    icon: "/fav.png",
+    icon: [
+      { url: "/fav.svg", type: "image/svg+xml" },
+      { url: "/fav.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/fav.png",
   },
 };
 
@@ -86,34 +81,34 @@ const JSON_LD = {
   "@graph": [
     {
       "@type": "SoftwareApplication",
-      "@id": "https://crowkis.com/#software",
+      "@id": "https://www.crowkis.com/#software",
       name: "Crowkis",
       applicationCategory: "DeveloperApplication",
       applicationSubCategory: "LLM cache & agent memory",
       operatingSystem: "macOS, Linux, Windows, Docker",
       description:
         "Redis-compatible semantic cache and long-term agent memory layer built in Rust for LLM and agentic AI workloads.",
-      url: "https://crowkis.com",
+      url: "https://www.crowkis.com",
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       keywords:
-        "LLM cache, semantic cache, agent memory, agentic AI, MCP server, RAG cache, prompt caching, LLM cost reduction, Rust",
-      publisher: { "@id": "https://crowkis.com/#org" },
+        "LLM cache, semantic cache, agent memory, agentic AI, RAG cache, prompt caching, LLM cost reduction, Rust",
+      publisher: { "@id": "https://www.crowkis.com/#org" },
     },
     {
       "@type": "Organization",
-      "@id": "https://crowkis.com/#org",
+      "@id": "https://www.crowkis.com/#org",
       name: "Crowkis",
-      url: "https://crowkis.com",
-      logo: "https://crowkis.com/logo.png",
+      url: "https://www.crowkis.com",
+      logo: "https://www.crowkis.com/logo.png",
       description:
         "Crowkis builds a Redis-compatible semantic cache and long-term agent memory layer in Rust for LLM and agentic AI workloads.",
     },
     {
       "@type": "WebSite",
-      "@id": "https://crowkis.com/#website",
+      "@id": "https://www.crowkis.com/#website",
       name: "Crowkis",
-      url: "https://crowkis.com",
-      publisher: { "@id": "https://crowkis.com/#org" },
+      url: "https://www.crowkis.com",
+      publisher: { "@id": "https://www.crowkis.com/#org" },
     },
   ],
 };

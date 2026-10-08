@@ -1,7 +1,9 @@
+export const DEMO_URL = "https://cal.com/mohit-rohilla-s5pftm/30min";
+
 export const navLinks = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Why", href: "/why" },
-  { label: "Product", href: "/product" },
   { label: "Features", href: "/features" },
   { label: "Usage", href: "/docker" },
   { label: "Docs", href: "/docs" },
