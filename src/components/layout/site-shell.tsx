@@ -34,6 +34,38 @@ export function SiteShell({ children }: { children: ReactNode }) {
 
   useEffect(() => track("page_view"), [pathname]);
 
+  // What visitors click: the link's or button's own words.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const el = (e.target as Element).closest?.("a[href], button");
+      const words = (el?.getAttribute("aria-label") || el?.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
+      if (words) track("click", words);
+    };
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
+  // How long each page stays open. Sent once per page: when the visitor moves to another page, or the first
+  // time the tab is hidden or closed. Time after coming back to the tab is not counted.
+  useEffect(() => {
+    let since = document.hidden ? null : performance.now();
+    let told = false;
+    const leave = () => {
+      if (told || since === null) return;
+      told = true;
+      const seconds = Math.round((performance.now() - since) / 1000);
+      if (seconds >= 1) track("time", String(Math.min(seconds, 1800)), pathname);
+    };
+    const onVisibility = () => (document.hidden ? leave() : (since ??= performance.now()));
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", leave);
+    return () => {
+      leave();
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", leave);
+    };
+  }, [pathname]);
+
   return (
     <div className="relative">
       <PixelCrow />

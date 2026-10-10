@@ -1,7 +1,8 @@
 import { withDb } from "@/lib/db";
 import { rateLimited } from "@/lib/rate-limit";
 
-const EVENTS = new Set(["page_view", "arcade_play", "code_copy", "demo_click"]);
+// "click" carries the words on the link or button; "time" the seconds a page stayed open.
+const EVENTS = new Set(["page_view", "arcade_play", "code_copy", "demo_click", "click", "time"]);
 
 export async function POST(req: Request) {
   const text = await req.text();
@@ -18,6 +19,9 @@ export async function POST(req: Request) {
   if (await rateLimited("event", 120)) return new Response(null, { status: 204 });
   const path = String(body.path ?? "").slice(0, 200) || null;
   const meta = typeof body.meta === "string" ? body.meta.trim().slice(0, 200) || null : null;
+  if (name === "time" && !(meta && /^\d{1,4}$/.test(meta) && Number(meta) >= 1 && Number(meta) <= 1800))
+    return new Response(null, { status: 400 });
+  if (name === "click" && !meta) return new Response(null, { status: 400 });
   try {
     await withDb((q) => q("insert into events (name, path, meta) values ($1, $2, $3)", [name, path, meta]));
   } catch (err) {
