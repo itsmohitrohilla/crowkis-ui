@@ -90,6 +90,13 @@ select
 
 const load = () => withDb(async (q) => (await q<Data>(SQL, [TZ]))[0]);
 
+// Which form a message came from. The Tarkova site shares this table and saves its contact form as "tarkova".
+const SOURCES: Record<string, string> = {
+  contact: "Contact form",
+  feedback: "Feedback page",
+  tarkova: "Tarkova contact form",
+};
+
 /* ── formatting ───────────────────────────────────────────────────────────── */
 
 const num = (n: number) => n.toLocaleString("en-US");
@@ -605,7 +612,7 @@ export default async function AdminPage({
                           : "border-ink-line bg-paper-deep text-ink-soft"
                       }`}
                     >
-                      {m.source === "contact" ? "Contact form" : "Feedback page"}
+                      {SOURCES[m.source] ?? m.source}
                     </span>
                     <time
                       dateTime={m.created_at}
